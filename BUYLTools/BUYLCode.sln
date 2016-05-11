@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLContentLoader", "BUYLContentLoader\BUYLContentLoader.csproj", "{63D990FE-D04E-4178-A5D7-0633924D5B2D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevitAddin_2015", "BUYLRevitAddin\BUYLRevitAddin_2015.csproj", "{6D75A382-8EB3-4282-9AB1-18DF69F1B7F5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevitAddin", "BUYLRevitAddin\BUYLRevitAddin.csproj", "{BD74321B-E580-4902-9ECE-F4CB0DD03711}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevitAddin_2016", "BUYLRevitAddin\BUYLRevitAddin_2016.csproj", "{BD74321B-E580-4902-9ECE-F4CB0DD03711}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressIndicator", "3rdParty\ProgressIndicator\ProgressIndicator.csproj", "{F7FE2CE9-344C-4B46-8B04-083D68FE1C16}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLTools", "BUYLContentTools\BUYLTools.csproj", "{EEB912E7-2006-4801-B39E-E2587E3BAF1F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,18 +15,18 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{63D990FE-D04E-4178-A5D7-0633924D5B2D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{63D990FE-D04E-4178-A5D7-0633924D5B2D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{63D990FE-D04E-4178-A5D7-0633924D5B2D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{63D990FE-D04E-4178-A5D7-0633924D5B2D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D75A382-8EB3-4282-9AB1-18DF69F1B7F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D75A382-8EB3-4282-9AB1-18DF69F1B7F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D75A382-8EB3-4282-9AB1-18DF69F1B7F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D75A382-8EB3-4282-9AB1-18DF69F1B7F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD74321B-E580-4902-9ECE-F4CB0DD03711}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BD74321B-E580-4902-9ECE-F4CB0DD03711}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BD74321B-E580-4902-9ECE-F4CB0DD03711}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD74321B-E580-4902-9ECE-F4CB0DD03711}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F7FE2CE9-344C-4B46-8B04-083D68FE1C16}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F7FE2CE9-344C-4B46-8B04-083D68FE1C16}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F7FE2CE9-344C-4B46-8B04-083D68FE1C16}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F7FE2CE9-344C-4B46-8B04-083D68FE1C16}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EEB912E7-2006-4801-B39E-E2587E3BAF1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EEB912E7-2006-4801-B39E-E2587E3BAF1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EEB912E7-2006-4801-B39E-E2587E3BAF1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EEB912E7-2006-4801-B39E-E2587E3BAF1F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

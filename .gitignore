@@ -5,3 +5,5 @@ obj2016/
 packages/
 obj/
 obj/
+build/
+.vs/
