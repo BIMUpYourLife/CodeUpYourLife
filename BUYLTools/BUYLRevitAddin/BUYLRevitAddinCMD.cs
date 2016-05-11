@@ -87,7 +87,7 @@ namespace BUYLRevitAddin
 
             try
             {
-                Loader.ContentLoader.BUYLStartNewDECHProject(m_commData.Application.Application);
+                Loader.ContentLoader.BUYLStartNewDECHProject(m_commData.Application);
                 res = Result.Succeeded;
             }
             catch (Exception ex)

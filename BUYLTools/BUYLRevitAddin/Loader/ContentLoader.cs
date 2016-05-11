@@ -1,10 +1,12 @@
-﻿using Autodesk.Revit.UI;
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace BUYLRevitAddin.Loader
 {
@@ -43,19 +45,28 @@ namespace BUYLRevitAddin.Loader
             }
         }
 
-        public static void BUYLStartNewDECHProject(Autodesk.Revit.ApplicationServices.Application app)
+        public static void BUYLStartNewDECHProject(UIApplication app)
         {
             if (BUYLTools.ContentLoader.GitContentLoader.CheckForContentRepositoryDirectory())
             {
                 if (app != null)
                 {
-                    bool contained = false;
-
-                    if (!contained)
+                    if (File.Exists(BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile()))
                     {
-                        if (File.Exists(BUYLTools.ContentLoader.GitContentLoader.GetDETemplateFile()))
-                            app.NewProjectDocument(BUYLTools.ContentLoader.GitContentLoader.GetDETemplateFile());
+                        Document doc = app.Application.NewProjectDocument(BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile());
+                        if(doc != null)
+                        {
+                            SaveFileDialog dlg = new SaveFileDialog();
+                            dlg.Filter = "Revit project files (*.rvt)|*.rvt";
+                            if(dlg.ShowDialog() == DialogResult.OK)
+                            {
+                                doc.SaveAs(dlg.FileName);
+                                app.OpenAndActivateDocument(dlg.FileName);
+                            }
+                        }
                     }
+                    else
+                        MessageBox.Show("Templatefile {0} not found!", BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile());
                 }
             }
         }
