@@ -1,0 +1,8 @@
+C:\Daten_Arbeit\Eigene\_BIMUpYourLife\GIT_Repository\CodeUpYourLife\BUYLContentLoader\3rdParty\ProgressIndicator\bin\Debug\ProgressControls.xml
+C:\Daten_Arbeit\Eigene\_BIMUpYourLife\GIT_Repository\CodeUpYourLife\BUYLContentLoader\3rdParty\ProgressIndicator\bin\Debug\ProgressControls.dll
+C:\Daten_Arbeit\Eigene\_BIMUpYourLife\GIT_Repository\CodeUpYourLife\BUYLContentLoader\3rdParty\ProgressIndicator\bin\Debug\ProgressControls.pdb
+C:\Daten_Arbeit\Eigene\_BIMUpYourLife\GIT_Repository\CodeUpYourLife\BUYLContentLoader\3rdParty\ProgressIndicator\obj\Debug\ProgressIndicator.csprojResolveAssemblyReference.cache
+C:\Daten_Arbeit\Eigene\_BIMUpYourLife\GIT_Repository\CodeUpYourLife\BUYLContentLoader\3rdParty\ProgressIndicator\obj\Debug\ProgressControls.ProgressIndicator.resources
+C:\Daten_Arbeit\Eigene\_BIMUpYourLife\GIT_Repository\CodeUpYourLife\BUYLContentLoader\3rdParty\ProgressIndicator\obj\Debug\ProgressIndicator.csproj.GenerateResource.Cache
+C:\Daten_Arbeit\Eigene\_BIMUpYourLife\GIT_Repository\CodeUpYourLife\BUYLContentLoader\3rdParty\ProgressIndicator\obj\Debug\ProgressControls.dll
+C:\Daten_Arbeit\Eigene\_BIMUpYourLife\GIT_Repository\CodeUpYourLife\BUYLContentLoader\3rdParty\ProgressIndicator\obj\Debug\ProgressControls.pdb

@@ -1,0 +1,143 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ProgressControls</name>
+    </assembly>
+    <members>
+        <member name="T:ProgressControls.ProgressIndicator">
+            <summary>
+            Firefox like circular progress indicator.
+            </summary>
+        </member>
+        <member name="M:ProgressControls.ProgressIndicator.#ctor">
+            <summary>
+            Default constructor for the ProgressIndicator.
+            </summary>
+        </member>
+        <member name="P:ProgressControls.ProgressIndicator.CircleColor">
+            <summary>
+            Gets or sets the base color for the circles.
+            </summary>
+        </member>
+        <member name="P:ProgressControls.ProgressIndicator.AutoStart">
+            <summary>
+            Gets or sets a value indicating if the animation should start automatically.
+            </summary>
+        </member>
+        <member name="P:ProgressControls.ProgressIndicator.CircleSize">
+            <summary>
+            Gets or sets the scale for the circles raging from 0.1 to 1.0.
+            </summary>
+        </member>
+        <member name="P:ProgressControls.ProgressIndicator.AnimationSpeed">
+            <summary>
+            Gets or sets the animation speed.
+            </summary>
+        </member>
+        <member name="P:ProgressControls.ProgressIndicator.NumberOfCircles">
+            <summary>
+            Gets or sets the number of circles used in the animation.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><c>NumberOfCircles</c> is out of range.</exception>
+        </member>
+        <member name="P:ProgressControls.ProgressIndicator.NumberOfVisibleCircles">
+            <summary>
+            Gets or sets the number of circles used in the animation.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><c>NumberOfCircles</c> is out of range.</exception>
+        </member>
+        <member name="P:ProgressControls.ProgressIndicator.Rotation">
+            <summary>
+            Gets or sets a value indicating if the rotation should be clockwise or counter-clockwise.
+            </summary>
+        </member>
+        <member name="P:ProgressControls.ProgressIndicator.Percentage">
+            <summary>
+            Gets or sets the percentage to show on the control.
+            </summary>
+            <exception cref="T:System.ArgumentOutOfRangeException"><c>Percentage</c> is out of range.</exception>
+        </member>
+        <member name="P:ProgressControls.ProgressIndicator.ShowPercentage">
+            <summary>
+            Gets or sets a value indicating if the percentage value should be shown.
+            </summary>
+        </member>
+        <member name="P:ProgressControls.ProgressIndicator.ShowText">
+            <summary>
+            Gets or sets a value indicating if the control text should be shown.
+            </summary>
+        </member>
+        <member name="P:ProgressControls.ProgressIndicator.TextDisplay">
+            <summary>
+            Gets or sets the property that will be shown in the control.
+            </summary>
+        </member>
+        <member name="M:ProgressControls.ProgressIndicator.Start">
+            <summary>
+            Starts the animation.
+            </summary>
+        </member>
+        <member name="M:ProgressControls.ProgressIndicator.Stop">
+            <summary>
+            Stops the animation.
+            </summary>
+        </member>
+        <member name="F:ProgressControls.ProgressIndicator.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:ProgressControls.ProgressIndicator.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:ProgressControls.ProgressIndicator.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify 
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:ProgressControls.RotationType">
+            <summary>
+            An enum used to indicate the rotational direction of the control.
+            </summary>
+        </member>
+        <member name="F:ProgressControls.RotationType.Clockwise">
+            <summary>
+            Indicates that the rotation should move clockwise.
+            </summary>
+        </member>
+        <member name="F:ProgressControls.RotationType.CounterClockwise">
+            <summary>
+            Indicates that the rotation should move counter-clockwise.
+            </summary>
+        </member>
+        <member name="T:ProgressControls.TextDisplayModes">
+            <summary>
+            This enum is used to choose what text should be shown in the control.
+            </summary>
+        </member>
+        <member name="F:ProgressControls.TextDisplayModes.None">
+            <summary>
+            No text will be shown by the control.
+            </summary>
+        </member>
+        <member name="F:ProgressControls.TextDisplayModes.Percentage">
+            <summary>
+            The control will show the value of the Percentage property.
+            </summary>
+        </member>
+        <member name="F:ProgressControls.TextDisplayModes.Text">
+            <summary>
+            The control will show the value of the Text property.
+            </summary>
+        </member>
+        <member name="F:ProgressControls.TextDisplayModes.Both">
+            <summary>
+            The control will show the values of the Text and Percentage properties.
+            </summary>
+        </member>
+    </members>
+</doc>

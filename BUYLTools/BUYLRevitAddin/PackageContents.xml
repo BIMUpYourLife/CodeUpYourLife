@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ApplicationPackage 
+  SchemaVersion="1.0" 
+  AutodeskProduct="Revit" 
+  ProductType="Application" 
+  Name="BUYL - Tools for Revit" 
+  AppVersion="1.0.0" 
+  Description="BUYL - Tools for Revit" 
+  Author="CAD-Development Tim Hoffeller" 
+  Icon=".\Content\IFCExporter2013.png" 
+  AppNameSpace="appstore.exchange.autodesk.com" 
+  OnlineDocumentation="www.cad-development.de" 
+  HelpFile=".\Content\Resources\ADSKIFCExporterHelp.htm" 
+  ProductCode="{386B22DB-BB40-400A-ADE0-35B87FE01EB0}" 
+  UpgradeCode="{5A77A442-259D-4088-A866-B236266B662C}" 
+  SupportedLocales="Deu" 
+  FriendlyVersion="1.0.0">
+  <CompanyDetails 
+    Name="Autodesk" 
+    Phone=" " Url="http://www.autodesk.com" 
+    Email="support@cad-development.de" />
+  
+  <!--<RuntimeRequirements 
+    OS="Win32|Win64" 
+    Platform="Revit|Revit MEP|Revit Architecture|Revit Structure" 
+    SeriesMin="R2016" 
+    SeriesMax="R2016" />-->
+  
+  <Components Description="2015 parts addin">
+    <RuntimeRequirements
+      OS="Win32|Win64"
+      Platform="Revit|Revit MEP|Revit Architecture|Revit Structure"
+      SeriesMin="R2015"
+      SeriesMax="R2015" />
+    <ComponentEntry
+      AppName="CadDev.Cad.Rme.Tools"
+      Version="1.1.0.0"
+      ModuleName="./2015/BUYLRevitAddin.addin"
+      AppDescription="BUYL - Tools for Revit" />
+  </Components>
+
+  <Components Description="2016 parts addin">
+    <RuntimeRequirements
+      OS="Win32|Win64"
+      Platform="Revit|Revit MEP|Revit Architecture|Revit Structure"
+      SeriesMin="R2016"
+      SeriesMax="R2016" />
+    <ComponentEntry
+      AppName="CadDev.Cad.Rme.Tools"
+      Version="1.1.0.0"
+      ModuleName="./2016/BUYLRevitAddin.addin"
+      AppDescription="BUYL - Tools for Revit" />
+  </Components>
+</ApplicationPackage>

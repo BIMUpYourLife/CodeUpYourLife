@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+	<AddIn Type="Command">
+		<Name>BUYL - Load content repository</Name>
+		<Assembly>.\BUYLRevitAddin.dll</Assembly>
+		<ClientId>41D62801-C2D1-4967-9FD7-27BF82E1395B</ClientId>
+		<FullClassName>BUYLRevitAddin.BUYLRevitAddinContentRepLoader</FullClassName>
+		<Text>BUYL - Load content repository</Text>
+		<VendorId>CADEV</VendorId>
+		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
+	</AddIn>
+	<AddIn Type="Command">
+		<Name>BUYL - Start DECH Project</Name>
+		<Assembly>.\BUYLRevitAddin.dll</Assembly>
+		<ClientId>CFB7CA68-EFED-423E-9DF0-2DADBDFD22A4</ClientId>
+		<FullClassName>BUYLRevitAddin.BUYLRevitAddinStartDECHProject</FullClassName>
+		<Text>BUYL - Start DECH Project</Text>
+		<VendorId>CADEV</VendorId>
+		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
+	</AddIn>
+</RevitAddIns>
