@@ -71,10 +71,10 @@ namespace BUYLTools.ContentLoader
 
         private static string GetTemplatePath()
         {
-            return Path.Combine(pathToLocalContentRepository, pathToFamilies);
+            return Path.Combine(pathToLocalContentRepository, pathToTemplates);
         }
 
-        public static string GetDETemplateFile()
+        public static string GetDECHTemplateFile()
         {
             return Path.Combine(GetTemplatePath(), fileDECHTemplate);
         }

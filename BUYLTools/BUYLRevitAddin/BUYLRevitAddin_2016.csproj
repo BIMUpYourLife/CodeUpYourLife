@@ -64,7 +64,7 @@
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BUYLContentTools\BUYLTools.csproj">
+    <ProjectReference Include="..\BUYLTools\BUYLTools.csproj">
       <Project>{eeb912e7-2006-4801-b39e-e2587e3baf1f}</Project>
       <Name>BUYLTools</Name>
     </ProjectReference>
