@@ -18,7 +18,8 @@ namespace BUYLTools.ContentLoader
         public const string buylContent = "BIMUpYourLife Content";
 
         const string pathToTemplates = "_Content\\Revit\\_Templates";
-        const string fileDECHTemplate = "Template_Revit_MEP_2016CHDE.rte";
+        const string fileDECHTemplate = "Template_Revit_MEP_VERSIONCHDE.rte";
+        const string fileDEDETemplate = "Template_Revit_MEP_VERSIONDEDE.rte";
 
         public static void BUYLCloneOrUpdateRepository()
         {
@@ -74,9 +75,23 @@ namespace BUYLTools.ContentLoader
             return Path.Combine(pathToLocalContentRepository, pathToTemplates);
         }
 
-        public static string GetDECHTemplateFile()
+        public static string GetDECHTemplateFile(string RvtVersion)
         {
-            return Path.Combine(GetTemplatePath(), fileDECHTemplate);
+            return Path.Combine(GetTemplatePath(), getDECHTemplateFileForVersion(RvtVersion));
+        }
+
+        private static string getDECHTemplateFileForVersion(string version)
+        {
+            return fileDECHTemplate.Replace("VERSION", version);
+        }
+
+        public static string GetDEDETemplateFile(string RvtVersion)
+        {
+            return Path.Combine(GetTemplatePath(), getDECHTemplateFileForVersion(RvtVersion));
+        }
+        private static string getDEDETemplateFileForVersion(string version)
+        {
+            return fileDEDETemplate.Replace("VERSION", version);
         }
     }
 }

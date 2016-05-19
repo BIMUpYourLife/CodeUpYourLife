@@ -51,9 +51,9 @@ namespace BUYLRevitAddin.Loader
             {
                 if (app != null)
                 {
-                    if (File.Exists(BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile()))
+                    if (File.Exists(BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile(app.Application.VersionNumber)))
                     {
-                        Document doc = app.Application.NewProjectDocument(BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile());
+                        Document doc = app.Application.NewProjectDocument(BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile(app.Application.VersionNumber));
                         if(doc != null)
                         {
                             SaveFileDialog dlg = new SaveFileDialog();
@@ -66,9 +66,36 @@ namespace BUYLRevitAddin.Loader
                         }
                     }
                     else
-                        MessageBox.Show("Templatefile {0} not found!", BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile());
+                        MessageBox.Show("Templatefile {0} not found!", BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile(app.Application.VersionNumber));
                 }
             }
         }
+
+        public static void BUYLStartNewDEDEProject(UIApplication app)
+        {
+            if (BUYLTools.ContentLoader.GitContentLoader.CheckForContentRepositoryDirectory())
+            {
+                if (app != null)
+                {
+                    if (File.Exists(BUYLTools.ContentLoader.GitContentLoader.GetDEDETemplateFile(app.Application.VersionNumber)))
+                    {
+                        Document doc = app.Application.NewProjectDocument(BUYLTools.ContentLoader.GitContentLoader.GetDEDETemplateFile(app.Application.VersionNumber));
+                        if (doc != null)
+                        {
+                            SaveFileDialog dlg = new SaveFileDialog();
+                            dlg.Filter = "Revit project files (*.rvt)|*.rvt";
+                            if (dlg.ShowDialog() == DialogResult.OK)
+                            {
+                                doc.SaveAs(dlg.FileName);
+                                app.OpenAndActivateDocument(dlg.FileName);
+                            }
+                        }
+                    }
+                    else
+                        MessageBox.Show("Templatefile {0} not found!", BUYLTools.ContentLoader.GitContentLoader.GetDEDETemplateFile(app.Application.VersionNumber));
+                }
+            }
+        }
+
     }
 }
