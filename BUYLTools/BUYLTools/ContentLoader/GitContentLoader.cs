@@ -87,7 +87,7 @@ namespace BUYLTools.ContentLoader
 
         public static string GetDEDETemplateFile(string RvtVersion)
         {
-            return Path.Combine(GetTemplatePath(), getDECHTemplateFileForVersion(RvtVersion));
+            return Path.Combine(GetTemplatePath(), getDEDETemplateFileForVersion(RvtVersion));
         }
         private static string getDEDETemplateFileForVersion(string version)
         {
