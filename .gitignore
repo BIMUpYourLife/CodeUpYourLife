@@ -7,3 +7,5 @@ obj/
 obj/
 build/
 .vs/
+_build/
+*.user
