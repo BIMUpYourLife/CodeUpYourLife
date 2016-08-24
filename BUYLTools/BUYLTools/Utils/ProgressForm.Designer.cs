@@ -1,4 +1,4 @@
-﻿namespace BUYLContentLoader
+﻿namespace BUYLTools.Utils
 {
     partial class ProgressForm
     {

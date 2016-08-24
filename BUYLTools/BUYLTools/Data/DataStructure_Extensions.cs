@@ -7,7 +7,9 @@ namespace BUYLTools.Data
 {
     public partial class families
     {
-        public bool ContainsFamilyFile(string pathname, ref LogManager.LogDLG log)
+        private static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+        public bool ContainsFamilyFile(string pathname)
         {
             bool contains = false;
 
@@ -15,15 +17,15 @@ namespace BUYLTools.Data
             {
                 if (this != null)
                 {
-                    string id = GetArticleNumberFromFilename(pathname, ref log);
-                    familiesFamilylistFamily fam = GetFamily(pathname, ref log);
+                    string id = GetArticleNumberFromFilename(pathname);
+                    familiesFamilylistFamily fam = GetFamily(pathname);
                     if (fam != null && fam.id == id)
                         contains = true;
                 }
             }
             catch (Exception ex)
             {
-                log.AddLogEntry(ex.Message, LogManager.LogLevel.Critical, null);
+                log.Error(ex.Message, ex);
             }
             return contains;
         }
@@ -34,7 +36,7 @@ namespace BUYLTools.Data
             return lang;
         }
 
-        public string GetFileNamesFromArticleNumberAndLanguage(string prefix, string arcticleNr, string language, ref LogManager.LogDLG log)
+        public string GetFileNamesFromArticleNumberAndLanguage(string prefix, string arcticleNr, string language)
         {
             string result = null;
 
@@ -44,12 +46,12 @@ namespace BUYLTools.Data
             }
             catch (Exception ex)
             {
-                log.AddLogEntry(ex.Message, LogManager.LogLevel.Critical, null);
+                log.Error(ex.Message, ex);
             }
             return result;
         }
 
-        public string GetArticleNumberFromFilename(string path, ref LogManager.LogDLG log)
+        public string GetArticleNumberFromFilename(string path)
         {
             string result = "";
             try
@@ -63,12 +65,12 @@ namespace BUYLTools.Data
             }
             catch (Exception ex)
             {
-                log.AddLogEntry(ex.Message, LogManager.LogLevel.Critical, null);
+                log.Error(ex.Message, ex);
             }
             return result;
         }
 
-        public familiesFamilylistFamily GetFamily(string path, ref LogManager.LogDLG log)
+        public familiesFamilylistFamily GetFamily(string path)
         {
             familiesFamilylistFamily fixt = null;
 
@@ -76,7 +78,7 @@ namespace BUYLTools.Data
             {
                 if (this != null)
                 {
-                    string id = GetArticleNumberFromFilename(path, ref log);
+                    string id = GetArticleNumberFromFilename(path);
 
                     foreach (familiesFamilylistFamily itemFamily in this.familylist)
                     {
@@ -90,12 +92,12 @@ namespace BUYLTools.Data
             }
             catch (Exception ex)
             {
-                log.AddLogEntry(ex.Message, LogManager.LogLevel.Critical, null);
+                log.Error(ex.Message, ex);
             }
             return fixt;
         }
 
-        public string GetUpdataDate(ref LogManager.LogDLG log)
+        public string GetUpdataDate()
         {
             string date = "";
             try
@@ -107,7 +109,7 @@ namespace BUYLTools.Data
             }
             catch (Exception ex)
             {
-                log.AddLogEntry(ex.Message, LogManager.LogLevel.Critical, null);
+                log.Error(ex.Message, ex);
             }
 
             return date;

@@ -10,3 +10,6 @@ build/
 *.user
 .suo
 .suo
+.suo
+_build/
+.vs/

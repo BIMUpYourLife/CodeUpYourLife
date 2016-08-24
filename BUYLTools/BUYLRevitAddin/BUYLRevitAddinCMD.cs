@@ -87,7 +87,7 @@ namespace BUYLRevitAddin
 
             try
             {
-                Loader.ContentLoader.BUYLStartNewDECHProject(m_commData.Application);
+                Loader.ContentLoader.BUYLStartNewProject(m_commData.Application, BUYLTools.Utils.Countries.DECH);
                 res = Result.Succeeded;
             }
             catch (Exception ex)
@@ -114,7 +114,7 @@ namespace BUYLRevitAddin
 
             try
             {
-                Loader.ContentLoader.BUYLStartNewDEDEProject(m_commData.Application);
+                Loader.ContentLoader.BUYLStartNewProject(m_commData.Application, BUYLTools.Utils.Countries.DEDE);
                 res = Result.Succeeded;
             }
             catch (Exception ex)
