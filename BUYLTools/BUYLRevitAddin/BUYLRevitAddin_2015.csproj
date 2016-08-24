@@ -80,6 +80,10 @@ xcopy /Y/I/E $(ProjectDir)Content $(TargetDir)..\Content
 rem signing of dll
 if $(ConfigurationName) == Release "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe" sign /a "$(TargetPath)"</PostBuildEvent>
   </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>Rem AnyCPU Sachen holen
+xcopy /Y/I/E  "$(SolutionDir)_build\AnyCPU" "$(TargetDir)"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

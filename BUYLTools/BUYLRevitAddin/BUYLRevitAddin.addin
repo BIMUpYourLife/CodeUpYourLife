@@ -18,4 +18,13 @@
 		<VendorId>CADEV</VendorId>
 		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
 	</AddIn>
+	<AddIn Type="Command">
+		<Name>BUYL - Start DEDE Project</Name>
+		<Assembly>.\BUYLRevitAddin.dll</Assembly>
+		<ClientId>13591890-631E-4E3D-897B-FB63A7D2BA17</ClientId>
+		<FullClassName>BUYLRevitAddin.BUYLRevitAddinStartDEDEProject</FullClassName>
+		<Text>BUYL - Start DEDE Project</Text>
+		<VendorId>CADEV</VendorId>
+		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
+	</AddIn>
 </RevitAddIns>

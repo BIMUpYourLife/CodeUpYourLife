@@ -8,3 +8,8 @@ obj/
 build/
 .vs/
 *.user
+.suo
+.suo
+.suo
+_build/
+.vs/

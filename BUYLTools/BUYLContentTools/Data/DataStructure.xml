@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<families timestamp="2015-09-03T12:21:20" lang="de-DE">
+  <globalparams>
+    <param name="Logo" fx="0" val="123.jpg" />
+    <param name="Beschreibung_Sonderanfertigung" fx="0" val="Hier können Sie Informationen zur Sonderanfertigung eintragen" />
+    <param name="Sonderanfertigung" fx="0" val="0" />
+    <param name="Einbaugehäuse" fx="0" val="0" />
+    <param name="Streuscheibe_streuend" fx="0" val="0" />
+    <param name="Streuscheibe_bandförmig" fx="0" val="0" />
+    <param name="Raster" fx="0" val="0" />
+    <param name="Infrarotfilter" fx="1" val="not(Raster)" />
+    <param name="Blende" fx="0" val="0" />
+    <param name="Erdstück" fx="0" val="0" />
+  </globalparams>
+  <familylist>
+    <family name="BEGA_006" id="10006">
+      <inst>
+        <param name="URL" fx="1" val="http://www.bega.de/produkt/10006" />
+        <param name="URL" fx="1" val="http://www.bega.de/produkt/10006" />
+      </inst>
+      <types>
+        <globaltypeparams>
+          <param name="URL" fx="0" val="http://www.bega.de/produkt/10006" />
+          <param name="Artikel_Familie" fx="0" val="http://www.bega.de/produkt/10006" />
+          <param name="Gewicht" fx="0" val="0.05 kg" />
+        </globaltypeparams>
+        <type name="BEGA_006" id="10006">
+          <param name="Datei für fotometrisches Netz" fx="0" val="BE_006.IES" />
+          <param name="Einbauöffnung" fx="0" val="70 x 70 mm" />
+          <param name="Befestigungsbohrung" fx="0" val="Ø 5 mm" />
+          <param name="Einbauöffnung" fx="0" val="70 x 70 mm" />
+          <param name="CE_Konformität" fx="0" val="ja" />
+        </type>
+        <type name="BEGA_006" id="10006">
+          <param name="Datei für fotometrisches Netz" fx="0" val="BE_006.IES" />
+          <param name="Einbauöffnung" fx="0" val="70 x 70 mm" />
+          <param name="Befestigungsbohrung" fx="0" val="Ø 5 mm" />
+          <param name="Einbauöffnung" fx="0" val="70 x 70 mm" />
+          <param name="CE_Konformität" fx="0" val="ja" />
+        </type>
+      </types>
+    </family>
+    <family name="BEGA_006" id="10006">
+      <inst>
+        <param name="URL" fx="1" val="http://www.bega.de/produkt/10006" />
+        <param name="URL" fx="1" val="http://www.bega.de/produkt/10006" />
+      </inst>
+      <types>
+        <globaltypeparams>
+          <param name="URL" fx="0" val="http://www.bega.de/produkt/10006" />
+          <param name="Artikel_Familie" fx="0" val="http://www.bega.de/produkt/10006" />
+          <param name="Gewicht" fx="0" val="0.05 kg" />
+        </globaltypeparams>
+        <type name="BEGA_006" id="10006">
+          <param name="Datei für fotometrisches Netz" fx="0" val="BE_006.IES" />
+          <param name="Einbauöffnung" fx="0" val="70 x 70 mm" />
+          <param name="Befestigungsbohrung" fx="0" val="Ø 5 mm" />
+          <param name="Einbauöffnung" fx="0" val="70 x 70 mm" />
+          <param name="CE_Konformität" fx="0" val="ja" />
+        </type>
+        <type name="BEGA_006" id="10006">
+          <param name="Datei für fotometrisches Netz" fx="0" val="BE_006.IES" />
+          <param name="Einbauöffnung" fx="0" val="70 x 70 mm" />
+          <param name="Befestigungsbohrung" fx="0" val="Ø 5 mm" />
+          <param name="Einbauöffnung" fx="0" val="70 x 70 mm" />
+          <param name="CE_Konformität" fx="0" val="ja" />
+        </type>
+      </types>
+    </family>
+  </familylist>
+</families>
