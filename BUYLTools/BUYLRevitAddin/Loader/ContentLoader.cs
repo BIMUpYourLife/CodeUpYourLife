@@ -45,28 +45,52 @@ namespace BUYLRevitAddin.Loader
             }
         }
 
-        public static void BUYLStartNewDECHProject(UIApplication app)
+        public static void BUYLStartNewProject(UIApplication app, BUYLTools.Utils.Countries country)
         {
             if (BUYLTools.ContentLoader.GitContentLoader.CheckForContentRepositoryDirectory())
             {
                 if (app != null)
                 {
-                    if (File.Exists(BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile()))
+                    Document doc = null;
+
+                    switch (country)
                     {
-                        Document doc = app.Application.NewProjectDocument(BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile());
-                        if(doc != null)
+                        case BUYLTools.Utils.Countries.DECH:
+                            if (File.Exists(BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile(app.Application.VersionNumber)))
+                                doc = app.Application.NewProjectDocument(BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile(app.Application.VersionNumber));
+                            else
+                                MessageBox.Show("Templatefile {0} not found!", BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile(app.Application.VersionNumber));
+                            break;
+                        case BUYLTools.Utils.Countries.DEDE:
+                            if (File.Exists(BUYLTools.ContentLoader.GitContentLoader.GetDEDETemplateFile(app.Application.VersionNumber)))
+                                doc = app.Application.NewProjectDocument(BUYLTools.ContentLoader.GitContentLoader.GetDEDETemplateFile(app.Application.VersionNumber));
+                            else
+                                MessageBox.Show("Templatefile {0} not found!", BUYLTools.ContentLoader.GitContentLoader.GetDEDETemplateFile(app.Application.VersionNumber));
+                            break;
+                        default:
+                            doc = null;
+                            break;
+                    }
+                        
+                    if (doc != null)
+                    {
+                        SaveFileDialog dlg = new SaveFileDialog();
+                        dlg.Filter = "Revit project files (*.rvt)|*.rvt";
+                        if (dlg.ShowDialog() == DialogResult.OK)
                         {
-                            SaveFileDialog dlg = new SaveFileDialog();
-                            dlg.Filter = "Revit project files (*.rvt)|*.rvt";
-                            if(dlg.ShowDialog() == DialogResult.OK)
+                            SaveAsOptions op = new SaveAsOptions() { OverwriteExistingFile = false };
+                            if (File.Exists(dlg.FileName))
                             {
-                                doc.SaveAs(dlg.FileName);
-                                app.OpenAndActivateDocument(dlg.FileName);
+                                if (MessageBox.Show("The model alreaddy exists and will be overriden!", "Model Creation", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                                    op.OverwriteExistingFile = true;
+                                else
+                                    op.OverwriteExistingFile = false;
                             }
+
+                            doc.SaveAs(dlg.FileName, op);
+                            app.OpenAndActivateDocument(dlg.FileName);
                         }
                     }
-                    else
-                        MessageBox.Show("Templatefile {0} not found!", BUYLTools.ContentLoader.GitContentLoader.GetDECHTemplateFile());
                 }
             }
         }

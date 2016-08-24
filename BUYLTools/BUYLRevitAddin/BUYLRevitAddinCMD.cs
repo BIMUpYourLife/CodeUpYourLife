@@ -87,7 +87,7 @@ namespace BUYLRevitAddin
 
             try
             {
-                Loader.ContentLoader.BUYLStartNewDECHProject(m_commData.Application);
+                Loader.ContentLoader.BUYLStartNewProject(m_commData.Application, BUYLTools.Utils.Countries.DECH);
                 res = Result.Succeeded;
             }
             catch (Exception ex)
@@ -100,6 +100,32 @@ namespace BUYLRevitAddin
         }
     }
 
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class BUYLRevitAddinStartDEDEProject : IExternalCommand
+    {
+        ExternalCommandData m_commData = null;
+
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            m_commData = commandData;
+
+            Result res = Result.Failed;
+
+            try
+            {
+                Loader.ContentLoader.BUYLStartNewProject(m_commData.Application, BUYLTools.Utils.Countries.DEDE);
+                res = Result.Succeeded;
+            }
+            catch (Exception ex)
+            {
+                TaskDialog.Show("BIMUpYourLife project start error", ex.Message);
+                res = Result.Failed;
+            }
+
+            return res;
+        }
+    }
     //// Let's control with this utility class when our command can 
     //// be executed. This requires this option to be added to the addin
     //// manifest file

@@ -7,5 +7,9 @@ obj/
 obj/
 build/
 .vs/
-_build/
 *.user
+.suo
+.suo
+.suo
+_build/
+.vs/

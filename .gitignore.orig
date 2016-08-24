@@ -1,0 +1,14 @@
+obj/
+bin/
+obj2015/
+obj2016/
+packages/
+obj/
+obj/
+build/
+.vs/
+<<<<<<< HEAD
+=======
+.vs/
+>>>>>>> Loading of new project enhanced
+*.user
