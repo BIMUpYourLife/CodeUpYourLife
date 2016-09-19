@@ -85,6 +85,7 @@
     <Compile Include="ContentLoader\TemplateFileSelectorDLG.Designer.cs">
       <DependentUpon>TemplateFileSelectorDLG.cs</DependentUpon>
     </Compile>
+    <Compile Include="CutOut\ElementData.cs" />
     <Compile Include="Data\DataStructure.cs" />
     <Compile Include="Data\DataStructure_Extensions.cs" />
     <Compile Include="Data\DataStructure_Handler.cs" />

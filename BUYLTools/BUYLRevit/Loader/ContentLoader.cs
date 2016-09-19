@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace BUYLRevitAddin.Loader
+namespace BUYLRevit.Loader
 {
     public static class ContentLoader
     {
