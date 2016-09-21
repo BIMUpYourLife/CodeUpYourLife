@@ -94,6 +94,9 @@ rmdir /S/Q "$(TargetDir)Content\"
 copy /Y "$(ProjectDir)PackageContents.xml" "$(TargetDir)..\PackageContents.xml"
 xcopy /Y/I/E "$(ProjectDir)Content" "$(TargetDir)..\Content"
 
+:: signing of dll and exe
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe" sign /a "$(TargetDir)BUYL*.dll"
+
 :: Copy build to Appdata for testing
 rmdir /S/Q "%25APPDATA%25\Autodesk\ApplicationPlugins\$(TargetName).bundle\"
 xcopy /Y/I/E  "$(SolutionDir)_build\final\$(TargetName).bundle\*.*" "%25APPDATA%25\Autodesk\ApplicationPlugins\$(TargetName).bundle\"</PostBuildEvent>
