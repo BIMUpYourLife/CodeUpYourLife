@@ -116,7 +116,7 @@ namespace BUYLRevit.CutOut.PfV
             _uniqueIdLinked = uniqueIdLinked;
             _folder = Path.GetDirectoryName(path);
 
-            Pos = new Position(0, 0, 0);
+            Location = new Position(0, 0, 0);
         }
 
 
@@ -268,7 +268,7 @@ namespace BUYLRevit.CutOut.PfV
             }
         }
 
-        public Position Pos
+        public Position Location
         {
             get
             {
@@ -290,11 +290,13 @@ namespace BUYLRevit.CutOut.PfV
           ElementSet highlightElements)
         {
             Dictionary<string, List<PfVElementData>> lst = CollectPfVs(commandData, ref message, highlightElements);
+
             if (lst != null)
             {
                 //TaskDialog.Show("PfV Manager", String.Format("{0} elements found in links", lst.Count));
                 PfVViewDLG dlg = new PfVViewDLG();
                 dlg.SetData(lst);
+                dlg.SetCommandData(commandData);
                 dlg.ShowDialog();
 
                 return Result.Succeeded;
@@ -304,13 +306,17 @@ namespace BUYLRevit.CutOut.PfV
 
         }
 
+        internal static Application m_app = null;
+        internal static DocumentSet m_docs = null;
+
         private static Dictionary<string, List<PfVElementData>> CollectPfVs(
           ExternalCommandData commandData,
           ref string message,
           ElementSet highlightElements)
         {
             BUYLTools.Configuration.Manager _confMan = new BUYLTools.Configuration.Manager(typeof(PfVTools).Assembly, true);
-
+            m_app = commandData.Application.Application;
+            m_docs = m_app.Documents;
             /*
 
             // retrieve all link elements:
@@ -340,8 +346,7 @@ namespace BUYLRevit.CutOut.PfV
             // data from linked documents:
 
             Dictionary<string, List<PfVElementData>> data = new Dictionary<string, List<PfVElementData>>();
-            UIApplication app = commandData.Application;
-            DocumentSet docs = app.Application.Documents;
+
 
             using (Transaction trans = new Transaction(commandData.Application.ActiveUIDocument.Document))
             {
@@ -349,7 +354,7 @@ namespace BUYLRevit.CutOut.PfV
                 try
                 {
                     string sTypeName = _confMan.GetValueForAppsetting("PfVType");
-                    foreach (Document doc in docs)
+                    foreach (Document doc in m_docs)
                     {
                         if (doc.IsLinked)
                         {
@@ -372,9 +377,7 @@ namespace BUYLRevit.CutOut.PfV
                                 GetPfVDataFromInstance(data, doc, ids, filCollector, idsLinkedPfV);
                             }
 
-#if DEBUG
                             CopyLinkedElementsToCurrentModel(commandData, data, doc, idsLinkedPfV);
-#endif
                         }
                     }
 
@@ -393,6 +396,7 @@ namespace BUYLRevit.CutOut.PfV
 
             return data;
         }
+
 
         private static void CopyLinkedElementsToCurrentModel(ExternalCommandData commandData, Dictionary<string, List<PfVElementData>> data, Document doc, ICollection<ElementId> idsLinkedPfV)
         {
@@ -520,7 +524,7 @@ namespace BUYLRevit.CutOut.PfV
                                     PlanarFace pFa = fa as PlanarFace;
                                     if (pFa.FaceNormal.Z == 1 || pFa.FaceNormal.Z == -1)
                                     {
-                                        pfv.Pos = new Position(pFa.Origin.X, pFa.Origin.Y, pFa.Origin.Z);
+                                        pfv.Location = new Position(pFa.Origin.X, pFa.Origin.Y, pFa.Origin.Z);
                                         //foreach (EdgeArray edArray in fa.EdgeLoops)
                                         //{
                                         //    foreach (Edge ed in edArray)
