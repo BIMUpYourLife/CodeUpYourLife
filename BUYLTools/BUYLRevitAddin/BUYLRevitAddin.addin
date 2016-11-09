@@ -36,4 +36,14 @@
 		<VendorId>CADEV</VendorId>
 		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
 	</AddIn>
+	<AddIn Type="Command">
+		<Name>BUYL - Apply manufacturer</Name>
+		<Assembly>.\BUYLRevitAddin.dll</Assembly>
+		<ClientId>E3775223-8C81-4357-BBB7-C7AF842AFADB</ClientId>
+		<FullClassName>BUYLRevitAddin.BUYLRevitAddinApplyManufacturer</FullClassName>
+		<Text>BUYL - Apply manufacturer</Text>
+		<VendorId>CADEV</VendorId>
+		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
+	</AddIn>
+
 </RevitAddIns>

@@ -102,16 +102,6 @@ namespace BUYLRevitAddin
 
     [TransactionAttribute(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]
-    public class BUYLRevitAddinManagePfV : IExternalCommand
-    {
-        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
-        {
-            return BUYLRevit.CutOut.PfV.PfVTools.ProcessPfVs(commandData, ref message, elements);
-        }
-    }
-
-    [TransactionAttribute(TransactionMode.Manual)]
-    [RegenerationAttribute(RegenerationOption.Manual)]
     public class BUYLRevitAddinStartDEDEProject : IExternalCommand
     {
         ExternalCommandData m_commData = null;
@@ -136,6 +126,27 @@ namespace BUYLRevitAddin
             return res;
         }
     }
+
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class BUYLRevitAddinManagePfV : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            return BUYLRevit.CutOut.PfV.PfVTools.ProcessPfVs(commandData, ref message, elements);
+        }
+    }
+
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class BUYLRevitAddinApplyManufacturer : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            return BUYLRevit.CcTools.CcTools.StartProductProcess(commandData, ref message, elements);
+        }
+    }
+
     //// Let's control with this utility class when our command can 
     //// be executed. This requires this option to be added to the addin
     //// manifest file

@@ -17,5 +17,10 @@ namespace BUYLRevit.Utils
         {
             return mm * 0.00328084;
         }
+
+        public static double MToFeet(double m)
+        {
+            return m * 3.28084;
+        }
     }
 }

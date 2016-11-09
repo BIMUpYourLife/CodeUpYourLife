@@ -39,6 +39,12 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CafmConnect">
+      <HintPath>..\3rdParty\CAFMConnect\CafmConnect.dll</HintPath>
+    </Reference>
+    <Reference Include="Ifc.NET">
+      <HintPath>..\3rdParty\CAFMConnect\Ifc.NET.dll</HintPath>
+    </Reference>
     <Reference Include="RevitAPI">
       <HintPath>..\..\..\..\..\..\..\Program Files\Autodesk\Revit 2016\RevitAPI.dll</HintPath>
       <Private>False</Private>
@@ -60,6 +66,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CcTools\CcTools.cs" />
     <Compile Include="CutOut\PfV\PfVTools.cs" />
     <Compile Include="CutOut\PfV\PfVViewDLG.cs">
       <SubType>Form</SubType>

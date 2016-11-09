@@ -94,6 +94,9 @@ rmdir /S/Q "$(TargetDir)Content\"
 copy /Y "$(ProjectDir)PackageContents.xml" "$(TargetDir)..\PackageContents.xml"
 xcopy /Y/I/E "$(ProjectDir)Content" "$(TargetDir)..\Content"
 
+:: CAFMConnect umkopieren
+copy /Y "$(SolutionDir)3rdParty\CAFMConnect\*.*" "$(TargetDir)"
+
 :: signing of dll and exe
 "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe" sign /a "$(TargetDir)BUYL*.dll"
 
