@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevit_2016", "BUYLRevit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevit_2015", "BUYLRevit\BUYLRevit_2015.csproj", "{0F60E720-1E67-4078-A1C1-87EA1953EEF3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafmConnect", "..\..\..\..\_github\CAFM-Connect\Src\CafmConnect\CafmConnect.csproj", "{60FAB85F-D834-42D2-8F0A-D1D798B9A027}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{0F60E720-1E67-4078-A1C1-87EA1953EEF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F60E720-1E67-4078-A1C1-87EA1953EEF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F60E720-1E67-4078-A1C1-87EA1953EEF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60FAB85F-D834-42D2-8F0A-D1D798B9A027}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60FAB85F-D834-42D2-8F0A-D1D798B9A027}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60FAB85F-D834-42D2-8F0A-D1D798B9A027}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60FAB85F-D834-42D2-8F0A-D1D798B9A027}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

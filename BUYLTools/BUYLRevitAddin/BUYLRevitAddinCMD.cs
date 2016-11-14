@@ -143,7 +143,7 @@ namespace BUYLRevitAddin
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            return BUYLRevit.CcTools.CcTools.StartProductProcess(commandData, ref message, elements);
+            return BUYLRevit.CcTools.CcTools.StartApplyManufacturerProcess(commandData, ref message, elements);
         }
     }
 

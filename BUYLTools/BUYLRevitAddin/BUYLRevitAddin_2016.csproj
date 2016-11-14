@@ -94,9 +94,6 @@ rmdir /S/Q "$(TargetDir)Content\"
 copy /Y "$(ProjectDir)PackageContents.xml" "$(TargetDir)..\PackageContents.xml"
 xcopy /Y/I/E "$(ProjectDir)Content" "$(TargetDir)..\Content"
 
-:: CAFMConnect umkopieren
-copy /Y "$(SolutionDir)3rdParty\CAFMConnect\*.*" "$(TargetDir)"
-
 :: signing of dll and exe
 "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe" sign /a "$(TargetDir)BUYL*.dll"
 
@@ -107,20 +104,11 @@ xcopy /Y/I/E  "$(SolutionDir)_build\final\$(TargetName).bundle\*.*" "%25APPDATA%
   <PropertyGroup>
     <PreBuildEvent>Set REL=2016
 
-:: if $(ConfigurationName) == Release $(SolutionDir)_3rdParty\versionincrement\bin\Release\vbinc2.exe -v0011 -n -d$(ProjectDir)
-:: if $(ConfigurationName) == Debug $(SolutionDir)_3rdParty\versionincrement\bin\Release\vbinc2.exe -v0001 -n -d$(ProjectDir)
-
-:: AnyCPU Sachen holen
-xcopy /Y/I/E  "$(SolutionDir)_build\AnyCPU" "$(TargetDir)"
-
-:: Platformspezifische Sachen für Acad holen
-::xcopy /Y/I/E "$(SolutionDir)_build\AnyCPU_2013" "$(TargetDir)"
-
-:: Licenseclient Sachen holen
-::xcopy /Y/I/E  "$(SolutionDir)_build\LicenseClient" "$(TargetDir)"
-
 :: Revit Sachen holen
-xcopy /Y/I/E  "$(SolutionDir)_build\AnyCPU_RME_%25REL%25" "$(TargetDir)"</PreBuildEvent>
+xcopy /Y/I/E  "$(SolutionDir)_build\AnyCPU_RME_%25REL%25" "$(TargetDir)"
+
+:: CAFMConnect umkopieren
+copy /Y "$(SolutionDir)3rdParty\CAFMConnect\*.config" "$(TargetDir)"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

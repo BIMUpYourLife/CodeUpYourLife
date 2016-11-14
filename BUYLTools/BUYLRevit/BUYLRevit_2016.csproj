@@ -39,9 +39,6 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="CafmConnect">
-      <HintPath>..\3rdParty\CAFMConnect\CafmConnect.dll</HintPath>
-    </Reference>
     <Reference Include="Ifc.NET">
       <HintPath>..\3rdParty\CAFMConnect\Ifc.NET.dll</HintPath>
     </Reference>
@@ -86,6 +83,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\..\_github\CAFM-Connect\Src\CafmConnect\CafmConnect.csproj">
+      <Project>{60fab85f-d834-42d2-8f0a-d1d798b9a027}</Project>
+      <Name>CafmConnect</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BUYLTools\BUYLTools.csproj">
       <Project>{eeb912e7-2006-4801-b39e-e2587e3baf1f}</Project>
       <Name>BUYLTools</Name>
