@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using CafmConnect.Manufacturer.Model;
 
 namespace BUYLRevit.CcTools
 {
@@ -107,26 +108,33 @@ namespace BUYLRevit.CcTools
 
                     PrintParameterNames(paras);
 
-                    foreach (CafmConnect.Manufacturer.Model.CcManufacturerProductDetail detail in prd.Attributes)
+                    Dictionary<string, string> _mapping = new Dictionary<string, string>();
+                    _mapping.Add("Höhe", "Bauhöhe");
+                    _mapping.Add("Länge", "Baulänge");
+                    _mapping.Add("Breite", "Bautiefe");
+                    _mapping.Add("Beschreibung", "Beschreibung");
+
+                    foreach (CafmConnect.Manufacturer.Model.CcManufacturerProductDetail attrib in prd.Attributes)
                     {
-                        if (detail.AttributeValue != null)
+                        if (!String.IsNullOrEmpty(attrib.AttributeValue))
                         {
                             try
                             {
-                                FamilyParameter familyParam = null;
+                                bool found = false;
 
                                 foreach (FamilyParameter p in paras)
                                 {
-                                    if (p.Definition.Name == detail.AttributeName)
+                                    if (_mapping.ContainsKey(p.Definition.Name))
                                     {
-                                        familyParam = p;
-                                        break;
+                                        if (_mapping[p.Definition.Name] == attrib.AttributeName)
+                                        {
+                                            changesMade = BUYLRevit.Utils.ParameterExtensions.SetFamilyParameterValue(familyManager, p, attrib.AttributeValue);
+                                            found = true;
+                                        }
                                     }
-                                }
 
-                                if (null != familyParam)
-                                {
-                                    changesMade = SetParameterValue(familyManager, familyParam, detail.AttributeValue);
+                                    if (found)
+                                        break;
                                 }
                             }
                             catch (Exception ex)
@@ -134,6 +142,8 @@ namespace BUYLRevit.CcTools
                             }
                         }
                     }
+
+                    SetAdditionalInfos(familyManager, prd, newFamilyType);
                 }
 
                 if (changesMade)
@@ -152,15 +162,19 @@ namespace BUYLRevit.CcTools
                 }
             }
 
-            // now update the Revit project with Family which has a new type
-            LoadOpts loadOptions = new LoadOpts();
 
             //familyDoc.SaveAs(Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Desktop), Path.GetFileName(familyDoc.PathName)));
 
+            UpdateFamilyInProject(maindocument, familyDoc, familyInstance, prd);
+        }
+
+        private static void UpdateFamilyInProject(Document maindocument, Document familyDoc, FamilyInstance familyInstance, CcManufacturerProduct prd)
+        {
+            // now update the Revit project with Family which has a new type
+            LoadOpts loadOptions = new LoadOpts();
             // This overload is necessary for reloading an edited family
             // back into the source document from which it was extracted
-            family = familyDoc.LoadFamily(maindocument, loadOptions);
-
+            Family family = familyDoc.LoadFamily(maindocument, loadOptions);
             if (null != family)
             {
                 FamilySymbol familySymbol = null;
@@ -218,6 +232,17 @@ namespace BUYLRevit.CcTools
             }
         }
 
+        private static void SetAdditionalInfos(FamilyManager familyManager, CcManufacturerProduct prd, FamilyType newFamilyType)
+        {
+            foreach (FamilyParameter p in familyManager.GetParameters())
+            {
+                if(p.Definition.Name == "Model")
+                    BUYLRevit.Utils.ParameterExtensions.SetFamilyParameterValue(familyManager, p, prd.Name);
+                else if(p.Definition.Name == "Hersteller")
+                    BUYLRevit.Utils.ParameterExtensions.SetFamilyParameterValue(familyManager, p, prd.Description);
+            }
+        }
+
         private static void PrintParameterNames(List<FamilyParameter> paras)
         {
 #if DEBUG
@@ -226,80 +251,6 @@ namespace BUYLRevit.CcTools
                 Debug.WriteLine(p.Definition.Name);
             }
 #endif
-        }
-
-        private static bool SetParameterValue(FamilyManager famman, FamilyParameter par, object val)
-        {
-            bool result = false;
-            try
-            {
-                if (val != null)
-                {
-                    switch (par.StorageType)
-                    {
-                        case StorageType.None:
-                            break;
-
-                        case StorageType.Double:
-                            if (val.GetType().Equals(typeof(string)))
-                            {
-                                double d = Utils.MathUtils.MToFeet(double.Parse(val as string));
-                                famman.SetValueString(par, val.ToString() + " m");
-                                result = true;
-                            }
-                            else
-                            {
-                                double d = Utils.MathUtils.MToFeet(Convert.ToDouble(val));
-                                famman.Set(par, d);
-                                result = true;
-                            }
-                            break;
-
-                        case StorageType.Integer:
-                            if (val.GetType().Equals(typeof(string)))
-                            {
-                                famman.Set(par, int.Parse(val as string));
-                                result = true;
-                            }
-                            else
-                            {
-                                famman.Set(par, Convert.ToInt32(val));
-                                result = true;
-                            }
-                            break;
-
-                        case StorageType.ElementId:
-                            if (val.GetType().Equals(typeof(ElementId)))
-                            {
-                                famman.Set(par, val as ElementId);
-                                result = true;
-                            }
-                            else if (val.GetType().Equals(typeof(string)))
-                            {
-                                famman.Set(par, new ElementId(int.Parse(val as string)));
-                                result = true;
-                            }
-                            else
-                            {
-                                famman.Set(par, new ElementId(Convert.ToInt32(val)));
-                                result = true;
-                            }
-                            break;
-
-                        case StorageType.String:
-                            famman.Set(par, val.ToString());
-                            result = true;
-
-                            break;
-                    }
-                }
-            }
-            catch
-            {
-                throw new Exception("Invalid Value Input!");
-            }
-
-            return result;
         }
 
         private class LoadOpts : IFamilyLoadOptions

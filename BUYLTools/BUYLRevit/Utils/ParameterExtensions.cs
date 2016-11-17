@@ -68,5 +68,80 @@ namespace BUYLRevit.Utils
 
             return lst;
         }
+
+        public static bool SetFamilyParameterValue(FamilyManager famman, FamilyParameter par, object val)
+        {
+            bool result = false;
+            try
+            {
+                if (val != null)
+                {
+                    switch (par.StorageType)
+                    {
+                        case StorageType.None:
+                            break;
+
+                        case StorageType.Double:
+                            if (val.GetType().Equals(typeof(string)))
+                            {
+                                double d = Utils.MathUtils.MToFeet(double.Parse(val as string));
+                                famman.SetValueString(par, val.ToString() + " m");
+                                result = true;
+                            }
+                            else
+                            {
+                                double d = Utils.MathUtils.MToFeet(Convert.ToDouble(val));
+                                famman.Set(par, d);
+                                result = true;
+                            }
+                            break;
+
+                        case StorageType.Integer:
+                            if (val.GetType().Equals(typeof(string)))
+                            {
+                                famman.Set(par, int.Parse(val as string));
+                                result = true;
+                            }
+                            else
+                            {
+                                famman.Set(par, Convert.ToInt32(val));
+                                result = true;
+                            }
+                            break;
+
+                        case StorageType.ElementId:
+                            if (val.GetType().Equals(typeof(ElementId)))
+                            {
+                                famman.Set(par, val as ElementId);
+                                result = true;
+                            }
+                            else if (val.GetType().Equals(typeof(string)))
+                            {
+                                famman.Set(par, new ElementId(int.Parse(val as string)));
+                                result = true;
+                            }
+                            else
+                            {
+                                famman.Set(par, new ElementId(Convert.ToInt32(val)));
+                                result = true;
+                            }
+                            break;
+
+                        case StorageType.String:
+                            famman.Set(par, val.ToString());
+                            result = true;
+
+                            break;
+                    }
+                }
+            }
+            catch
+            {
+                throw new Exception("Invalid Value Input!");
+            }
+
+            return result;
+        }
+
     }
 }
