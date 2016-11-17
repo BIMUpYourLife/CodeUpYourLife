@@ -39,6 +39,9 @@ namespace BUYLRevit.CcTools
                             if (p.Definition.Name == m_ClassificationCode)
                             {
                                 code = p.AsString();
+                                if (code.Contains('|')) //This version doesn't support sub-classification with parameters. Needs to be handled later
+                                    code = code.Split('|')[0];
+
                                 break;
                             }
                         }
