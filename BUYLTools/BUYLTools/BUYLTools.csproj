@@ -87,6 +87,13 @@
       <DependentUpon>TemplateFileSelectorDLG.cs</DependentUpon>
     </Compile>
     <Compile Include="CutOut\ElementData.cs" />
+    <Compile Include="CutOut\PfV\PfVElement.cs" />
+    <Compile Include="CutOut\PfV\PfVViewDLG.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CutOut\PfV\PfVViewDLG.Designer.cs">
+      <DependentUpon>PfVViewDLG.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\DataStructure.cs" />
     <Compile Include="Data\DataStructure_Extensions.cs" />
     <Compile Include="Data\DataStructure_Handler.cs" />
@@ -103,6 +110,9 @@
     <Compile Include="Utils\ObjectXmlSerializer.cs" />
     <EmbeddedResource Include="ContentLoader\TemplateFileSelectorDLG.resx">
       <DependentUpon>TemplateFileSelectorDLG.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CutOut\PfV\PfVViewDLG.resx">
+      <DependentUpon>PfVViewDLG.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Utils\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>

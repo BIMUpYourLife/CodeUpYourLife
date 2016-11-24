@@ -1,4 +1,5 @@
 #region Header
+
 //
 // CmdLinkedFileElements.cs - list elements in linked files
 //
@@ -7,281 +8,24 @@
 //
 // Keywords: The Building Coder Revit API C# .NET add-in.
 //
-#endregion // Header
+
+#endregion Header
 
 #region Namespaces
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+
 using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using BUYLRevit.Utils;
+using BUYLTools.CutOut.PfV;
+using System;
+using System.Collections.Generic;
 using System.IO;
-#endregion // Namespaces
+
+#endregion Namespaces
 
 namespace BUYLRevit.CutOut.PfV
 {
-    public class Position
-    {
-        double _x;
-        double _y;
-        double _z;
-
-        public Position(double x, double y, double z)
-        {
-            X = x;
-            Y = y;
-            Z = z;
-        }
-
-        public double X
-        {
-            get
-            {
-                return _x;
-            }
-
-            set
-            {
-                _x = value;
-            }
-        }
-
-        public double Y
-        {
-            get
-            {
-                return _y;
-            }
-
-            set
-            {
-                _y = value;
-            }
-        }
-
-        public double Z
-        {
-            get
-            {
-                return _z;
-            }
-
-            set
-            {
-                _z = value;
-            }
-        }
-        public override string ToString()
-        {
-            return String.Format("x : {0}; y : {1}; z : {2}", X, Y, Z);
-        }
-    }
-
-    public class PfVElementData
-    {
-        string _document;
-        string _elementName;
-        int _idLinked;
-        int _idLocal;
-        string _uniqueIdLinked;
-        string _uniqueIdLocal;
-        string _folder;
-
-
-        double _height;
-        double _width;
-        double _diameter;
-        double _depth;
-        string _ifcGuid;
-        string _ifcName;
-        string _ifcSpatialContainer;
-        string _shape;
-        string _system;
-        Position _pos;
-
-        public PfVElementData(
-          string path,
-          string elementName,
-          int idLinked,
-          string uniqueIdLinked)
-        {
-            int i = path.LastIndexOf("\\");
-            _document = Path.GetFileName(path);
-            _elementName = elementName;
-            _idLinked = idLinked;
-            _uniqueIdLinked = uniqueIdLinked;
-            _folder = Path.GetDirectoryName(path);
-
-            Location = new Position(0, 0, 0);
-        }
-
-
-        public string Document
-        {
-            get { return _document; }
-        }
-        public string ElementName
-        {
-            get { return _elementName; }
-        }
-        public int IdLinked
-        {
-            get { return _idLinked; }
-        }
-        public int IdLocal
-        {
-            get { return _idLocal; }
-            set { _idLocal = value; }
-        }
-        public string UniqueIdLinked
-        {
-            get { return _uniqueIdLinked; }
-        }
-        public string UniqueIdLocal
-        {
-            get { return _uniqueIdLocal; }
-            set { _uniqueIdLocal = value; }
-        }
-        public string Folder
-        {
-            get { return _folder; }
-        }
-
-        public double Height
-        {
-            get
-            {
-                return _height;
-            }
-
-            set
-            {
-                _height = value;
-            }
-        }
-
-        public double Width
-        {
-            get
-            {
-                return _width;
-            }
-
-            set
-            {
-                _width = value;
-            }
-        }
-
-        public double Diameter
-        {
-            get
-            {
-                return _diameter;
-            }
-
-            set
-            {
-                _diameter = value;
-            }
-        }
-
-        public double Depth
-        {
-            get
-            {
-                return _depth;
-            }
-
-            set
-            {
-                _depth = value;
-            }
-        }
-
-        public string IfcGuid
-        {
-            get
-            {
-                return _ifcGuid;
-            }
-
-            set
-            {
-                _ifcGuid = value;
-            }
-        }
-
-        public string IfcName
-        {
-            get
-            {
-                return _ifcName;
-            }
-
-            set
-            {
-                _ifcName = value;
-            }
-        }
-
-        public string IfcSpatialContainer
-        {
-            get
-            {
-                return _ifcSpatialContainer;
-            }
-
-            set
-            {
-                _ifcSpatialContainer = value;
-            }
-        }
-
-        public string Shape
-        {
-            get
-            {
-                return _shape;
-            }
-
-            set
-            {
-                _shape = value;
-            }
-        }
-
-        public string System
-        {
-            get
-            {
-                return _system;
-            }
-
-            set
-            {
-                _system = value;
-            }
-        }
-
-        public Position Location
-        {
-            get
-            {
-                return _pos;
-            }
-
-            set
-            {
-                _pos = value;
-            }
-        }
-    }
-
     public class PfVTools
     {
         public static Result ProcessPfVs(
@@ -296,18 +40,111 @@ namespace BUYLRevit.CutOut.PfV
                 //TaskDialog.Show("PfV Manager", String.Format("{0} elements found in links", lst.Count));
                 PfVViewDLG dlg = new PfVViewDLG();
                 dlg.SetData(lst);
-                dlg.SetCommandData(commandData);
+                //dlg.SetCommandData(commandData);
                 dlg.ShowDialog();
 
                 return Result.Succeeded;
             }
             else
                 return Result.Failed;
-
         }
+
+        private Document GetDocumentFromRevit(string docname)
+        {
+            Document res = null;
+
+            if (m_commandData != null)
+            {
+                foreach (Document doc in m_commandData.Application.Application.Documents)
+                {
+                    if (doc.PathName == docname)
+                    {
+                        res = doc;
+                        break;
+                    }
+                }
+            }
+
+            return res;
+        }
+
+        private UIDocument GetUIDocumentFromRevit()
+        {
+            UIDocument res = m_commandData.Application.ActiveUIDocument;
+
+            return res;
+        }
+
+        //private void DtView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        //{
+        //    if (m_data != null)
+        //    {
+        //        if (sender is DataGridView)
+        //        {
+        //            DataGridView dtView = sender as DataGridView;
+        //            if (dtView != null)
+        //            {
+        //                if (dtView.Parent is TabPage)
+        //                {
+        //                    if (m_data.ContainsKey(dtView.Parent.Tag.ToString()))
+        //                    {
+        //                        DataGridViewRow row = dtView.Rows[e.RowIndex];
+        //                        int id = 0;
+
+        //                        PfVElementData pfvData = null;
+        //                        if (Int32.TryParse(row.Cells["IdLinked"].Value.ToString(), out id))
+        //                        {
+        //                            pfvData = m_data[dtView.Parent.Tag.ToString()].FirstOrDefault<PfVElementData>(item => item.IdLinked == id);
+        //                            if (pfvData != null)
+        //                            {
+        //                                Transaction t = new Transaction(GetUIDocumentFromRevit().Application.ActiveUIDocument.Document);
+        //                                t.Start("Change to 3D view");
+        //                                try
+        //                                {
+        //                                    if (GetUIDocumentFromRevit().ActiveView.ViewType == ViewType.ThreeD)
+        //                                    {
+        //                                        View3D view = (View3D)GetUIDocumentFromRevit().ActiveView;
+
+        //                                        XYZ up = null;
+        //                                        XYZ target = new XYZ(pfvData._location.X, pfvData._location.Y, pfvData._location.Z);
+        //                                        Transform tr = Transform.CreateRotation(new XYZ(0, 0, 1), Utils.MathUtils.DegreeToRad(90));
+        //                                        XYZ targetN = tr.OfVector(target);
+
+        //                                        up = target.CrossProduct(targetN); // new XYZ(0, 0, pfvData.Pos.Z)
+        //                                        XYZ targetM = target.Multiply(Utils.MathUtils.MMToFeet(3000) * -1);
+        //                                        view.SetOrientation(new ViewOrientation3D(targetM, up, target));
+
+        //                                        //view.get_Parameter(BuiltInParameter.VIEW_DETAIL_LEVEL).Set(3);
+
+        //                                        //view.get_Parameter(BuiltInParameter
+        //                                        //  .MODEL_GRAPHICS_STYLE).Set(6);
+
+        //                                        t.Commit();
+
+        //                                        GetUIDocumentFromRevit().Application.ActiveUIDocument.Document.Regenerate();
+        //                                        //GetUIDocumentFromRevit().ActiveViewShowElements(new ElementId(pfvData.IdLinked)); //GetDocumentFromRevit(dtView.Parent.Tag.ToString());
+        //                                    }
+        //                                }
+        //                                catch (Exception ex)
+        //                                {
+        //                                    t.RollBack();
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //}
+
+        ExternalCommandData m_commandData = null;
 
         internal static Application m_app = null;
         internal static DocumentSet m_docs = null;
+        private const string m_pfvtype = "PfVType";
+        private const string m_pfvTypeDirectShape = "DirectShape";
+        private const string m_pfvTypeInstance = "Instance";
 
         private static Dictionary<string, List<PfVElementData>> CollectPfVs(
           ExternalCommandData commandData,
@@ -317,71 +154,58 @@ namespace BUYLRevit.CutOut.PfV
             BUYLTools.Configuration.Manager _confMan = new BUYLTools.Configuration.Manager(typeof(PfVTools).Assembly, true);
             m_app = commandData.Application.Application;
             m_docs = m_app.Documents;
-            /*
 
-            // retrieve all link elements:
-
-            Document doc = app.ActiveUIDocument.Document;
-            List<Element> links = GetElements(
-              BuiltInCategory.OST_RvtLinks,
-              typeof( Instance ), app, doc );
-
-            // determine the link paths:
-
-            DocumentSet docs = app.Documents;
-            int n = docs.Size;
-            Dictionary<string, string> paths
-              = new Dictionary<string, string>( n );
-
-            foreach( Document d in docs )
-            {
-              string path = d.PathName;
-              int i = path.LastIndexOf( "\\" ) + 1;
-              string name = path.Substring( i );
-              paths.Add( name, path );
-            }
-            */
+            Document myDoc = commandData.Application.ActiveUIDocument.Document;
 
             // Retrieve lighting fixture element
             // data from linked documents:
 
             Dictionary<string, List<PfVElementData>> data = new Dictionary<string, List<PfVElementData>>();
 
-
             using (Transaction trans = new Transaction(commandData.Application.ActiveUIDocument.Document))
             {
                 trans.Start("PfV transaction");
                 try
                 {
-                    string sTypeName = _confMan.GetValueForAppsetting("PfVType");
-                    foreach (Document doc in m_docs)
+                    string sTypeName = _confMan.GetValueForAppsetting(m_pfvtype);
+                    foreach (Document docLink in m_docs)
                     {
-                        if (doc.IsLinked)
+                        if (docLink.PathName == myDoc.PathName)
+                            continue;
+
+                        if (docLink.IsLinked)
                         {
                             ICollection<ElementId> ids = new List<ElementId>();
                             FilteredElementCollector filCollector = null;
 
                             ICollection<ElementId> idsLinkedPfV = new List<ElementId>();
 
-                            if (!data.ContainsKey(doc.PathName))
-                                data.Add(doc.PathName, new List<PfVElementData>());
+                            if (!data.ContainsKey(docLink.PathName))
+                                data.Add(docLink.PathName, new List<PfVElementData>());
 
-                            if (sTypeName == "DirectShape")
+                            if (sTypeName == m_pfvTypeDirectShape)
                             {
-                                filCollector = Utils.Util.GetElementsOfType(doc, typeof(DirectShape), BuiltInCategory.OST_GenericModel);
-                                GetPfVDataFromDirectShape(data, doc, ids, filCollector, idsLinkedPfV);
+                                filCollector = Utils.Util.GetElementsOfType(docLink, typeof(DirectShape), BuiltInCategory.OST_GenericModel);
+                                GetPfVDataFromDirectShape(data, docLink, ids, filCollector, idsLinkedPfV);
                             }
-                            else if (sTypeName == "Instance")
+                            else if (sTypeName == m_pfvTypeInstance)
                             {
-                                filCollector = Utils.Util.GetElementsOfType(doc, typeof(Instance), BuiltInCategory.OST_GenericModel);
-                                GetPfVDataFromInstance(data, doc, ids, filCollector, idsLinkedPfV);
+                                filCollector = Utils.Util.GetElementsOfType(docLink, typeof(Instance), BuiltInCategory.OST_GenericModel);
+                                GetPfVDataFromInstance(data, docLink, ids, filCollector, idsLinkedPfV);
+
+                                ICollection<ElementId> idClash = null;
+
+                                foreach (Instance inst in filCollector)
+                                {
+                                    idClash = FindElementsInterferingWithPfV(inst, myDoc);
+                                }
                             }
 
-                            CopyLinkedElementsToCurrentModel(commandData, data, doc, idsLinkedPfV);
+                            //CopyLinkedElementsToCurrentModel(commandData, data, docLink, idsLinkedPfV);
                         }
                     }
 
-                    commandData.Application.ActiveUIDocument.Document.Regenerate();
+                    myDoc.Regenerate();
 
                     trans.Commit();
                 }
@@ -397,6 +221,38 @@ namespace BUYLRevit.CutOut.PfV
             return data;
         }
 
+        private static ICollection<ElementId> FindElementsInterferingWithPfV(Instance pfvInstance, Document hostdoc)
+        {
+            // Setup the filtered element collector for all document elements.
+            FilteredElementCollector interferingCollector = new FilteredElementCollector(hostdoc);
+
+            // Only accept element instances
+            interferingCollector.WhereElementIsNotElementType();
+
+            // Exclude intersections with the door itself or the host wall for the door.
+            List<ElementId> excludedElements = new List<ElementId>();
+            excludedElements.Add(pfvInstance.Id);
+            ExclusionFilter exclusionFilter = new ExclusionFilter(excludedElements);
+            interferingCollector.WherePasses(exclusionFilter);
+
+            Autodesk.Revit.DB.Options opt = new Options();
+            Autodesk.Revit.DB.GeometryElement geomElem = pfvInstance.get_Geometry(opt);
+            Solid geomSolid;
+            foreach (GeometryObject geomObj in geomElem)
+            {
+                geomSolid = geomObj as Solid;
+                if (null != geomSolid)
+                {
+                    // Set up a filter which matches elements whose solid geometry intersects
+                    // with the accessibility region
+                    ElementIntersectsSolidFilter intersectionFilter = new ElementIntersectsSolidFilter(geomSolid);
+                    interferingCollector.WherePasses(intersectionFilter);
+                }
+            }
+
+            // Return all elements passing the collector
+            return interferingCollector.ToElementIds();
+        }
 
         private static void CopyLinkedElementsToCurrentModel(ExternalCommandData commandData, Dictionary<string, List<PfVElementData>> data, Document doc, ICollection<ElementId> idsLinkedPfV)
         {
@@ -432,10 +288,10 @@ namespace BUYLRevit.CutOut.PfV
             }
         }
 
-        private static void GetPfVDataFromInstance(Dictionary<string, List<PfVElementData>> data, Document doc, ICollection<ElementId> ids, FilteredElementCollector a, ICollection<ElementId> idsLinkedPfV)
+        private static void GetPfVDataFromInstance(Dictionary<string, List<PfVElementData>> data, Document doc, ICollection<ElementId> ids, FilteredElementCollector coll, ICollection<ElementId> idsLinkedPfV)
         {
             //foreach (DirectShape dShape in a)
-            foreach (Instance inst in a)
+            foreach (Instance inst in coll)
             {
                 string name = inst.Name;
                 if (IsProvisionForVoid(inst))
@@ -454,6 +310,7 @@ namespace BUYLRevit.CutOut.PfV
                         pfv.IfcSpatialContainer = ParameterExtensions.GetParameterValue("IfcSpatialContainer", inst) != null ? (string)ParameterExtensions.GetParameterValue("IfcSpatialContainer", inst) : "";
                         pfv.Shape = ParameterExtensions.GetParameterValue("Shape", inst) != null ? (string)ParameterExtensions.GetParameterValue("Shape", inst) : "";
                         pfv.System = ParameterExtensions.GetParameterValue("System", inst) != null ? (string)ParameterExtensions.GetParameterValue("System", inst) : "";
+                        pfv.IfcDescription = ParameterExtensions.GetParameterValue("IfcDescription", inst) != null ? (string)ParameterExtensions.GetParameterValue("IfcDescription", inst) : "";
 
                         FindPfvLocation(inst, pfv);
 
@@ -489,6 +346,7 @@ namespace BUYLRevit.CutOut.PfV
                         pfv.IfcSpatialContainer = ParameterExtensions.GetParameterValue("IfcSpatialContainer", dShape) != null ? (string)ParameterExtensions.GetParameterValue("IfcSpatialContainer", dShape) : "";
                         pfv.Shape = ParameterExtensions.GetParameterValue("Shape(Pset_ProvisionForVoid)", dShape) != null ? (string)ParameterExtensions.GetParameterValue("Shape(Pset_ProvisionForVoid)", dShape) : "";
                         pfv.System = ParameterExtensions.GetParameterValue("System(Pset_ProvisionForVoid)", dShape) != null ? (string)ParameterExtensions.GetParameterValue("System(Pset_ProvisionForVoid)", dShape) : "";
+                        // TODO : Add ifcDescription parameter
 
                         FindPfvLocation(dShape, pfv);
 
@@ -503,11 +361,11 @@ namespace BUYLRevit.CutOut.PfV
             }
         }
 
-        private static void FindPfvLocation(Element inst, PfVElementData pfv)
+        private static void FindPfvLocation(Element instPfvLink, PfVElementData pfv)
         {
             //Find the location and direction
             Autodesk.Revit.DB.Options opt = new Options();
-            Autodesk.Revit.DB.GeometryElement geomElem = inst.get_Geometry(opt);
+            Autodesk.Revit.DB.GeometryElement geomElem = instPfvLink.get_Geometry(opt);
             foreach (GeometryInstance instGeo in geomElem)
             {
                 foreach (var geomSub in instGeo.SymbolGeometry)
@@ -517,34 +375,37 @@ namespace BUYLRevit.CutOut.PfV
                         Solid geomSolid = geomSub as Solid;
                         if (null != geomSolid)
                         {
-                            foreach (Face fa in geomSolid.Faces)
-                            {
-                                if (fa is PlanarFace)
-                                {
-                                    PlanarFace pFa = fa as PlanarFace;
-                                    if (pFa.FaceNormal.Z == 1 || pFa.FaceNormal.Z == -1)
-                                    {
-                                        pfv.Location = new Position(pFa.Origin.X, pFa.Origin.Y, pFa.Origin.Z);
-                                        //foreach (EdgeArray edArray in fa.EdgeLoops)
-                                        //{
-                                        //    foreach (Edge ed in edArray)
-                                        //    {
-                                        //        if (fa.ComputeNormal(ed.EvaluateOnFace(0, fa)).Equals(new XYZ(0, 0, 1)))
-                                        //        {
-                                        //            //fa.or
-                                        //            break;
-                                        //        }
-                                        //    }
-                                        //    break;
-                                        //}
-                                        break;
-                                    }
-                                    else
-                                    {
+                            Utils.GetCentroid.Centroid.CentroidVolume vol = Utils.GetCentroid.Centroid.GetCentroid(geomSolid);
+                            if(vol != null)
+                                pfv.Location = new Position(vol.Centroid.X, vol.Centroid.Y, vol.Centroid.Z);
+                            //foreach (Face fa in geomSolid.Faces)
+                            //{
+                            //    if (fa is PlanarFace)
+                            //    {
+                            //        PlanarFace pFa = fa as PlanarFace;
+                            //        if (pFa.FaceNormal.Z == 1 || pFa.FaceNormal.Z == -1)
+                            //        {
+                            //            pfv.Location = new Position(pFa.Origin.X, pFa.Origin.Y, pFa.Origin.Z);
 
-                                    }
-                                }
-                            }
+                            //            //foreach (EdgeArray edArray in fa.EdgeLoops)
+                            //            //{
+                            //            //    foreach (Edge ed in edArray)
+                            //            //    {
+                            //            //        if (fa.ComputeNormal(ed.EvaluateOnFace(0, fa)).Equals(new XYZ(0, 0, 1)))
+                            //            //        {
+                            //            //            //fa.or
+                            //            //            break;
+                            //            //        }
+                            //            //    }
+                            //            //    break;
+                            //            //}
+                            //            break;
+                            //        }
+                            //        else
+                            //        {
+                            //        }
+                            //    }
+                            //}
                         }
                     }
                 }
