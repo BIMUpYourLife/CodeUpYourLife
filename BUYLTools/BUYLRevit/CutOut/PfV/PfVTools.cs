@@ -34,7 +34,8 @@ namespace BUYLRevit.CutOut.PfV
         static ExternalCommandData m_cmdData = null;
         static Document m_hostDoc;
         static string m_message = null;
-        static Dictionary<string, List<PfVElementData>> m_data;
+        static PfVModelData m_data;
+        static PfVModel m_model;
 
         public Result ProcessPfVs(
                     ExternalCommandData commandData,
@@ -45,6 +46,9 @@ namespace BUYLRevit.CutOut.PfV
             m_message = message;
             m_hostDoc = m_cmdData.Application.ActiveUIDocument.Document;
 
+            m_model = new PfVModel();
+            m_data = m_model.Model(m_hostDoc.PathName);
+
             m_data = CollectPfVs();
 
             if (m_data != null)
@@ -52,12 +56,14 @@ namespace BUYLRevit.CutOut.PfV
                 //TaskDialog.Show("PfV Manager", String.Format("{0} elements found in links", lst.Count));
                 m_view.SetData(m_data);
                 //dlg.SetCommandData(commandData);
-                m_view.ShowPfvDlg();
+                if(m_view.ShowPfvDlg() == DialogResult.OK)
+                    m_model.ModelSave();
 
                 return Result.Succeeded;
             }
             else
                 return Result.Failed;
+
         }
 
         //                                        GetUIDocumentFromRevit().Application.ActiveUIDocument.Document.Regenerate();
@@ -77,7 +83,7 @@ namespace BUYLRevit.CutOut.PfV
         //    }
         //}
 
-        private Dictionary<string, List<PfVElementData>> CollectPfVs()
+        private PfVModelData CollectPfVs()
         {
             BUYLTools.Configuration.Manager _confMan = new BUYLTools.Configuration.Manager(typeof(PfVTools).Assembly, true);
             m_app = m_cmdData.Application.Application;
@@ -87,7 +93,7 @@ namespace BUYLRevit.CutOut.PfV
             // Retrieve lighting fixture element
             // data from linked documents:
 
-            Dictionary<string, List<PfVElementData>> data = new Dictionary<string, List<PfVElementData>>();
+            PfVModelData data = new PfVModelData();
 
             using (Transaction trans = new Transaction(m_cmdData.Application.ActiveUIDocument.Document))
             {

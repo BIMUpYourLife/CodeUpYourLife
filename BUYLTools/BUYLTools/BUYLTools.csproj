@@ -66,6 +66,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -87,9 +88,11 @@
       <DependentUpon>TemplateFileSelectorDLG.cs</DependentUpon>
     </Compile>
     <Compile Include="CutOut\ElementData.cs" />
+    <Compile Include="CutOut\PfV\IPfVModel.cs" />
     <Compile Include="CutOut\PfV\IPfVView.cs" />
     <Compile Include="CutOut\PfV\IPresenter.cs" />
     <Compile Include="CutOut\PfV\PfVElement.cs" />
+    <Compile Include="CutOut\PfV\PfVModel.cs" />
     <Compile Include="CutOut\PfV\PfVViewDLG.cs">
       <SubType>Form</SubType>
     </Compile>
