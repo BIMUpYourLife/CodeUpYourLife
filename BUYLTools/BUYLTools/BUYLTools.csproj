@@ -87,6 +87,8 @@
       <DependentUpon>TemplateFileSelectorDLG.cs</DependentUpon>
     </Compile>
     <Compile Include="CutOut\ElementData.cs" />
+    <Compile Include="CutOut\PfV\IPfVView.cs" />
+    <Compile Include="CutOut\PfV\IPresenter.cs" />
     <Compile Include="CutOut\PfV\PfVElement.cs" />
     <Compile Include="CutOut\PfV\PfVViewDLG.cs">
       <SubType>Form</SubType>

@@ -12,6 +12,7 @@ using Autodesk.Revit.Attributes;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.ComponentModel;
+using BUYLTools.CutOut.PfV;
 
 namespace BUYLRevitAddin
 {
@@ -133,7 +134,11 @@ namespace BUYLRevitAddin
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            return BUYLRevit.CutOut.PfV.PfVTools.ProcessPfVs(commandData, ref message, elements);
+            BUYLRevit.CutOut.PfV.PfVTools pfvtools = new BUYLRevit.CutOut.PfV.PfVTools();
+            IPfVView dlg = new PfVViewDLG();
+            pfvtools.ConnectView(dlg);
+
+            return pfvtools.ProcessPfVs(commandData, ref message, elements);             
         }
     }
 

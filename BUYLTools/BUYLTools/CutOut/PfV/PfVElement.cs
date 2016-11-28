@@ -8,10 +8,22 @@ using System.Threading.Tasks;
 
 namespace BUYLTools.CutOut.PfV
 {
+    public enum Status
+    {
+        Dummy,
+        New,
+        Ok,
+        Modified,
+        Deleted
+    }
+
     public class PfVElementData
     {
+        Status _status = Status.New;
         const string m_pfvRectangularKey = "pfvrectangular";
         const string m_pfvRoundConfigKey = "pfvround";
+        const string m_pfvWall = "wallcutout";
+        const string m_pfvFloor = "floorcutout";
         private double _depth;
         private double _diameter;
         private string _document;
@@ -19,6 +31,7 @@ namespace BUYLTools.CutOut.PfV
         private string _folder;
         private double _height;
         private int _idLinked;
+        private int _idHost;
         private int _idLocal;
         private string _ifcDescription;
         private string _ifcGuid;
@@ -46,6 +59,20 @@ namespace BUYLTools.CutOut.PfV
 
 
             Location = new Position(0, 0, 0);
+        }
+
+        [Category("Info")]
+        public Status PfVStatus
+        {
+            get
+            {
+                return _status;
+            }
+
+            set
+            {
+                _status = value;
+            }
         }
 
         [Category("Dimensions")]
@@ -248,6 +275,19 @@ namespace BUYLTools.CutOut.PfV
             set { _uniqueIdLocal = value; }
         }
 
+        [Category("Info")]
+        public int IdHost
+        {
+            get
+            {
+                return _idHost;
+            }
+
+            set
+            {
+                _idHost = value;
+            }
+        }
 
         public bool IsRectangular()
         {
@@ -275,6 +315,42 @@ namespace BUYLTools.CutOut.PfV
             {
                 List<string> items = sTypeName.Split(',').ToList();
                 if (items.Contains(this.Shape))
+                    result = true;
+            }
+
+            return result;
+        }
+
+        public bool IsWallPfV()
+        {
+            bool result = false;
+            BUYLTools.Configuration.Manager _confMan = new BUYLTools.Configuration.Manager(typeof(PfVElementData).Assembly, true);
+            string sTypeName = _confMan.GetValueForAppsetting(m_pfvWall);
+
+            if (!String.IsNullOrEmpty(sTypeName))
+            {
+                List<string> items = sTypeName.Split(',').ToList();
+                if (items.Contains(this.IfcDescription))
+                    result = true;
+                else if (items.Contains(this.ElementName))
+                    result = true;
+            }
+
+            return result;
+        }
+
+        public bool IsFloorPfV()
+        {
+            bool result = false;
+            BUYLTools.Configuration.Manager _confMan = new BUYLTools.Configuration.Manager(typeof(PfVElementData).Assembly, true);
+            string sTypeName = _confMan.GetValueForAppsetting(m_pfvFloor);
+
+            if (!String.IsNullOrEmpty(sTypeName))
+            {
+                List<string> items = sTypeName.Split(',').ToList();
+                if (items.Contains(this.IfcDescription))
+                    result = true;
+                else if (items.Contains(this.ElementName))
                     result = true;
             }
 
