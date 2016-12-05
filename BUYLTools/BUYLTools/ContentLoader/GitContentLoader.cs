@@ -28,7 +28,7 @@ namespace BUYLTools.ContentLoader
 
                 LibGit2Sharp.Repository.Clone(urlContentRepository, pathToLocalContentRepository, op);
 
-                LogManager.FileLogService.Instance.Info(string.Format("Repository cloned to {0}", pathToLocalContentRepository), typeof(GitContentLoader));
+                LogManager.ManagerLog.Current.WriteLogMessage(string.Format("Repository cloned to {0}", pathToLocalContentRepository), LogManager.LogState.Info);
                 //prg.Close();
             }
             else
@@ -38,7 +38,7 @@ namespace BUYLTools.ContentLoader
                     LibGit2Sharp.Remote remote = repo.Network.Remotes["origin"];
                     LibGit2Sharp.FetchOptions op = new LibGit2Sharp.FetchOptions();
                     repo.Network.Fetch(remote);
-                    LogManager.FileLogService.Instance.Info(string.Format("Repository update fetched to {0}", pathToLocalContentRepository), typeof(GitContentLoader));
+                    LogManager.ManagerLog.Current.WriteLogMessage(string.Format("Repository update fetched to {0}", pathToLocalContentRepository), LogManager.LogState.Info);
                 }
             }
         }

@@ -90,8 +90,7 @@
     <Compile Include="Data\DataStructure.cs" />
     <Compile Include="Data\DataStructure_Extensions.cs" />
     <Compile Include="Data\DataStructure_Handler.cs" />
-    <Compile Include="LogManager\ILogInterface.cs" />
-    <Compile Include="LogManager\log4netGlobal.cs" />
+    <Compile Include="LogManager\LogManager.cs" />
     <Compile Include="Utils\Countries.cs" />
     <Compile Include="Utils\ProgressForm.cs">
       <SubType>Form</SubType>
@@ -101,6 +100,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ObjectXmlSerializer.cs" />
+    <Compile Include="Utils\WindowsHandle.cs" />
     <EmbeddedResource Include="ContentLoader\TemplateFileSelectorDLG.resx">
       <DependentUpon>TemplateFileSelectorDLG.cs</DependentUpon>
     </EmbeddedResource>
@@ -131,7 +131,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="LogManager\FileLogService.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -147,6 +146,11 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="LogManager\BUYLLog_config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
