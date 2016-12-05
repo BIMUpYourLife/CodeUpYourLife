@@ -44,10 +44,55 @@ namespace BUYLTools.CutOut.PfV
 
                 DataGridView dtView = new DataGridView();
                 dtView.RowHeaderMouseDoubleClick += DtView_RowHeaderMouseDoubleClick;
+                dtView.SelectionChanged += DtView_SelectionChanged;
                 dtView.DataSource = m_data[key];
                 dtView.Dock = DockStyle.Fill;
 
                 tp.Controls.Add(dtView);
+                _tabControl.SelectedIndexChanged += _tabControl_SelectedIndexChanged;
+            }
+        }
+
+        private void _tabControl_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _propertyGridPfV.SelectedObject = null;
+        }
+
+        private void DtView_SelectionChanged(object sender, EventArgs e)
+        {
+            if (m_data != null)
+            {
+                if (sender is DataGridView)
+                {
+                    DataGridView dtView = sender as DataGridView;
+                    if (dtView != null)
+                    {
+                        if (dtView.Parent is TabPage)
+                        {
+                            string tabname = dtView.Parent.Tag.ToString();
+                            if (m_data.ContainsKey(tabname))
+                            {
+                                if (dtView.SelectedRows != null && dtView.SelectedRows.Count > 0)
+                                {
+                                    DataGridViewRow row = dtView.SelectedRows[0];//.Rows[e.RowIndex];
+                                    int id = 0;
+
+                                    PfVElementData pfvData = null;
+                                    if (Int32.TryParse(row.Cells["IdLinked"].Value.ToString(), out id))
+                                    {
+                                        pfvData = m_data[tabname].FirstOrDefault<PfVElementData>(item => item.IdLinked == id);
+                                        if (pfvData != null)
+                                        {
+                                            _propertyGridPfV.SelectedObject = pfvData;
+                                        }
+                                    }
+                                }
+                                else
+                                    _propertyGridPfV.SelectedObject = null;
+                            }
+                        }
+                    }
+                }
             }
         }
 

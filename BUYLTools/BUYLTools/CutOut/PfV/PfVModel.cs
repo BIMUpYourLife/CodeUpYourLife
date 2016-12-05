@@ -82,7 +82,8 @@ namespace BUYLTools.CutOut.PfV
 
         private string GetFilename()
         {
-            return Path.GetFileNameWithoutExtension(m_currentmodel) + m_extension;
+            string fname = Path.Combine(Path.GetDirectoryName(m_currentmodel), Path.GetFileNameWithoutExtension(m_currentmodel) + m_extension);
+            return fname;
         }
     }
 
