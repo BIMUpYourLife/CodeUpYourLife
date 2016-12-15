@@ -26,6 +26,7 @@ namespace BUYLTools.CutOut.PfV
         const string m_pfvRoundConfigKey = "pfvround";
         const string m_pfvWall = "wallcutout";
         const string m_pfvFloor = "floorcutout";
+        public const string idLinkedColumn = "IdLinked";
         private double _depth;
         private double _diameter;
         private string _document;
@@ -45,7 +46,6 @@ namespace BUYLTools.CutOut.PfV
         private string _uniqueIdLinked;
         private string _uniqueIdLocal;
         private double _width;
-
         public PfVElementData(
           string path,
           string elementName,
@@ -138,25 +138,27 @@ namespace BUYLTools.CutOut.PfV
         public string Document
         {
             get { return _document; }
+            set { _document = value; }
         }
 
         [Category("Info"), DataMember()]
         public string ElementName
         {
             get { return _elementName; }
+            set { _elementName = value; }
         }
 
         [Category("Document"), DataMember()]
         public string Folder
         {
             get { return _folder; }
+            set { _folder = value; }
         }
-
-
         [Category("Info"), DataMember()]
         public int IdLinked
         {
             get { return _idLinked; }
+            set { _idLinked = value; }
         }
 
         [Category("Info"), DataMember()]
@@ -268,6 +270,7 @@ namespace BUYLTools.CutOut.PfV
         public string UniqueIdLinked
         {
             get { return _uniqueIdLinked; }
+            set { _uniqueIdLinked = value; }
         }
 
         [Category("Info"), DataMember()]

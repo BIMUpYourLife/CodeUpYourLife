@@ -10,60 +10,78 @@ namespace BUYLRevit.Utils
     public class ElementPlacement
     {
         #region AddFaceBasedFamilyToLinks
-        public static void AddFaceBasedFamilyToLinks(Document doc, ElementId idEle)
+        public static void AddFaceBasedFamilyToLinkedWall(Document doc, ElementId linkDocId, ElementId symbolId)
         {
-            ElementId alignedLinkId = idEle;
-
             // Get symbol
+            FamilySymbol fs = doc.GetElement(symbolId) as FamilySymbol;
 
-            ElementId symbolId = new ElementId(126580);
-
-            FamilySymbol fs = doc.GetElement(symbolId)
-              as FamilySymbol;
+            if (fs == null)
+                return;
 
             // Aligned
 
-            RevitLinkInstance linkInstance = doc.GetElement(
-              alignedLinkId) as RevitLinkInstance;
+            RevitLinkInstance linkInstance = doc.GetElement(linkDocId) as RevitLinkInstance;
 
-            Document linkDocument = linkInstance
-              .GetLinkDocument();
+            Document linkDocument = linkInstance.GetLinkDocument();
 
-            FilteredElementCollector wallCollector
-              = new FilteredElementCollector(linkDocument);
+            FilteredElementCollector wallCollector = new FilteredElementCollector(linkDocument);
 
             wallCollector.OfClass(typeof(Wall));
 
-            Wall targetWall = wallCollector.FirstElement()
-              as Wall;
+            Wall targetWall = wallCollector.FirstElement() as Wall;
 
-            Reference exteriorFaceRef
-              = HostObjectUtils.GetSideFaces(
-                targetWall, ShellLayerType.Exterior)
-                  .First<Reference>();
+            Reference exteriorFaceRef = HostObjectUtils.GetSideFaces( targetWall, ShellLayerType.Exterior).First<Reference>();
 
-            Reference linkToExteriorFaceRef
-              = exteriorFaceRef.CreateLinkReference(
-                linkInstance);
+            Reference linkToExteriorFaceRef = exteriorFaceRef.CreateLinkReference( linkInstance);
 
-            Line wallLine = (targetWall.Location
-              as LocationCurve).Curve as Line;
+            Line wallLine = (targetWall.Location as LocationCurve).Curve as Line;
 
-            XYZ wallVector = (wallLine.GetEndPoint(1)
-              - wallLine.GetEndPoint(0)).Normalize();
+            XYZ wallVector = (wallLine.GetEndPoint(1) - wallLine.GetEndPoint(0)).Normalize();
 
             using (Transaction t = new Transaction(doc))
             {
                 t.Start("Add to face");
 
-                doc.Create.NewFamilyInstance(
-                  linkToExteriorFaceRef, XYZ.Zero,
-                  wallVector, fs);
+                doc.Create.NewFamilyInstance( linkToExteriorFaceRef, XYZ.Zero, wallVector, fs);
 
                 t.Commit();
             }
         }
         #endregion // AddFaceBasedFamilyToLinks
 
+        public static void AddFaceBasedFamilyToWall(Document doc, ElementId wallId, ElementId symbolId, XYZ location)
+        {
+            // Get symbol
+            FamilySymbol fs = doc.GetElement(symbolId) as FamilySymbol;
+
+            if (fs == null)
+                return;
+
+            // Aligned
+
+            Element el = doc.GetElement(wallId);
+
+            Wall targetWall = null;
+            if(el is Wall)
+               targetWall  = el as Wall;
+
+            if (targetWall != null)
+            {
+                Reference exteriorFaceRef = HostObjectUtils.GetSideFaces(targetWall, ShellLayerType.Exterior).First<Reference>();
+
+                Line wallLine = (targetWall.Location as LocationCurve).Curve as Line;
+
+                XYZ wallVector = (wallLine.GetEndPoint(1) - wallLine.GetEndPoint(0)).Normalize();
+
+                using (SubTransaction t = new SubTransaction(doc))
+                {
+                    t.Start();
+
+                    doc.Create.NewFamilyInstance(exteriorFaceRef, location, wallVector, fs);
+
+                    t.Commit();
+                }
+            }
+        }
     }
 }

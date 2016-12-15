@@ -10,7 +10,6 @@ namespace BUYLTools.CutOut.PfV
     public interface IPfVView
     {
         void SetPresenter(IPresenter presenter);
-        void SetData(Dictionary<string, List<PfVElementData>> data);
         DialogResult ShowPfvDlg();
         void HideDlg();
         void ShowDlg();

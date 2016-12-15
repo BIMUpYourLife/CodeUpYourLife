@@ -8,8 +8,12 @@ namespace BUYLTools.CutOut.PfV
 {
     public interface IPfVModel
     {
-        void ModelSave();
-        PfVModelData ModelLoad();
-        PfVModelData Model(string hostmodel);
+        void ModelSave(string hostmodel);
+
+        void ModelLoad(string hostmodel);
+
+        PfVModelData ActualModel { get; }
+
+        void UpdateModel(PfVModelData data, string hostmodell);
     }
 }

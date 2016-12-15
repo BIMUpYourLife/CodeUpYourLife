@@ -13,28 +13,43 @@ namespace BUYLTools.CutOut.PfV
 {
     public partial class PfVViewDLG : System.Windows.Forms.Form, IPfVView
     {
-        Dictionary<string, List<PfVElementData>> m_data;
+        //Dictionary<string, List<PfVElementData>> m_data;
+
+        IPresenter m_presenter = null;
 
         public PfVViewDLG()
         {
             InitializeComponent();
-            m_data = null;
         }
 
-        public void SetData(Dictionary<string, List<PfVElementData>> data)
+        void IPfVView.SetPresenter(IPresenter presenter)
         {
-            m_data = data;
+            m_presenter = presenter;
+        }
 
+        void IPfVView.HideDlg()
+        {
+            this.Hide();
+        }
+
+        void IPfVView.ShowDlg()
+        {
+            this.Show();
+        }
+
+        DialogResult IPfVView.ShowPfvDlg()
+        {
             SetUpTabControl();
+            return this.ShowDialog();
         }
 
         private void SetUpTabControl()
         {
             _tabControl.TabPages.Clear();
 
-            foreach (string key in m_data.Keys)
+            foreach (string key in m_presenter.GetCurrentData.Keys)
             {
-                if (m_data[key] == null)
+                if (m_presenter.GetCurrentData[key] == null)
                     continue;
 
                 TabPage tp = new TabPage(Path.GetFileName(key));
@@ -43,13 +58,90 @@ namespace BUYLTools.CutOut.PfV
                 _tabControl.TabPages.Add(tp);
 
                 DataGridView dtView = new DataGridView();
-                dtView.RowHeaderMouseDoubleClick += DtView_RowHeaderMouseDoubleClick;
-                dtView.SelectionChanged += DtView_SelectionChanged;
-                dtView.DataSource = m_data[key];
+                dtView.RowHeaderMouseDoubleClick += _DtView_RowHeaderMouseDoubleClick;
+                dtView.SelectionChanged += _DtView_SelectionChanged;
+                dtView.DataSource = m_presenter.GetCurrentData[key];
                 dtView.Dock = DockStyle.Fill;
 
                 tp.Controls.Add(dtView);
                 _tabControl.SelectedIndexChanged += _tabControl_SelectedIndexChanged;
+            }
+        }
+
+        private void SetCurrentSelectionInPresenter(object sender)
+        {
+            if (m_presenter.GetCurrentData != null)
+            {
+                if (sender is DataGridView)
+                {
+                    DataGridView dtView = sender as DataGridView;
+                    if (dtView != null)
+                    {
+                        if (dtView.Parent is TabPage)
+                        {
+                            string tabname = dtView.Parent.Tag.ToString();
+                            if (m_presenter.GetCurrentData.ContainsKey(tabname))
+                            {
+                                DataGridViewRow row = null;
+                                if (dtView.SelectedRows != null && dtView.SelectedRows.Count > 0)
+                                {
+                                    row = dtView.SelectedRows[0];//.Rows[e.RowIndex];
+                                }
+                                else if(dtView.SelectedCells != null && dtView.SelectedCells.Count > 0)
+                                {
+                                    row = dtView.Rows[dtView.SelectedCells[0].RowIndex];
+                                }
+
+                                if(row != null)
+                                {
+                                    int id = 0;
+
+                                    if (Int32.TryParse(row.Cells[PfVElementData.idLinkedColumn].Value.ToString(), out id))
+                                    {
+                                        m_presenter.CurrentPfVSet(tabname, id);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void _DtView_SelectionChanged(object sender, EventArgs e)
+        {
+            SetCurrentSelectionInPresenter(sender);
+
+            PfVElementData pfvData = null;
+            pfvData = m_presenter.CurrentPfVGet();
+            if (pfvData != null)
+            {
+                _propertyGridPfV.SelectedObject = pfvData;
+                _buttonPlacePfV.Enabled = true;
+            }
+            else
+            {
+                _propertyGridPfV.SelectedObject = null;
+                _buttonPlacePfV.Enabled = false;
+            }
+        }
+        private void _DtView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            SetCurrentSelectionInPresenter(sender);
+
+            if (sender is DataGridView)
+            {
+                DataGridView dtView = sender as DataGridView;
+                if (dtView != null)
+                {
+                    PfVElementData pfvData = null;
+                    pfvData = m_presenter.CurrentPfVGet();
+                    if (pfvData != null)
+                    {
+                        m_presenter.PfVZoomToCurrent();
+                        dtView.Refresh();
+                    }
+                }
             }
         }
 
@@ -58,98 +150,10 @@ namespace BUYLTools.CutOut.PfV
             _propertyGridPfV.SelectedObject = null;
         }
 
-        private void DtView_SelectionChanged(object sender, EventArgs e)
+        private void _buttonPlacePfV_Click(object sender, EventArgs e)
         {
-            if (m_data != null)
-            {
-                if (sender is DataGridView)
-                {
-                    DataGridView dtView = sender as DataGridView;
-                    if (dtView != null)
-                    {
-                        if (dtView.Parent is TabPage)
-                        {
-                            string tabname = dtView.Parent.Tag.ToString();
-                            if (m_data.ContainsKey(tabname))
-                            {
-                                if (dtView.SelectedRows != null && dtView.SelectedRows.Count > 0)
-                                {
-                                    DataGridViewRow row = dtView.SelectedRows[0];//.Rows[e.RowIndex];
-                                    int id = 0;
-
-                                    PfVElementData pfvData = null;
-                                    if (Int32.TryParse(row.Cells["IdLinked"].Value.ToString(), out id))
-                                    {
-                                        pfvData = m_data[tabname].FirstOrDefault<PfVElementData>(item => item.IdLinked == id);
-                                        if (pfvData != null)
-                                        {
-                                            _propertyGridPfV.SelectedObject = pfvData;
-                                        }
-                                    }
-                                }
-                                else
-                                    _propertyGridPfV.SelectedObject = null;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private void DtView_RowHeaderMouseDoubleClick(object sender, DataGridViewCellMouseEventArgs e)
-        {
-            if (m_data != null)
-            {
-                if (sender is DataGridView)
-                {
-                    DataGridView dtView = sender as DataGridView;
-                    if (dtView != null)
-                    {
-                        if (dtView.Parent is TabPage)
-                        {
-                            string tabname = dtView.Parent.Tag.ToString();
-                            if (m_data.ContainsKey(tabname))
-                            {
-                                DataGridViewRow row = dtView.Rows[e.RowIndex];
-                                int id = 0;
-
-                                PfVElementData pfvData = null;
-                                if (Int32.TryParse(row.Cells["IdLinked"].Value.ToString(), out id))
-                                {
-                                    pfvData = m_data[tabname].FirstOrDefault<PfVElementData>(item => item.IdLinked == id);
-                                    if (pfvData != null)
-                                    {
-                                        m_presenter.ZoomToPfV(pfvData);
-                                        dtView.Refresh();
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        IPresenter m_presenter = null;
-
-        public void SetPresenter(IPresenter presenter)
-        {
-            m_presenter = presenter;
-        }
-
-        public DialogResult ShowPfvDlg()
-        {
-            return this.ShowDialog();
-        }
-
-        public void HideDlg()
-        {
-            this.Hide();
-        }
-
-        public void ShowDlg()
-        {
-            this.Show();
+            //SetCurrentSelectionInPresenter(sender);
+            m_presenter.PfVPlaceCurrent();
         }
     }
 }

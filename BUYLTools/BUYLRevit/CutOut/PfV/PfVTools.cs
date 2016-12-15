@@ -26,20 +26,90 @@ namespace BUYLRevit.CutOut.PfV
 
     public class PfVTools : IPresenter
     {
-        internal static Autodesk.Revit.ApplicationServices.Application m_app = null;
-        internal static DocumentSet m_docs = null;
         private const string m_pfvtype = "PfVType";
         private const string m_pfvTypeDirectShape = "DirectShape";
         private const string m_pfvTypeInstance = "Instance";
+        internal static Autodesk.Revit.ApplicationServices.Application m_app = null;
+        internal static DocumentSet m_docs = null;
+        IPfVView m_view = null;
         static ExternalCommandData m_cmdData = null;
         static Document m_hostDoc;
         static string m_message = null;
-        static PfVModelData m_data;
-        static PfVModel m_model;
+        static IPfVModel m_model;
 
-        public Result ProcessPfVs(
-                    ExternalCommandData commandData,
-          ref string message,
+        public PfVModelData GetCurrentData
+        {
+            get
+            {
+                return m_model.ActualModel;
+            }
+        }
+
+        public void PfVZoomToCurrent()
+        {
+            PfVElementData pfvData = CurrentPfVGet();
+            if (pfvData != null)
+            {
+                Transaction t = new Transaction(m_hostDoc);
+                t.Start("Change to 3D view");
+                try
+                {
+                    if (GetUIDocumentFromRevit().ActiveView.ViewType == ViewType.ThreeD)
+                    {
+                        PfVPlaceDummy(pfvData);
+                    }
+
+                    t.Commit();
+                }
+                catch (System.Exception ex)
+                { t.RollBack(); }
+            }
+        }
+
+        public void PfVPlaceCurrent()
+        {
+            PfVElementData pfvData = CurrentPfVGet();
+            if (pfvData != null)
+            {
+                Transaction t = new Transaction(m_hostDoc);
+                t.Start("Change to 3D view");
+                try
+                {
+                    if (GetUIDocumentFromRevit().ActiveView.ViewType == ViewType.ThreeD)
+                    {
+                        if(pfvData.IsWallPfV())
+                        {                            
+                            PfVPlaceOnWall(pfvData);
+                        }
+                    }
+
+                    t.Commit();
+                }
+                catch (System.Exception ex)
+                { t.RollBack(); }
+            }
+        }
+
+        public void ConnectView(IPfVView view)
+        {
+            m_view = view;
+            m_view.SetPresenter(this);
+        }
+
+        PfVElementData m_actualPfV = null;
+
+        public void CurrentPfVSet(string linkedFile, int idLinked)
+        {
+            m_actualPfV = m_model.ActualModel[linkedFile].First(pfvdata => pfvdata.IdLinked == idLinked);
+        }
+
+        public PfVElementData CurrentPfVGet()
+        {
+            return m_actualPfV;
+        }
+
+        public Result ProcessPfVs(ExternalCommandData commandData,
+                  ref string message,
           ElementSet highlightElements)
         {
             m_cmdData = commandData;
@@ -47,41 +117,20 @@ namespace BUYLRevit.CutOut.PfV
             m_hostDoc = m_cmdData.Application.ActiveUIDocument.Document;
 
             m_model = new PfVModel();
-            m_data = m_model.Model(m_hostDoc.PathName);
+            m_model.ModelLoad(m_hostDoc.PathName);
 
-            m_data = CollectPfVs();
+            m_model.UpdateModel(CollectPfVs(), m_hostDoc.PathName);
 
-            if (m_data != null)
+            if (m_model.ActualModel != null)
             {
-                //TaskDialog.Show("PfV Manager", String.Format("{0} elements found in links", lst.Count));
-                m_view.SetData(m_data);
-                //dlg.SetCommandData(commandData);
                 if(m_view.ShowPfvDlg() == DialogResult.OK)
-                    m_model.ModelSave();
+                    m_model.ModelSave(m_hostDoc.PathName);
 
                 return Result.Succeeded;
             }
             else
                 return Result.Failed;
-
         }
-
-        //                                        GetUIDocumentFromRevit().Application.ActiveUIDocument.Document.Regenerate();
-        //                                        //GetUIDocumentFromRevit().ActiveViewShowElements(new ElementId(pfvData.IdLinked)); //GetDocumentFromRevit(dtView.Parent.Tag.ToString());
-        //                                    }
-        //                                }
-        //                                catch (Exception ex)
-        //                                {
-        //                                    t.RollBack();
-        //                                }
-        //                            }
-        //                        }
-        //                    }
-        //                }
-        //            }
-        //        }
-        //    }
-        //}
 
         private PfVModelData CollectPfVs()
         {
@@ -324,12 +373,13 @@ namespace BUYLRevit.CutOut.PfV
             //    pfv.Pos = new Position(p.X, p.Y, p.Z);
             //}
         }
+
         private void GetPfVDataFromDirectShape(Dictionary<string, List<PfVElementData>> data, Document docLink, ICollection<ElementId> ids, FilteredElementCollector a, ICollection<ElementId> idsLinkedPfV)
         {
             foreach (DirectShape dShape in a)
             {
                 string name = dShape.Name;
-                if (IsProvisionForVoid(dShape))
+                if (IsPfV(dShape))
                 {
                     idsLinkedPfV.Add(dShape.Id);
 
@@ -368,7 +418,7 @@ namespace BUYLRevit.CutOut.PfV
             foreach (Instance inst in coll)
             {
                 string name = inst.Name;
-                if (IsProvisionForVoid(inst))
+                if (IsPfV(inst))
                 {
                     idsLinkedPfV.Add(inst.Id);
 
@@ -401,7 +451,7 @@ namespace BUYLRevit.CutOut.PfV
             }
         }
 
-        private bool IsProvisionForVoid(Element e)
+        private bool IsPfV(Element e)
         {
             bool result = false;
 
@@ -446,44 +496,6 @@ namespace BUYLRevit.CutOut.PfV
 
             return res;
         }
-
-        IPfVView m_view = null;
-        public void ConnectView(IPfVView view)
-        {
-            m_view = view;
-            m_view.SetPresenter(this);
-        }
-
-        void IPresenter.ZoomToPfV(PfVElementData pfvData)
-        {
-            if (pfvData != null)
-            {
-                Transaction t = new Transaction(m_hostDoc);
-                t.Start("Change to 3D view");
-                try
-                {
-                    if (GetUIDocumentFromRevit().ActiveView.ViewType == ViewType.ThreeD)
-                    {
-                        PlacePfVDummy(pfvData);
-                        //View3D view = (View3D)GetUIDocumentFromRevit().ActiveView;
-
-                        //XYZ up = null;
-                        //XYZ target = new XYZ(pfvData.Location.X, pfvData.Location.Y, pfvData.Location.Z);
-                        //Transform tr = Transform.CreateRotation(new XYZ(0, 0, 1), Utils.MathUtils.DegreeToRad(90));
-                        //XYZ targetN = tr.OfVector(target);
-
-                        //up = target.CrossProduct(targetN); // new XYZ(0, 0, pfvData.Pos.Z)
-                        //XYZ targetM = target.Multiply(Utils.MathUtils.MMToFeet(3000) * -1);
-                        //view.SetOrientation(new ViewOrientation3D(targetM, up, target));
-                    }
-
-                    t.Commit();
-                }
-                catch (System.Exception ex)
-                { t.RollBack(); }
-            }
-        }
-
         private static Element FindElementByName(Type targetType, string targetName)
         {
             return new FilteredElementCollector(m_hostDoc)
@@ -491,8 +503,65 @@ namespace BUYLRevit.CutOut.PfV
               .FirstOrDefault<Element>( e => e.Name.Equals(targetName));
         }
 
+        FamilySymbol GetFirstSymbolFromFamily(string familyName)
+        {
+            FamilySymbol sym = null;
+            if (String.IsNullOrEmpty(familyName))
+                return null;
 
-        private void PlacePfVDummy(PfVElementData pfvData)
+            Family family = FindElementByName(typeof(Family), familyName) as Family;
+
+            if (family == null)
+            {
+                System.Windows.Forms.MessageBox.Show(String.Format("Family {0} couldn't be found in current document", familyName));
+                return null;
+            }
+
+            // Determine the family symbol
+            foreach (ElementId id in family.GetFamilySymbolIds())
+            {
+                sym = m_hostDoc.GetElement(id) as FamilySymbol;
+
+                // Our family only contains one
+                // symbol, so pick it and leave
+
+                break;
+            }
+
+            return sym;
+        }
+
+        private void PfVPlaceOnWall(PfVElementData pfvData)
+        {
+            if (pfvData == null)
+                return;
+
+            FamilyInstance inst = null;
+            if (pfvData.IdLocal == 0)
+            {
+                // Retrieve the family if it is already present:
+                string familyName = "ALG_CutOut_re_Void";
+                FamilySymbol symbol = GetFirstSymbolFromFamily(familyName);
+
+                // Place the family symbol
+                if (symbol != null)
+                {
+                    XYZ insertion = new XYZ(pfvData.Location.X, pfvData.Location.Y, pfvData.Location.Z);
+                    ElementPlacement.AddFaceBasedFamilyToWall(m_hostDoc, new ElementId(pfvData.IdHost), symbol.Id, insertion);
+                }
+            }
+            else
+                inst = m_hostDoc.GetElement(new ElementId(pfvData.IdLocal)) as FamilyInstance;
+
+            if (inst != null)
+            {
+                pfvData.PfVStatus = Status.Dummy;
+                m_cmdData.Application.ActiveUIDocument.ShowElements(inst.Id);
+                //m_view.HideDlg();
+            }
+        }
+
+        private void PfVPlaceDummy(PfVElementData pfvData)
         {
             if (pfvData == null)
                 return;
@@ -502,29 +571,7 @@ namespace BUYLRevit.CutOut.PfV
             {
                 // Retrieve the family if it is already present:
                 string familyName = "ALG_Marker_PfV";
-                if (String.IsNullOrEmpty(familyName))
-                    return;
-
-                Family family = FindElementByName(typeof(Family), familyName) as Family;
-
-                if (family == null)
-                {
-                    System.Windows.Forms.MessageBox.Show(String.Format("Family {0} couldn't be found in current document", familyName));
-                    return;
-                }
-                // Determine the family symbol
-
-                FamilySymbol symbol = null;
-
-                foreach (ElementId id in family.GetFamilySymbolIds())
-                {
-                    symbol = m_hostDoc.GetElement(id) as FamilySymbol;
-
-                    // Our family only contains one
-                    // symbol, so pick it and leave
-
-                    break;
-                }
+                FamilySymbol symbol = GetFirstSymbolFromFamily(familyName);
 
                 // Place the family symbol:
 

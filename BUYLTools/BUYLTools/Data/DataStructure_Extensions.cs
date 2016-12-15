@@ -85,14 +85,9 @@ namespace BUYLTools.Data
                 {
                     string id = GetArticleNumberFromFilename(path);
 
-                    foreach (familiesFamilylistFamily itemFamily in this.familylist)
-                    {
-                        if (id == itemFamily.id)
-                        {
-                            fixt = itemFamily;
-                            break;
-                        }
-                    }
+                    familiesFamilylistFamily itemFamily = this.familylist.FirstOrDefault(x => x.id == id);
+                    if (itemFamily != null)
+                        fixt = itemFamily;
                 }
             }
             catch (Exception ex)
