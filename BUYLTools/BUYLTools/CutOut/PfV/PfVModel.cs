@@ -20,7 +20,7 @@ namespace BUYLTools.CutOut.PfV
             m_models = new Dictionary<string, PfVModelData>();
         }
 
-        PfVModelData IPfVModel.ActualModel
+        public PfVModelData ActualModel
         {
             get
             {
@@ -35,14 +35,37 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        void IPfVModel.UpdateModel(PfVModelData data, string hostmodell)
+        public void UpdateModel(PfVModelData data, string hostmodell)
         {
             SetCurrentModel(hostmodell);
+            ModelLoad(hostmodell); // Load Modell from disk
+            
+            if(!m_models.ContainsKey(m_currentmodel))
+            {
+                m_models.Add(m_currentmodel, data);
+            }
+            else
+            {
+                //TBD: implement merging of existing models
 
-            m_models[m_currentmodel] = data;
+                foreach (string item in data.Keys)
+                {
+                    foreach(PfVElementData elem in data[item])
+                    {
+
+                    }
+                }
+            }
+
+            ModelSave(hostmodell);
         }
 
-        void IPfVModel.ModelLoad(string hostmodel)
+        private void SetCurrentModel(string hostmodel)
+        {
+            m_currentmodel = hostmodel;
+        }
+
+        public void ModelLoad(string hostmodel)
         {
             SetCurrentModel(hostmodel);
 
@@ -72,12 +95,7 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        private void SetCurrentModel(string hostmodel)
-        {
-            m_currentmodel = hostmodel;
-        }
-
-        void IPfVModel.ModelSave(string hostmodel)
+        public void ModelSave(string hostmodel)
         {
             SetCurrentModel(hostmodel);
 

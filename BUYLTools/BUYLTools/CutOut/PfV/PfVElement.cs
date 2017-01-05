@@ -36,7 +36,6 @@ namespace BUYLTools.CutOut.PfV
         private int _idLinked;
         private int _idHost;
         private int _idLocal;
-        private int _idDummy;
         private string _ifcDescription;
         private string _ifcGuid;
         private string _ifcName;
@@ -64,7 +63,7 @@ namespace BUYLTools.CutOut.PfV
             Location = new Position(0, 0, 0);
         }
 
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public Status PfVStatus
         {
             get
@@ -78,14 +77,14 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public string ElementName
         {
             get { return _elementName; }
             set { _elementName = value; }
         }
 
-        [Category("Dimensions"), DataMember()]
+        [ReadOnly(true), Category("Dimensions"), DataMember()]
         public double Width
         {
             get
@@ -99,7 +98,7 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        [Category("Dimensions"), DataMember()]
+        [ReadOnly(true), Category("Dimensions"), DataMember()]
         public double Height
         {
             get
@@ -113,7 +112,7 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        [Category("Dimensions"), DataMember()]
+        [ReadOnly(true), Category("Dimensions"), DataMember()]
         public double Diameter
         {
             get
@@ -127,7 +126,7 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        [Category("Dimensions"), DataMember()]
+        [ReadOnly(true), Category("Dimensions"), DataMember()]
         public double Depth
         {
             get
@@ -142,40 +141,33 @@ namespace BUYLTools.CutOut.PfV
         }
 
 
-        [Category("Document"), DataMember()]
+        [ReadOnly(true), Category("Document"), DataMember()]
         public string Document
         {
             get { return _document; }
             set { _document = value; }
         }
-        [Category("Document"), DataMember()]
+        [ReadOnly(true), Category("Document"), DataMember()]
         public string Folder
         {
             get { return _folder; }
             set { _folder = value; }
         }
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public int IdLinked
         {
             get { return _idLinked; }
             set { _idLinked = value; }
         }
 
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public int IdLocal
         {
             get { return _idLocal; }
             set { _idLocal = value; }
         }
 
-        [Category("Info"), DataMember()]
-        public int IdDummy
-        {
-            get { return _idDummy; }
-            set { _idDummy = value; }
-        }
-
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public string IfcDescription
         {
             get
@@ -189,7 +181,7 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public string IfcGuid
         {
             get
@@ -203,7 +195,7 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public string IfcName
         {
             get
@@ -217,7 +209,7 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public string IfcSpatialContainer
         {
             get
@@ -231,7 +223,7 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        [Category("Geometry"), DataMember()]
+        [ReadOnly(true), Category("Geometry"), DataMember()]
         public Position Location
         {
             get
@@ -245,7 +237,7 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        [Category("Geometry"), DataMember()]
+        [ReadOnly(true), Category("Geometry"), DataMember()]
         public string Shape
         {
             get
@@ -259,7 +251,7 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public string System
         {
             get
@@ -273,21 +265,21 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public string UniqueIdLinked
         {
             get { return _uniqueIdLinked; }
             set { _uniqueIdLinked = value; }
         }
 
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public string UniqueIdLocal
         {
             get { return _uniqueIdLocal; }
             set { _uniqueIdLocal = value; }
         }
 
-        [Category("Info"), DataMember()]
+        [ReadOnly(true), Category("Info"), DataMember()]
         public int IdHost
         {
             get

@@ -66,6 +66,10 @@ namespace BUYLTools.CutOut.PfV
                 dtView.RowHeaderMouseDoubleClick += _DtView_RowHeaderMouseDoubleClick;
                 dtView.SelectionChanged += _DtView_SelectionChanged;
                 dtView.DataSource = m_presenter.CurrentModel[key];
+                dtView.AllowUserToDeleteRows = false;
+                dtView.AllowUserToOrderColumns = false;
+                dtView.AllowUserToResizeColumns = true;
+                dtView.AllowUserToResizeRows = false;
                 dtView.Dock = DockStyle.Fill;
 
                 tp.Controls.Add(dtView);

@@ -144,6 +144,9 @@ namespace BUYLRevitAddin
         {
             Result res = Result.Succeeded;
 
+            application.ViewActivated -= Application_ViewActivated;
+            application.ViewActivating -= Application_ViewActivating;
+
             return res;
         }
 
@@ -152,15 +155,63 @@ namespace BUYLRevitAddin
             AddRibbonButtonsAndTexts(application);
 
             application.ViewActivated += Application_ViewActivated;
+            application.ViewActivating += Application_ViewActivating;
+
+            application.ControlledApplication.DocumentOpened += ControlledApplication_DocumentOpened;
+            //application.ControlledApplication.DocumentChanged += ControlledApplication_DocumentChanged;
+            application.ControlledApplication.DocumentClosing += ControlledApplication_DocumentClosing;
+            application.ControlledApplication.DocumentSaved += ControlledApplication_DocumentSaved;
+            application.ControlledApplication.DocumentSavedAs += ControlledApplication_DocumentSavedAs;
+
             return Result.Succeeded;
+        }
+
+        private void ControlledApplication_DocumentSavedAs(object sender, Autodesk.Revit.DB.Events.DocumentSavedAsEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void ControlledApplication_DocumentSaved(object sender, Autodesk.Revit.DB.Events.DocumentSavedEventArgs e)
+        {
+            SaveCurrentModel(e.Document.PathName);
+        }
+
+        private void ControlledApplication_DocumentClosing(object sender, Autodesk.Revit.DB.Events.DocumentClosingEventArgs e)
+        {
+            //SaveCurrentModel(e.Document.PathName);
+        }
+
+        private void ControlledApplication_DocumentOpened(object sender, Autodesk.Revit.DB.Events.DocumentOpenedEventArgs e)
+        {
+            CheckCurrentPfVModel(e.Document.PathName);
+        }
+
+        private void ControlledApplication_DocumentChanged(object sender, Autodesk.Revit.DB.Events.DocumentChangedEventArgs e)
+        {
+            //CheckCurrentPfVModel(e.GetDocument().PathName);
+        }
+
+        private void Application_ViewActivating(object sender, Autodesk.Revit.UI.Events.ViewActivatingEventArgs e)
+        {
+            //CheckCurrentPfVModel(e.Document.PathName);
         }
 
         private void Application_ViewActivated(object sender, Autodesk.Revit.UI.Events.ViewActivatedEventArgs e)
         {
-            if (e.Document.PathName != BUYLRevitAddinGlobalPfV.Presenter.CurrentHostDocument)
-                BUYLRevitAddinGlobalPfV.Presenter.CurrentHostDocument = e.Document.PathName;
+            //CheckCurrentPfVModel(e.Document.PathName);
         }
 
+        void CheckCurrentPfVModel(string pathname)
+        {
+            if (pathname != BUYLRevitAddinGlobalPfV.Presenter.CurrentHostDocument)
+                BUYLRevitAddinGlobalPfV.Presenter.CurrentHostDocument = pathname;
+        }
+
+        void SaveCurrentModel(string pathname)
+        {
+            if (pathname == BUYLRevitAddinGlobalPfV.Presenter.CurrentHostDocument)
+                BUYLRevitAddinGlobalPfV.Presenter.SaveCurrentModel();
+        }
         #endregion
 
         private void AddRibbonButtonsAndTexts(UIControlledApplication application)
@@ -189,6 +240,13 @@ namespace BUYLRevitAddin
                 itemNext.ToolTip = "Next pfv";
                 itemNext.Image = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVNext.bmp"), UriKind.Absolute));
                 itemNext.LargeImage = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVNext.bmp"), UriKind.Absolute));
+
+                PushButtonData itemDataPlace = new PushButtonData("Place", "Place", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinPlacePfV");
+                //itemData1.Text = ;
+                PushButton itemPlace = panel.AddItem(itemDataPlace) as PushButton;
+                itemPlace.ToolTip = "Place pfv";
+                itemPlace.Image = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVPlace.bmp"), UriKind.Absolute));
+                itemPlace.LargeImage = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVPlace.bmp"), UriKind.Absolute));
 
                 PushButtonData itemDataDlg = new PushButtonData("Manager", "Manager", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinManagePfV");
                 //itemData1.Text = ;
@@ -231,6 +289,16 @@ namespace BUYLRevitAddin
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             return BUYLRevitAddinGlobalPfV.Presenter.PfVNext(commandData, ref message, elements);
+        }
+    }
+
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class BUYLRevitAddinPlacePfV : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            return BUYLRevitAddinGlobalPfV.Presenter.PfVPlaceCurrent(commandData, ref message, elements);
         }
     }
 

@@ -27,5 +27,7 @@ namespace BUYLTools.CutOut.PfV
         PfVElementData CurrentPfVGet();
 
         void CurrentLinkSet(string linkedFile);
+
+        void SaveCurrentModel();
     }
 }

@@ -59,41 +59,75 @@ namespace BUYLRevit.Utils
             if (fs == null)
                 return null;
 
-            // Aligned
-
             Element el = doc.GetElement(wallId);
 
             Wall targetWall = null;
-            if(el is Wall)
-               targetWall  = el as Wall;
+            WallFoundation targetfoundation = null;
 
-            if (targetWall != null)
+            if (el is HostObject)
             {
-                Reference exteriorFaceRef = HostObjectUtils.GetSideFaces(targetWall, ShellLayerType.Exterior).First<Reference>();
+                Reference exteriorFaceRef = null;
+                XYZ wallVector = null;
 
-                Line wallLine = (targetWall.Location as LocationCurve).Curve as Line;
-
-                XYZ wallVector = (wallLine.GetEndPoint(1) - wallLine.GetEndPoint(0)).Normalize();
-
-                using (SubTransaction t = new SubTransaction(doc))
+                if (el is Wall)
                 {
-                    t.Start();
+                    targetWall = el as Wall;
 
-                    inst = doc.Create.NewFamilyInstance(exteriorFaceRef, location, wallVector, fs);
-
-                    try
+                    if (targetWall != null)
                     {
-                        SolidSolidCutUtils.AddCutBetweenSolids(doc, targetWall, inst);
+                        exteriorFaceRef = HostObjectUtils.GetSideFaces(targetWall, ShellLayerType.Exterior).First<Reference>();
+                        wallVector = GetWallVector(targetWall);
                     }
-                    catch (Exception ex)
+                }
+                else if (el is WallFoundation)
+                {
+                    targetfoundation = el as WallFoundation;
+                    if (targetfoundation != null)
                     {
+                        exteriorFaceRef = HostObjectUtils.GetSideFaces(targetWall, ShellLayerType.Interior).First<Reference>();
+                        wallVector = GetWallFoundationVector(targetfoundation);
                     }
+                }
 
-                    t.Commit();
+                if (exteriorFaceRef != null && wallVector != null)
+                {
+                    using (SubTransaction t = new SubTransaction(doc))
+                    {
+                        t.Start();
+
+                        inst = doc.Create.NewFamilyInstance(exteriorFaceRef, location, wallVector, fs);
+
+                        try
+                        {
+                            //SolidSolidCutUtils.AddCutBetweenSolids(doc, el, inst);
+                        }
+                        catch (Exception ex)
+                        {
+                        }
+
+                        t.Commit();
+                    }
                 }
             }
 
             return inst;
         }
+
+        private static XYZ GetWallVector(Wall targetWall)
+        {
+            Line wallLine = (targetWall.Location as LocationCurve).Curve as Line;
+
+            XYZ wallVector = (wallLine.GetEndPoint(1) - wallLine.GetEndPoint(0)).Normalize();
+            return wallVector;
+        }
+
+        private static XYZ GetWallFoundationVector(WallFoundation targetWall)
+        {
+            Line wallLine = (targetWall.Location as LocationCurve).Curve as Line;
+
+            XYZ wallVector = (wallLine.GetEndPoint(1) - wallLine.GetEndPoint(0)).Normalize();
+            return wallVector;
+        }
+
     }
 }
