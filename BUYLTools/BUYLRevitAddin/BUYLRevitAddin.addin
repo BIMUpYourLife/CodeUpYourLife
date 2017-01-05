@@ -27,7 +27,18 @@
 		<VendorId>CADEV</VendorId>
 		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
 	</AddIn>
-	<AddIn Type="Command">
+	
+	<AddIn Type="Application">
+		<Name>BUYLRevitAddinPfVApp</Name>
+		<Assembly>.\BUYLRevitAddin.dll</Assembly>
+		<AddInId>D9306CA6-B737-454B-B7AE-94C3D06AA273</AddInId>
+		<FullClassName>BUYLRevitAddin.BUYLRevitAddinPfVApp</FullClassName>
+		<VendorId>CADDev</VendorId>
+		<VendorDescription>CAD-Development, www.cad-development.de</VendorDescription>
+		<VisibilityMode>NotVisibleInFamily</VisibilityMode>
+		<VisibilityMode>NotVisibleWhenNoActiveDocument</VisibilityMode>
+	</AddIn>
+	<!--<AddIn Type="Command">
 		<Name>BUYL - Manage PfV</Name>
 		<Assembly>.\BUYLRevitAddin.dll</Assembly>
 		<ClientId>0E385E31-587E-423D-9990-157354D09B55</ClientId>
@@ -35,7 +46,8 @@
 		<Text>BUYL - Manage PfV</Text>
 		<VendorId>CADEV</VendorId>
 		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
-	</AddIn>
+	</AddIn>-->
+	
 	<AddIn Type="Command">
 		<Name>BUYL - Apply manufacturer</Name>
 		<Assembly>.\BUYLRevitAddin.dll</Assembly>

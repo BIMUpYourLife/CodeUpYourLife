@@ -49,13 +49,15 @@ namespace BUYLRevit.Utils
         }
         #endregion // AddFaceBasedFamilyToLinks
 
-        public static void AddFaceBasedFamilyToWall(Document doc, ElementId wallId, ElementId symbolId, XYZ location)
+        public static FamilyInstance AddFaceBasedFamilyToWall(Document doc, ElementId wallId, ElementId symbolId, XYZ location)
         {
             // Get symbol
             FamilySymbol fs = doc.GetElement(symbolId) as FamilySymbol;
 
+            FamilyInstance inst = null;
+
             if (fs == null)
-                return;
+                return null;
 
             // Aligned
 
@@ -77,11 +79,21 @@ namespace BUYLRevit.Utils
                 {
                     t.Start();
 
-                    doc.Create.NewFamilyInstance(exteriorFaceRef, location, wallVector, fs);
+                    inst = doc.Create.NewFamilyInstance(exteriorFaceRef, location, wallVector, fs);
+
+                    try
+                    {
+                        SolidSolidCutUtils.AddCutBetweenSolids(doc, targetWall, inst);
+                    }
+                    catch (Exception ex)
+                    {
+                    }
 
                     t.Commit();
                 }
             }
+
+            return inst;
         }
     }
 }

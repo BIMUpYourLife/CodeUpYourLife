@@ -64,7 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CcTools\CcTools.cs" />
-    <Compile Include="CutOut\PfV\PfVTools.cs" />
+    <Compile Include="CutOut\PfV\PfVPresenter.cs" />
     <Compile Include="Loader\ContentLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\ElementPlacement.cs" />

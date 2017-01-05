@@ -8,16 +8,24 @@ namespace BUYLTools.CutOut.PfV
 {
     public interface IPresenter
     {
-        PfVModelData GetCurrentData { get; }
+        PfVModelData CurrentModel { get; }
+
+        string CurrentHostDocument { get; set; }
 
         void ConnectView(IPfVView view);
 
-        void PfVZoomToCurrent();
+        void PfVPrevious();
+
+        void PfVNext();
+
+        void PfVZoomToDummy();
 
         void PfVPlaceCurrent();
 
         void CurrentPfVSet(string linkedFile, int idLinked);
 
         PfVElementData CurrentPfVGet();
+
+        void CurrentLinkSet(string linkedFile);
     }
 }

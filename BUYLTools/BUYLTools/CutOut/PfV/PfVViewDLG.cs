@@ -47,10 +47,15 @@ namespace BUYLTools.CutOut.PfV
         {
             _tabControl.TabPages.Clear();
 
-            foreach (string key in m_presenter.GetCurrentData.Keys)
+            int irun = 0;
+            foreach (string key in m_presenter.CurrentModel.Keys)
             {
-                if (m_presenter.GetCurrentData[key] == null)
+                if (m_presenter.CurrentModel[key] == null)
                     continue;
+
+                if (irun == 0)
+
+                    m_presenter.CurrentLinkSet(key);
 
                 TabPage tp = new TabPage(Path.GetFileName(key));
                 tp.Text = Path.GetFileName(key);
@@ -60,39 +65,45 @@ namespace BUYLTools.CutOut.PfV
                 DataGridView dtView = new DataGridView();
                 dtView.RowHeaderMouseDoubleClick += _DtView_RowHeaderMouseDoubleClick;
                 dtView.SelectionChanged += _DtView_SelectionChanged;
-                dtView.DataSource = m_presenter.GetCurrentData[key];
+                dtView.DataSource = m_presenter.CurrentModel[key];
                 dtView.Dock = DockStyle.Fill;
 
                 tp.Controls.Add(dtView);
                 _tabControl.SelectedIndexChanged += _tabControl_SelectedIndexChanged;
+                _tabControl.Selected += _tabControl_Selected;
+                irun++;
             }
         }
 
         private void SetCurrentSelectionInPresenter(object sender)
         {
-            if (m_presenter.GetCurrentData != null)
+            if (m_presenter.CurrentModel != null)
             {
                 if (sender is DataGridView)
                 {
                     DataGridView dtView = sender as DataGridView;
                     if (dtView != null)
                     {
+                        m_currentView = dtView;
+
                         if (dtView.Parent is TabPage)
                         {
                             string tabname = dtView.Parent.Tag.ToString();
-                            if (m_presenter.GetCurrentData.ContainsKey(tabname))
+                            m_presenter.CurrentLinkSet(tabname);
+
+                            if (m_presenter.CurrentModel.ContainsKey(tabname))
                             {
                                 DataGridViewRow row = null;
                                 if (dtView.SelectedRows != null && dtView.SelectedRows.Count > 0)
                                 {
                                     row = dtView.SelectedRows[0];//.Rows[e.RowIndex];
                                 }
-                                else if(dtView.SelectedCells != null && dtView.SelectedCells.Count > 0)
+                                else if (dtView.SelectedCells != null && dtView.SelectedCells.Count > 0)
                                 {
                                     row = dtView.Rows[dtView.SelectedCells[0].RowIndex];
                                 }
 
-                                if(row != null)
+                                if (row != null)
                                 {
                                     int id = 0;
 
@@ -107,6 +118,17 @@ namespace BUYLTools.CutOut.PfV
                 }
             }
         }
+
+        private void _tabControl_Selected(object sender, TabControlEventArgs e)
+        {
+            if(sender is TabPage)
+            {
+                TabPage tp = sender as TabPage;
+                m_presenter.CurrentLinkSet(tp.Tag.ToString());
+            }
+        }
+
+        DataGridView m_currentView = null;
 
         private void _DtView_SelectionChanged(object sender, EventArgs e)
         {
@@ -138,7 +160,7 @@ namespace BUYLTools.CutOut.PfV
                     pfvData = m_presenter.CurrentPfVGet();
                     if (pfvData != null)
                     {
-                        m_presenter.PfVZoomToCurrent();
+                        m_presenter.PfVZoomToDummy();
                         dtView.Refresh();
                     }
                 }
@@ -154,6 +176,9 @@ namespace BUYLTools.CutOut.PfV
         {
             //SetCurrentSelectionInPresenter(sender);
             m_presenter.PfVPlaceCurrent();
+
+            if(m_currentView != null)
+                m_currentView.Refresh();
         }
     }
 }

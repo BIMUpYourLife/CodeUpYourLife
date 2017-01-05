@@ -13,9 +13,14 @@ using System.Diagnostics;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using BUYLTools.CutOut.PfV;
+using System.IO;
+using System.Windows.Media.Imaging;
+using System.Drawing;
+using System.Windows.Media;
 
 namespace BUYLRevitAddin
 {
+    #region Content and templates
     [TransactionAttribute(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]
     public class BUYLRevitAddinContentRepLoader : IExternalCommand
@@ -128,20 +133,147 @@ namespace BUYLRevitAddin
         }
     }
 
+    #endregion
+
+    #region pfv
+    [Autodesk.Revit.Attributes.Regeneration(Autodesk.Revit.Attributes.RegenerationOption.Manual)]
+    public class BUYLRevitAddinPfVApp : BaseCommand, IExternalApplication
+    {
+        #region IExternalApplication Member
+        public Result OnShutdown(UIControlledApplication application)
+        {
+            Result res = Result.Succeeded;
+
+            return res;
+        }
+
+        public Result OnStartup(UIControlledApplication application)
+        {
+            AddRibbonButtonsAndTexts(application);
+
+            application.ViewActivated += Application_ViewActivated;
+            return Result.Succeeded;
+        }
+
+        private void Application_ViewActivated(object sender, Autodesk.Revit.UI.Events.ViewActivatedEventArgs e)
+        {
+            if (e.Document.PathName != BUYLRevitAddinGlobalPfV.Presenter.CurrentHostDocument)
+                BUYLRevitAddinGlobalPfV.Presenter.CurrentHostDocument = e.Document.PathName;
+        }
+
+        #endregion
+
+        private void AddRibbonButtonsAndTexts(UIControlledApplication application)
+        {
+            try
+            {
+                RibbonPanel panel = application.CreateRibbonPanel("PfV Manager");
+
+                PushButtonData itemDataProcess = new PushButtonData("Process", "Update", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinProcessPfV");
+                //itemData1.Text = ;
+                PushButton itemProcess = panel.AddItem(itemDataProcess) as PushButton;
+                itemProcess.ToolTip = "Processes the PfV elements";
+                itemProcess.Image = new BitmapImage(new Uri(Path.Combine( AssemblyPath, "Resources\\PfVProcess.bmp"), UriKind.Absolute));
+                itemProcess.LargeImage = new BitmapImage(new Uri(Path.Combine( AssemblyPath, "Resources\\PfVProcess.bmp"), UriKind.Absolute));
+
+                PushButtonData itemDataPrev = new PushButtonData("Previous", "Previous", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinPreviousPfV");
+                //itemData1.Text = ;
+                PushButton itemPrev = panel.AddItem(itemDataPrev) as PushButton;
+                itemPrev.ToolTip = "Previous pfv";
+                itemPrev.Image = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVPrevious.bmp"), UriKind.Absolute));
+                itemPrev.LargeImage = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVPrevious.bmp"), UriKind.Absolute));
+
+                PushButtonData itemDataNext = new PushButtonData("Next", "Next", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinNextPfV");
+                //itemData1.Text = ;
+                PushButton itemNext = panel.AddItem(itemDataNext) as PushButton;
+                itemNext.ToolTip = "Next pfv";
+                itemNext.Image = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVNext.bmp"), UriKind.Absolute));
+                itemNext.LargeImage = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVNext.bmp"), UriKind.Absolute));
+
+                PushButtonData itemDataDlg = new PushButtonData("Manager", "Manager", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinManagePfV");
+                //itemData1.Text = ;
+                PushButton itemDlg = panel.AddItem(itemDataDlg) as PushButton;
+                itemDlg.ToolTip = "Shows the manager for pfv elements";
+                itemDlg.Image = new BitmapImage(new Uri(Path.Combine( AssemblyPath, "Resources\\PfVManager.bmp"), UriKind.Absolute));
+                itemDlg.LargeImage = new BitmapImage(new Uri(Path.Combine( AssemblyPath, "Resources\\PfVManager.bmp"), UriKind.Absolute));
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show(ex.Message);
+            }
+        }
+    }
+
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class BUYLRevitAddinProcessPfV : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            return BUYLRevitAddinGlobalPfV.Presenter.ProcessPfVs(commandData, ref message, elements);
+        }
+    }
+
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class BUYLRevitAddinPreviousPfV : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            return BUYLRevitAddinGlobalPfV.Presenter.PfVPrevious(commandData, ref message, elements);
+        }
+    }
+
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class BUYLRevitAddinNextPfV : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            return BUYLRevitAddinGlobalPfV.Presenter.PfVNext(commandData, ref message, elements);
+        }
+    }
+
     [TransactionAttribute(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]
     public class BUYLRevitAddinManagePfV : IExternalCommand
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            BUYLRevit.CutOut.PfV.PfVTools pfvtools = new BUYLRevit.CutOut.PfV.PfVTools();
-            IPfVView dlg = new PfVViewDLG();
-            pfvtools.ConnectView(dlg);
-
-            return pfvtools.ProcessPfVs(commandData, ref message, elements);             
+            return BUYLRevitAddinGlobalPfV.Presenter.ShowManager(commandData, ref message, elements);
         }
     }
 
+    internal static class BUYLRevitAddinGlobalPfV
+    {
+        private static string m_currentDocPath;
+        private static BUYLRevit.CutOut.PfV.PfVPresenter m_pfvpresenter = null;
+        private static IPfVView m_dlg = null;
+
+        internal static BUYLRevit.CutOut.PfV.PfVPresenter Presenter
+        {
+            get
+            {
+                if (m_pfvpresenter == null)
+                {
+                    m_pfvpresenter = new BUYLRevit.CutOut.PfV.PfVPresenter();
+                    SetupView();
+                }
+                return m_pfvpresenter;
+            }
+        }
+
+        private static void SetupView()
+        {
+            if(m_dlg == null)
+                m_dlg = new PfVViewDLG();
+
+            Presenter.ConnectView(m_dlg);
+        }
+    }
+    #endregion
+
+    #region manufacturer
     [TransactionAttribute(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]
     public class BUYLRevitAddinApplyManufacturer : IExternalCommand
@@ -149,6 +281,39 @@ namespace BUYLRevitAddin
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             return BUYLRevit.CcTools.CcTools.StartApplyManufacturerProcess(commandData, ref message, elements);
+        }
+    }
+
+    #endregion
+    public class BaseCommand
+    {
+        public string GetRootPackagePath(string assemblyPath)
+        {
+            return new DirectoryInfo(assemblyPath).Parent.FullName;
+        }
+
+        public string AssemblyPath
+        {
+            get
+            {
+                return Path.GetDirectoryName(AssemblyFullName);
+            }
+        }
+
+        public string AssemblyFullName
+        {
+            get
+            {
+                return this.GetType().Assembly.Location; //.FullName; //Assembly.GetExecutingAssembly().Location;
+            }
+        }
+
+        public System.Windows.Media.ImageSource BmpImageSource(string embeddedPath)
+        {
+            Stream stream = this.GetType().Assembly.GetManifestResourceStream(embeddedPath);
+            var decoder = new System.Windows.Media.Imaging.BmpBitmapDecoder(stream, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
+
+            return decoder.Frames[0];
         }
     }
 

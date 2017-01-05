@@ -36,6 +36,7 @@ namespace BUYLTools.CutOut.PfV
         private int _idLinked;
         private int _idHost;
         private int _idLocal;
+        private int _idDummy;
         private string _ifcDescription;
         private string _ifcGuid;
         private string _ifcName;
@@ -75,6 +76,13 @@ namespace BUYLTools.CutOut.PfV
             {
                 _status = value;
             }
+        }
+
+        [Category("Info"), DataMember()]
+        public string ElementName
+        {
+            get { return _elementName; }
+            set { _elementName = value; }
         }
 
         [Category("Dimensions"), DataMember()]
@@ -140,14 +148,6 @@ namespace BUYLTools.CutOut.PfV
             get { return _document; }
             set { _document = value; }
         }
-
-        [Category("Info"), DataMember()]
-        public string ElementName
-        {
-            get { return _elementName; }
-            set { _elementName = value; }
-        }
-
         [Category("Document"), DataMember()]
         public string Folder
         {
@@ -166,6 +166,13 @@ namespace BUYLTools.CutOut.PfV
         {
             get { return _idLocal; }
             set { _idLocal = value; }
+        }
+
+        [Category("Info"), DataMember()]
+        public int IdDummy
+        {
+            get { return _idDummy; }
+            set { _idDummy = value; }
         }
 
         [Category("Info"), DataMember()]
@@ -335,10 +342,26 @@ namespace BUYLTools.CutOut.PfV
             if (!String.IsNullOrEmpty(sTypeName))
             {
                 List<string> items = sTypeName.Split(',').ToList();
-                if (items.Contains(this.IfcDescription))
+                if (StringContains(this.IfcDescription, items))
                     result = true;
-                else if (items.Contains(this.ElementName))
+                else if (StringContains(this.ElementName, items))
                     result = true;
+            }
+
+            return result;
+        }
+
+        bool StringContains(string source, List<string> items)
+        {
+            bool result = false;
+
+            foreach (string  it in items)
+            {
+                if(source.Contains(it))
+                {
+                    result = true;
+                    break;
+                }
             }
 
             return result;
