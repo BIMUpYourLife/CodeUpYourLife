@@ -35,25 +35,48 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        public void UpdateModel(PfVModelData data, string hostmodell)
+        public void UpdateModel(PfVModelData localdata, string hostmodell)
         {
             SetCurrentModel(hostmodell);
             ModelLoad(hostmodell); // Load Modell from disk
             
             if(!m_models.ContainsKey(m_currentmodel))
             {
-                m_models.Add(m_currentmodel, data);
+                // we have a new modell, nothing on disk stored before
+                m_models.Add(m_currentmodel, localdata);
             }
             else
             {
                 //TBD: implement merging of existing models
-
-                foreach (string item in data.Keys)
+                foreach (string key in localdata.Keys)
                 {
-                    foreach(PfVElementData elem in data[item])
+                    if (!m_models[m_currentmodel].ContainsKey(key))
                     {
-
+                        m_models[m_currentmodel].Add(key, localdata[key]);
                     }
+                    else
+                    {
+                        foreach (PfVElementData elem in localdata[key])
+                        {
+                            if (m_models[m_currentmodel].ContainsKey(key))
+                            {
+                                bool itemfound = false;
+                                PfVElementData obj = m_models[m_currentmodel][key].First(test => test.IfcGuid == elem.IfcGuid);
+                                if (obj != null)
+                                {
+                                    //we have the same item, check for update
+                                    obj = elem;
+                                }
+                                else
+                                {
+                                    m_models[m_currentmodel][key].Add(elem);
+                                }
+                            }
+
+                        }
+                    }
+
+                    m_models[m_currentmodel][key].Sort();
                 }
             }
 

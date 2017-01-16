@@ -65,6 +65,12 @@ namespace BUYLRevit.Utils
                         lst.AddRange(fam.GetOrderedParameters());
                 }
             }
+            else if(e is DirectShape)
+            {
+                DirectShape ds = e as DirectShape;
+                lst.AddRange(ds.GetOrderedParameters());
+                
+            }
 
             return lst;
         }

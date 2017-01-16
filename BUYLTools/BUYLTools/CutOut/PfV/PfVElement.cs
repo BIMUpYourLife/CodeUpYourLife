@@ -19,7 +19,7 @@ namespace BUYLTools.CutOut.PfV
     }
 
     [DataContract()]
-    public class PfVElementData
+    public class PfVElementData : IComparable<PfVElementData>
     {
         Status _status = Status.New;
         const string m_pfvRectangularKey = "pfvrectangular";
@@ -36,6 +36,7 @@ namespace BUYLTools.CutOut.PfV
         private int _idLinked;
         private int _idHost;
         private int _idLocal;
+        private int _idDummy;
         private string _ifcDescription;
         private string _ifcGuid;
         private string _ifcName;
@@ -94,8 +95,13 @@ namespace BUYLTools.CutOut.PfV
 
             set
             {
-                _width = value;
+                _width = RoundDoubleValue(value);
             }
+        }
+
+        private static double RoundDoubleValue(double value)
+        {
+            return Math.Round(value, 4);
         }
 
         [ReadOnly(true), Category("Dimensions"), DataMember()]
@@ -108,7 +114,7 @@ namespace BUYLTools.CutOut.PfV
 
             set
             {
-                _height = value;
+                _height = RoundDoubleValue(value);
             }
         }
 
@@ -122,7 +128,7 @@ namespace BUYLTools.CutOut.PfV
 
             set
             {
-                _diameter = value;
+                _diameter = RoundDoubleValue(value);
             }
         }
 
@@ -136,10 +142,9 @@ namespace BUYLTools.CutOut.PfV
 
             set
             {
-                _depth = value;
+                _depth = RoundDoubleValue(value);
             }
         }
-
 
         [ReadOnly(true), Category("Document"), DataMember()]
         public string Document
@@ -147,12 +152,14 @@ namespace BUYLTools.CutOut.PfV
             get { return _document; }
             set { _document = value; }
         }
+
         [ReadOnly(true), Category("Document"), DataMember()]
         public string Folder
         {
             get { return _folder; }
             set { _folder = value; }
         }
+
         [ReadOnly(true), Category("Info"), DataMember()]
         public int IdLinked
         {
@@ -293,6 +300,20 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
+        [ReadOnly(true), Category("Info"), DataMember()]
+        public int IdDummy
+        {
+            get
+            {
+                return _idDummy;
+            }
+
+            set
+            {
+                _idDummy = value;
+            }
+        }
+
         public bool IsRectangular()
         {
             bool result = false;
@@ -325,7 +346,7 @@ namespace BUYLTools.CutOut.PfV
             return result;
         }
 
-        public bool IsWallPfV()
+        public bool IsWallPfV(string typename)
         {
             bool result = false;
             BUYLTools.Configuration.Manager _confMan = new BUYLTools.Configuration.Manager(typeof(PfVElementData).Assembly, true);
@@ -338,6 +359,28 @@ namespace BUYLTools.CutOut.PfV
                     result = true;
                 else if (StringContains(this.ElementName, items))
                     result = true;
+                else if (!String.IsNullOrEmpty(typename) && StringContains(typename, items))
+                    result = true;
+            }
+
+            return result;
+        }
+
+        public bool IsFloorPfV(string typename)
+        {
+            bool result = false;
+            BUYLTools.Configuration.Manager _confMan = new BUYLTools.Configuration.Manager(typeof(PfVElementData).Assembly, true);
+            string sTypeName = _confMan.GetValueForAppsetting(m_pfvFloor);
+
+            if (!String.IsNullOrEmpty(sTypeName))
+            {
+                List<string> items = sTypeName.Split(',').ToList();
+                if (items.Contains(this.IfcDescription))
+                    result = true;
+                else if (StringContains(this.ElementName, items))
+                    result = true;
+                else if (!String.IsNullOrEmpty(typename) && StringContains(typename, items))
+                    result = true;
             }
 
             return result;
@@ -346,6 +389,9 @@ namespace BUYLTools.CutOut.PfV
         bool StringContains(string source, List<string> items)
         {
             bool result = false;
+
+            if (String.IsNullOrEmpty(source))
+                return result;
 
             foreach (string  it in items)
             {
@@ -359,22 +405,13 @@ namespace BUYLTools.CutOut.PfV
             return result;
         }
 
-        public bool IsFloorPfV()
+        public int CompareTo(PfVElementData other)
         {
-            bool result = false;
-            BUYLTools.Configuration.Manager _confMan = new BUYLTools.Configuration.Manager(typeof(PfVElementData).Assembly, true);
-            string sTypeName = _confMan.GetValueForAppsetting(m_pfvFloor);
+            if (other == null)
+                return 1;
 
-            if (!String.IsNullOrEmpty(sTypeName))
-            {
-                List<string> items = sTypeName.Split(',').ToList();
-                if (items.Contains(this.IfcDescription))
-                    result = true;
-                else if (items.Contains(this.ElementName))
-                    result = true;
-            }
-
-            return result;
+            else
+                return this.Location.Z.CompareTo(other.Location.Z);
         }
     }
 
@@ -402,9 +439,15 @@ namespace BUYLTools.CutOut.PfV
 
             set
             {
-                _x = value;
+                _x = RoundDoubleValue(value);
             }
         }
+
+        private static double RoundDoubleValue(double value)
+        {
+            return Math.Round(value, 4);
+        }
+
 
         [DataMember()]
         public double Y
@@ -416,7 +459,7 @@ namespace BUYLTools.CutOut.PfV
 
             set
             {
-                _y = value;
+                _y = RoundDoubleValue(value);
             }
         }
 
@@ -430,13 +473,13 @@ namespace BUYLTools.CutOut.PfV
 
             set
             {
-                _z = value;
+                _z = RoundDoubleValue(value);
             }
         }
 
         public override string ToString()
         {
-            return String.Format("x : {0}; y : {1}; z : {2}", X, Y, Z);
+            return String.Format("z : {0}; x : {1}; y : {2}", Z, X, Y);
         }
     }
 }

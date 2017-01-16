@@ -16,8 +16,8 @@
   SupportedLocales="Deu" 
   FriendlyVersion="1.0.0">
   <CompanyDetails 
-    Name="Autodesk" 
-    Phone=" " Url="http://www.autodesk.com" 
+    Name="CAD-Development Tim Hoffeller" 
+    Phone=" " Url="http://www.cad-development.de" 
     Email="support@cad-development.de" />
   
   <!--<RuntimeRequirements 
@@ -26,9 +26,9 @@
     SeriesMin="R2016" 
     SeriesMax="R2016" />-->
   
-  <Components Description="2015 parts addin">
+  <Components Description="2015 addin">
     <RuntimeRequirements
-      OS="Win32|Win64"
+      OS="Win64"
       Platform="Revit|Revit MEP|Revit Architecture|Revit Structure"
       SeriesMin="R2015"
       SeriesMax="R2015" />
@@ -39,9 +39,9 @@
       AppDescription="BUYL - Tools for Revit" />
   </Components>
 
-  <Components Description="2016 parts addin">
+  <Components Description="2016 addin">
     <RuntimeRequirements
-      OS="Win32|Win64"
+      OS="Win64"
       Platform="Revit|Revit MEP|Revit Architecture|Revit Structure"
       SeriesMin="R2016"
       SeriesMax="R2016" />
@@ -49,6 +49,19 @@
       AppName="CadDev.Cad.Rme.Tools"
       Version="1.1.0.0"
       ModuleName="./2016/BUYLRevitAddin.addin"
+      AppDescription="BUYL - Tools for Revit" />
+  </Components>
+
+  <Components Description="2017 addin">
+    <RuntimeRequirements
+      OS="Win64"
+      Platform="Revit|Revit MEP|Revit Architecture|Revit Structure"
+      SeriesMin="R2017"
+      SeriesMax="R2017.2" />
+    <ComponentEntry
+      AppName="CadDev.Cad.Rme.Tools"
+      Version="1.1.0.0"
+      ModuleName="./2017/BUYLRevitAddin.addin"
       AppDescription="BUYL - Tools for Revit" />
   </Components>
 </ApplicationPackage>

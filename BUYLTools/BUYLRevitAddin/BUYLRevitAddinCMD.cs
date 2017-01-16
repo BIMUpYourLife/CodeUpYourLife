@@ -220,13 +220,28 @@ namespace BUYLRevitAddin
             {
                 RibbonPanel panel = application.CreateRibbonPanel("PfV Manager");
 
+                // Process button
                 PushButtonData itemDataProcess = new PushButtonData("Process", "Update", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinProcessPfV");
-                //itemData1.Text = ;
                 PushButton itemProcess = panel.AddItem(itemDataProcess) as PushButton;
                 itemProcess.ToolTip = "Processes the PfV elements";
                 itemProcess.Image = new BitmapImage(new Uri(Path.Combine( AssemblyPath, "Resources\\PfVProcess.bmp"), UriKind.Absolute));
                 itemProcess.LargeImage = new BitmapImage(new Uri(Path.Combine( AssemblyPath, "Resources\\PfVProcess.bmp"), UriKind.Absolute));
 
+                // locate button
+                PushButtonData itemDataLocate = new PushButtonData("Locate", "Locate", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinLocatePfV");
+                PushButton itemLocate = panel.AddItem(itemDataLocate) as PushButton;
+                itemLocate.ToolTip = "Locate pfv";
+                itemLocate.Image = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVLocate.bmp"), UriKind.Absolute));
+                itemLocate.LargeImage = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVLocate.bmp"), UriKind.Absolute));
+
+                // connect button
+                PushButtonData itemDataConnect = new PushButtonData("Connect", "Connect", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinConnectPfV");
+                PushButton itemConnect = panel.AddItem(itemDataConnect) as PushButton;
+                itemConnect.ToolTip = "Connect pfv";
+                itemConnect.Image = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVConnect.bmp"), UriKind.Absolute));
+                itemConnect.LargeImage = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVConnect.bmp"), UriKind.Absolute));
+
+                // previous button
                 PushButtonData itemDataPrev = new PushButtonData("Previous", "Previous", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinPreviousPfV");
                 //itemData1.Text = ;
                 PushButton itemPrev = panel.AddItem(itemDataPrev) as PushButton;
@@ -234,6 +249,7 @@ namespace BUYLRevitAddin
                 itemPrev.Image = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVPrevious.bmp"), UriKind.Absolute));
                 itemPrev.LargeImage = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVPrevious.bmp"), UriKind.Absolute));
 
+                // next button
                 PushButtonData itemDataNext = new PushButtonData("Next", "Next", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinNextPfV");
                 //itemData1.Text = ;
                 PushButton itemNext = panel.AddItem(itemDataNext) as PushButton;
@@ -241,6 +257,7 @@ namespace BUYLRevitAddin
                 itemNext.Image = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVNext.bmp"), UriKind.Absolute));
                 itemNext.LargeImage = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVNext.bmp"), UriKind.Absolute));
 
+                // place button
                 PushButtonData itemDataPlace = new PushButtonData("Place", "Place", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinPlacePfV");
                 //itemData1.Text = ;
                 PushButton itemPlace = panel.AddItem(itemDataPlace) as PushButton;
@@ -248,6 +265,7 @@ namespace BUYLRevitAddin
                 itemPlace.Image = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVPlace.bmp"), UriKind.Absolute));
                 itemPlace.LargeImage = new BitmapImage(new Uri(Path.Combine(AssemblyPath, "Resources\\PfVPlace.bmp"), UriKind.Absolute));
 
+                // manager button
                 PushButtonData itemDataDlg = new PushButtonData("Manager", "Manager", AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinManagePfV");
                 //itemData1.Text = ;
                 PushButton itemDlg = panel.AddItem(itemDataDlg) as PushButton;
@@ -269,6 +287,26 @@ namespace BUYLRevitAddin
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             return BUYLRevitAddinGlobalPfV.Presenter.ProcessPfVs(commandData, ref message, elements);
+        }
+    }
+
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class BUYLRevitAddinLocatePfV : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            return BUYLRevitAddinGlobalPfV.Presenter.PfVZoomToCurrent(commandData, ref message, elements);
+        }
+    }
+
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class BUYLRevitAddinConnectPfV : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            return BUYLRevitAddinGlobalPfV.Presenter.PfVConnectExitingElementToCurrent(commandData, ref message, elements);
         }
     }
 

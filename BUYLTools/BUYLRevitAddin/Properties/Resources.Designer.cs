@@ -63,6 +63,26 @@ namespace BUYLRevitAddin.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap PfVConnect {
+            get {
+                object obj = ResourceManager.GetObject("PfVConnect", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PfVLocate {
+            get {
+                object obj = ResourceManager.GetObject("PfVLocate", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap PfVManager {
             get {
                 object obj = ResourceManager.GetObject("PfVManager", resourceCulture);

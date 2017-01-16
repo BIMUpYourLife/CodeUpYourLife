@@ -106,7 +106,7 @@ namespace BUYLRevit.CcTools
                     familyManager.CurrentType = newFamilyType;
                     List<FamilyParameter> paras = familyManager.GetParameters() as List<FamilyParameter>;
 
-                    PrintParameterNames(paras);
+                    //PrintParameterNames(paras);
 
                     Dictionary<string, string> _mapping = new Dictionary<string, string>();
                     _mapping.Add("Höhe", "Bauhöhe");

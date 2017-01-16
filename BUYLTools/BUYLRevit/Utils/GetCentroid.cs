@@ -19,8 +19,7 @@ namespace BUYLRevit.Utils.GetCentroid
         /// family and symbol name for a family instance,
         /// element id and element name.
         /// </summary>
-        public static string ElementDescription(
-          Element e)
+        public static string ElementDescription( Element e)
         {
             if (null == e)
             {

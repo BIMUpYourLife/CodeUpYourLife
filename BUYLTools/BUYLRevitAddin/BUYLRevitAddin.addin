@@ -26,18 +26,7 @@
 		<Text>BUYL - Start DEDE Project</Text>
 		<VendorId>CADEV</VendorId>
 		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
-	</AddIn>
-	
-  <AddIn Type="Application">
-		<Name>BUYLRevitAddinPfVApp</Name>
-		<Assembly>.\BUYLRevitAddin.dll</Assembly>
-		<AddInId>D9306CA6-B737-454B-B7AE-94C3D06AA273</AddInId>
-		<FullClassName>BUYLRevitAddin.BUYLRevitAddinPfVApp</FullClassName>
-		<VendorId>CADDev</VendorId>
-		<VendorDescription>CAD-Development, www.cad-development.de</VendorDescription>
-		<VisibilityMode>NotVisibleInFamily</VisibilityMode>
-		<VisibilityMode>NotVisibleWhenNoActiveDocument</VisibilityMode>
-	</AddIn>
+	</AddIn>	
 	
 	<AddIn Type="Command">
 		<Name>BUYL - Apply manufacturer</Name>
@@ -49,4 +38,15 @@
 		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
 	</AddIn>
 
+	<AddIn Type="Application">
+		<Name>BUYLRevitAddinPfVApp</Name>
+		<Assembly>.\BUYLRevitAddin.dll</Assembly>
+		<AddInId>D9306CA6-B737-454B-B7AE-94C3D06AA273</AddInId>
+		<FullClassName>BUYLRevitAddin.BUYLRevitAddinPfVApp</FullClassName>
+		<VendorId>CADDev</VendorId>
+		<VendorDescription>CAD-Development, www.cad-development.de</VendorDescription>
+		<VisibilityMode>NotVisibleInFamily</VisibilityMode>
+		<VisibilityMode>NotVisibleWhenNoActiveDocument</VisibilityMode>
+	</AddIn>
+	
 </RevitAddIns>
