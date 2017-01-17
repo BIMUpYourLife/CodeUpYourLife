@@ -9,6 +9,65 @@ namespace BUYLRevit.Utils
 {
     public class ParameterExtensions
     {
+        public static void SetParameterValue(Parameter p, object value)
+        {
+            try
+            {
+                if (value.GetType().Equals(typeof(string)))
+                {
+                    if (p.SetValueString(value as string))
+                        return;
+                }
+
+                switch (p.StorageType)
+                {
+                    case StorageType.None:
+                        break;
+                    case StorageType.Double:
+                        if (value.GetType().Equals(typeof(string)))
+                        {
+                            p.Set(double.Parse(value as string));
+                        }
+                        else
+                        {
+                            p.Set(Convert.ToDouble(value));
+                        }
+                        break;
+                    case StorageType.Integer:
+                        if (value.GetType().Equals(typeof(string)))
+                        {
+                            p.Set(int.Parse(value as string));
+                        }
+                        else
+                        {
+                            p.Set(Convert.ToInt32(value));
+                        }
+                        break;
+                    case StorageType.ElementId:
+                        if (value.GetType().Equals(typeof(ElementId)))
+                        {
+                            p.Set(value as ElementId);
+                        }
+                        else if (value.GetType().Equals(typeof(string)))
+                        {
+                            p.Set(new ElementId(int.Parse(value as string)));
+                        }
+                        else
+                        {
+                            p.Set(new ElementId(Convert.ToInt32(value)));
+                        }
+                        break;
+                    case StorageType.String:
+                        p.Set(value.ToString());
+                        break;
+                }
+            }
+            catch
+            {
+                throw new Exception("Invalid Value Input!");
+            }
+        }
+
         public static object GetParameterValue(string name, Element e)
         {
             object result = null;

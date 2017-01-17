@@ -84,9 +84,9 @@ namespace BUYLRevit.CutOut.PfV
                 if(m_model == null)
                     m_model = new PfVModel();
 
-                m_model.ModelLoad(m_hostDoc.PathName);
+                m_model.ModelLoad(GetHostModelDocumentPath());
 
-                m_model.UpdateModel(PfVsCollect(), m_hostDoc.PathName);
+                m_model.UpdateModel(PfVsCollect(), GetHostModelDocumentPath());
 
                 if (m_model.ActualModel.Keys.Count > 0)
                 {
@@ -510,6 +510,21 @@ namespace BUYLRevit.CutOut.PfV
             }
         }
 
+        private string GetHostModelDocumentPath()
+        {
+            string result = "";
+
+            if (m_hostDoc.IsWorkshared)
+            {
+                ModelPath mp = m_hostDoc.GetWorksharingCentralModelPath();
+
+                if(!mp.Empty)
+                    result = ModelPathUtils.ConvertModelPathToUserVisiblePath(mp);
+            }
+            else
+                result = m_hostDoc.PathName;
+            return result;
+        }
 
         private PfVModelData PfVsCollect()
         {
@@ -530,18 +545,20 @@ namespace BUYLRevit.CutOut.PfV
                     string sTypeName = MyConfigManager.GetValueForAppsetting(m_pfvtype);
                     foreach (Document docLink in m_docs)
                     {
-                        if (docLink.PathName == m_hostDoc.PathName)
+                        if (docLink.PathName == GetHostModelDocumentPath())
                             continue;
 
                         if (docLink.IsLinked)
                         {
+                            m_actualLink = docLink.PathName;
+
                             ICollection<ElementId> ids = new List<ElementId>();
                             FilteredElementCollector filterCollector = null;
 
                             ICollection<ElementId> idsLinkedPfV = new List<ElementId>();
 
-                            if (!data.ContainsKey(docLink.PathName))
-                                data.Add(docLink.PathName, new List<PfVElementData>());
+                            if (!data.ContainsKey(m_actualLink))
+                                data.Add(m_actualLink, new List<PfVElementData>());
 
                             if (sTypeName == m_pfvTypeDirectShape)
                             {
@@ -554,7 +571,7 @@ namespace BUYLRevit.CutOut.PfV
                                 PfVGetDataFromInstance(data, docLink, ids, filterCollector, idsLinkedPfV);
                             }
 
-                            data[docLink.PathName].Sort();
+                            data[m_actualLink].Sort();
 
                             //if (filterCollector != null)
                             //{
@@ -893,8 +910,38 @@ namespace BUYLRevit.CutOut.PfV
             if (inst != null)
             {
                 pfvData.PfVStatus = Status.Ok;
+
+                ApplyDimensions(pfvData, inst);
             }
         }
+
+        const string m_pfvWidth = "PfVWidth";
+        const string m_pfvHeight = "PfVHeight";
+        const string m_pfvDepth = "PfVDepth";
+        private void ApplyDimensions(PfVElementData pfvData, FamilyInstance inst)
+        {
+            foreach (Parameter p in inst.GetOrderedParameters())
+            {
+                if (pfvData.IsRectangular())
+                {
+                    if (p.Definition.Name == m_configManager.GetValueForAppsetting(m_pfvWidth))
+                        ParameterExtensions.SetParameterValue(p, pfvData.Width);
+                    else if (p.Definition.Name == m_configManager.GetValueForAppsetting(m_pfvHeight))
+                        ParameterExtensions.SetParameterValue(p, pfvData.Height);
+                }
+                else if(pfvData.IsRound())
+                {
+                    if (p.Definition.Name == m_configManager.GetValueForAppsetting(m_pfvWidth))
+                        ParameterExtensions.SetParameterValue(p, pfvData.Diameter);
+                    else if (p.Definition.Name == m_configManager.GetValueForAppsetting(m_pfvHeight))
+                        ParameterExtensions.SetParameterValue(p, pfvData.Diameter);
+                }
+
+                if (p.Definition.Name == m_configManager.GetValueForAppsetting(m_pfvDepth))
+                    ParameterExtensions.SetParameterValue(p, pfvData.Depth);
+            }
+        }
+
         private Document GetDocumentFromRevit(string docname)
         {
             Document res = null;
