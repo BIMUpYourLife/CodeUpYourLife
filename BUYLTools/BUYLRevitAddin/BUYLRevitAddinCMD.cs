@@ -47,7 +47,7 @@ namespace BUYLRevitAddin
             System.Windows.Forms.MessageBox.Show("The repository will be downloaded in background. You'll get a message, once it is completed!", m_BUYL, System.Windows.Forms.MessageBoxButtons.OK);
 
             BUYLTools.ContentLoader.GitContentLoader.BUYLCloneOrUpdateRepository();
-            Loader.ContentLoader.BUYLSetContentLibraryPath(m_commData.Application.Application);
+            BUYLRevit.Loader.ContentLoader.BUYLSetContentLibraryPath(m_commData.Application.Application);
         }
 
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
@@ -87,7 +87,7 @@ namespace BUYLRevitAddin
 
             try
             {
-                Loader.ContentLoader.BUYLStartNewProject(m_commData.Application, BUYLTools.Utils.Countries.DECH);
+                BUYLRevit.Loader.ContentLoader.BUYLStartNewProject(m_commData.Application, BUYLTools.Utils.Countries.DECH);
                 res = Result.Succeeded;
             }
             catch (Exception ex)
@@ -114,7 +114,7 @@ namespace BUYLRevitAddin
 
             try
             {
-                Loader.ContentLoader.BUYLStartNewProject(m_commData.Application, BUYLTools.Utils.Countries.DEDE);
+                BUYLRevit.Loader.ContentLoader.BUYLStartNewProject(m_commData.Application, BUYLTools.Utils.Countries.DEDE);
                 res = Result.Succeeded;
             }
             catch (Exception ex)
@@ -126,6 +126,27 @@ namespace BUYLRevitAddin
             return res;
         }
     }
+
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class BUYLRevitAddinManagePfV : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            return BUYLRevit.CutOut.PfV.PfVTools.ProcessPfVs(commandData, ref message, elements);
+        }
+    }
+
+    [TransactionAttribute(TransactionMode.Manual)]
+    [RegenerationAttribute(RegenerationOption.Manual)]
+    public class BUYLRevitAddinApplyManufacturer : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            return BUYLRevit.CcTools.CcTools.StartApplyManufacturerProcess(commandData, ref message, elements);
+        }
+    }
+
     //// Let's control with this utility class when our command can 
     //// be executed. This requires this option to be added to the addin
     //// manifest file

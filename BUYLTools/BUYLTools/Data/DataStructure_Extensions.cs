@@ -57,11 +57,16 @@ namespace BUYLTools.Data
             try
             {
                 string temp = Path.GetFileNameWithoutExtension(path);
-                string[] items = temp.Split('_');
-                if (items.Count<string>() >= 3)
+                if (temp.StartsWith("BE"))
                 {
-                    result = items[1];
+                    string[] items = temp.Split('_');
+                    if (items.Count<string>() >= 3)
+                    {
+                        result = items[1];
+                    }
                 }
+                else
+                    result = temp;
             }
             catch (Exception ex)
             {

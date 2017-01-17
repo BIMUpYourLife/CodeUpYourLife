@@ -17,18 +17,22 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\Users\th\AppData\Roaming\Autodesk\ApplicationPlugins\BUYLRevitAddin.bundle\2016\</OutputPath>
+    <OutputPath>..\_build\final\BUYLRevitAddin.bundle\2016\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <BaseIntermediateOutputPath>.\obj2016\</BaseIntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\_build\final\BUYLRevitAddin.bundle\2016\BUYLRevitAddin.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\..\..\..\..\..\Users\th\AppData\Roaming\Autodesk\ApplicationPlugins\BUYLRevitAddin.bundle\2016\</OutputPath>
+    <OutputPath>..\_build\final\BUYLRevitAddin.bundle\2016\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
+    <BaseIntermediateOutputPath>.\obj2016\</BaseIntermediateOutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>..\_build\final\BUYLRevitAddin.bundle\2016\BUYLRevitAddin.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="RevitAPI">
@@ -50,7 +54,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Loader\ContentLoader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BUYLRevitAddinCMD.cs" />
   </ItemGroup>
@@ -64,6 +67,10 @@
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BUYLRevit\BUYLRevit_2016.csproj">
+      <Project>{2657d9ab-6079-4cce-aa5f-9ebc5b127e21}</Project>
+      <Name>BUYLRevit_2016</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BUYLTools\BUYLTools.csproj">
       <Project>{eeb912e7-2006-4801-b39e-e2587e3baf1f}</Project>
       <Name>BUYLTools</Name>
@@ -71,16 +78,37 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>rem Localer Content für das Paket umkopieren
-copy /Y $(ProjectDir)PackageContents.xml $(TargetDir)..\PackageContents.xml
-xcopy /Y/I/E $(ProjectDir)Content $(TargetDir)..\Content
+    <PostBuildEvent>Set REL=2016
 
-rem signing of dll
-if $(ConfigurationName) == Release "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe" sign /a "$(TargetPath)"</PostBuildEvent>
+setlocal enableextensions enableDelayedExpansion
+
+:: alle Konfigurationen und sonstiges in das AnyCPU kopieren
+xcopy /Y/I/E  "$(TargetDir)*.config" "$(SolutionDir)_build\AnyCPU"
+xcopy /Y/I/E  "$(TargetDir)*.txt" "$(SolutionDir)_build\AnyCPU"
+
+:: Cleanup program dir
+del /Q/S "$(TargetDir)*.tmp"
+rmdir /S/Q "$(TargetDir)Content\"
+
+::  Localer Content für das Paket umkopieren
+copy /Y "$(ProjectDir)PackageContents.xml" "$(TargetDir)..\PackageContents.xml"
+xcopy /Y/I/E "$(ProjectDir)Content" "$(TargetDir)..\Content"
+
+:: signing of dll and exe
+"C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe" sign /a "$(TargetDir)BUYL*.dll"
+
+:: Copy build to Appdata for testing
+rmdir /S/Q "%25APPDATA%25\Autodesk\ApplicationPlugins\$(TargetName).bundle\"
+xcopy /Y/I/E  "$(SolutionDir)_build\final\$(TargetName).bundle\*.*" "%25APPDATA%25\Autodesk\ApplicationPlugins\$(TargetName).bundle\"</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>Rem AnyCPU Sachen holen
-xcopy /Y/I/E  "$(SolutionDir)_build\AnyCPU" "$(TargetDir)"</PreBuildEvent>
+    <PreBuildEvent>Set REL=2016
+
+:: Revit Sachen holen
+xcopy /Y/I/E  "$(SolutionDir)_build\AnyCPU_RME_%25REL%25" "$(TargetDir)"
+
+:: CAFMConnect umkopieren
+copy /Y "$(SolutionDir)3rdParty\CAFMConnect\*.config" "$(TargetDir)"</PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
