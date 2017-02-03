@@ -109,11 +109,10 @@ namespace BUYLTools.CutOut.PfV
 
                                 if (row != null)
                                 {
-                                    int id = 0;
-
-                                    if (Int32.TryParse(row.Cells[PfVElementData.idLinkedColumn].Value.ToString(), out id))
+                                    string uniquid = row.Cells[PfVElementData.uniqueIdLinkedColumn].Value.ToString();
+                                    if (!String.IsNullOrEmpty(uniquid))
                                     {
-                                        m_presenter.CurrentPfVSet(tabname, id);
+                                        m_presenter.CurrentPfVSet(tabname, uniquid);
                                     }
                                 }
                             }

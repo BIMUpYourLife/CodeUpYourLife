@@ -22,7 +22,7 @@ namespace BUYLTools.CutOut.PfV
 
         void PfVPlaceCurrent();
 
-        void CurrentPfVSet(string linkedFile, int idLinked);
+        void CurrentPfVSet(string linkedFile, string idLinked);
 
         PfVElementData CurrentPfVGet();
 

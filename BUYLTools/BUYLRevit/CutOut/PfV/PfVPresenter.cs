@@ -1,14 +1,12 @@
 #region Namespaces
 
-using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.UI.Events;
 using BUYLRevit.Utils;
 using BUYLTools.CutOut.PfV;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -30,21 +28,37 @@ namespace BUYLRevit.CutOut.PfV
         private const string m_pfvtype = "PfVType";
         private const string m_pfvTypeDirectShape = "DirectShape";
         private const string m_pfvTypeInstance = "Instance";
+
+        //family settings in config file
         private const string m_pfvDummyFamily = "PfVDummyMarker";
-        private const string m_pfvWallCutout = "PfVWallCutout";
-        BUYLTools.Configuration.Manager m_configManager = null;
+
+        private const string m_pfvWallCutoutRe = "PfVWallCutoutRE";
+        private const string m_pfvWallCutoutRd = "PfVWallCutoutRD";
+        private const string m_pfvFloorCutoutRe = "PfVFloorCutoutRE";
+        private const string m_pfvFloorCutoutRd = "PfVFloorCutoutRD";
+        private const string m_pfvOtherCutoutRe = "PfVOtherRE";
+        private const string m_pfvOtherCutoutRd = "PfVOtherRD";
+
+        private BUYLTools.Configuration.Manager m_configManager = null;
         internal static Autodesk.Revit.ApplicationServices.Application m_app = null;
         internal static DocumentSet m_docs = null;
-        IPfVView m_view = null;
-        static ExternalCommandData m_cmdData = null;
-        static Document m_hostDoc;
-        static string m_message = null;
-        static IPfVModel m_model;
-        static string m_currentHostDoc;
-        static double m_offsetMinus = -2;
-        static double m_offsetPlus = 2;
-        PfVElementData m_actualPfV = null;
-        string m_actualLink = "";
+        private IPfVView m_view = null;
+        private static ExternalCommandData m_cmdData = null;
+        private static Document m_hostDoc;
+        private static string m_message = null;
+        private static IPfVModel m_model;
+        private static string m_currentHostDoc;
+        private static double m_offsetMinus = -2;
+        private static double m_offsetPlus = 2;
+        private PfVElementData m_actualPfV = null;
+        private string m_actualLink = "";
+
+        private const string m_pfvBoundingAddonSize = "SectionBoxAddonSize";
+        private const string m_pfvWidth = "PfVWidth";
+        private const string m_pfvHeight = "PfVHeight";
+        private const string m_pfvDepth = "PfVDepth";
+        private const string m_pfvDiameter = "PfVDiameter";
+
         public PfVModelData CurrentModel
         {
             get
@@ -59,9 +73,9 @@ namespace BUYLRevit.CutOut.PfV
 
             set
             {
-                if( value != m_currentHostDoc)
+                if (value != m_currentHostDoc)
                 {
-                    if(!String.IsNullOrEmpty(m_currentHostDoc))
+                    if (!String.IsNullOrEmpty(m_currentHostDoc))
                         m_model.ModelSave(m_currentHostDoc);
 
                     m_model.ModelLoad(value);
@@ -71,6 +85,7 @@ namespace BUYLRevit.CutOut.PfV
         }
 
         #region UICommands
+
         public Result ProcessPfVs(ExternalCommandData commandData, ref string message, ElementSet highlightElements)
         {
             Result res = Result.Failed;
@@ -81,7 +96,7 @@ namespace BUYLRevit.CutOut.PfV
                 m_message = message;
                 m_hostDoc = GetUIDocumentFromRevit().Document;
 
-                if(m_model == null)
+                if (m_model == null)
                     m_model = new PfVModel();
 
                 m_model.ModelLoad(GetHostModelDocumentPath());
@@ -110,7 +125,6 @@ namespace BUYLRevit.CutOut.PfV
         {
             Result res = Result.Failed;
 
-
             try
             {
                 m_cmdData = commandData;
@@ -121,7 +135,6 @@ namespace BUYLRevit.CutOut.PfV
             }
             catch (Exception ex)
             {
-
             }
 
             return res;
@@ -130,7 +143,6 @@ namespace BUYLRevit.CutOut.PfV
         public Result PfVConnectExitingElementToCurrent(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             Result res = Result.Failed;
-
 
             try
             {
@@ -142,11 +154,11 @@ namespace BUYLRevit.CutOut.PfV
             }
             catch (Exception ex)
             {
-
             }
 
             return res;
         }
+
         public Result PfVPrevious(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             Result res = Result.Succeeded;
@@ -201,7 +213,6 @@ namespace BUYLRevit.CutOut.PfV
                     if (m_view.ShowPfvDlg() == DialogResult.OK)
                     {
                     }
-
                 }
                 res = Result.Succeeded;
             }
@@ -211,7 +222,8 @@ namespace BUYLRevit.CutOut.PfV
 
             return res;
         }
-        #endregion
+
+        #endregion UICommands
 
         public void SaveCurrentModel()
         {
@@ -229,13 +241,13 @@ namespace BUYLRevit.CutOut.PfV
                 if (index > 0)
                 {
                     PfVElementData dt = m_model.ActualModel[m_actualLink][index - 1];
-                    CurrentPfVSet(m_actualLink, dt.IdLinked);
+                    CurrentPfVSet(m_actualLink, dt.UniqueIdLinked);
                 }
                 else
                 {
                     int counter = m_model.ActualModel[m_actualLink].Count;
                     PfVElementData dt = m_model.ActualModel[m_actualLink][counter - 1];
-                    CurrentPfVSet(m_actualLink, dt.IdLinked);
+                    CurrentPfVSet(m_actualLink, dt.UniqueIdLinked);
                 }
 
                 PfVZoomToDummy();
@@ -253,17 +265,18 @@ namespace BUYLRevit.CutOut.PfV
                 if (index < m_model.ActualModel[m_actualLink].Count - 1)
                 {
                     PfVElementData dt = m_model.ActualModel[m_actualLink][index + 1];
-                    CurrentPfVSet(m_actualLink, dt.IdLinked);
+                    CurrentPfVSet(m_actualLink, dt.UniqueIdLinked);
                 }
                 else
                 {
                     PfVElementData dt = m_model.ActualModel[m_actualLink][0];
-                    CurrentPfVSet(m_actualLink, dt.IdLinked);
+                    CurrentPfVSet(m_actualLink, dt.UniqueIdLinked);
                 }
 
                 PfVZoomToDummy();
             }
         }
+
         public void PfVPlaceCurrent()
         {
             PfVElementData pfvData = CurrentPfVGet();
@@ -275,18 +288,21 @@ namespace BUYLRevit.CutOut.PfV
                 {
                     if (GetUIDocumentFromRevit().ActiveView.ViewType == ViewType.ThreeD)
                     {
-                        if (pfvData.IsWallPfV(GetHostCategoryName(pfvData)))
+                        if (pfvData.IsWallPfV(GetHostCategoryName(pfvData)) ||
+                            pfvData.IsFloorPfV(GetHostCategoryName(pfvData)))
                         {
-                            PfVPlaceOnWall(pfvData);
-                        }
-                        else if(pfvData.IsFloorPfV(GetHostCategoryName(pfvData)))
-                        {
-
+                            PfVPlaceOnHost(pfvData);
                         }
                         else
-                        { }
+                        {
+                            MessageBox.Show(String.Format("Placing of cutout for current host {0} not implemented!", GetHostCategoryName(pfvData)));
+                        }
 
                         //ZoomToPfV(pfvData);
+                    }
+                    else
+                    {
+                        MessageBox.Show("Please use a 3D view to place the cutouts!");
                     }
 
                     //m_model.ModelSave(m_currentHostDoc);
@@ -302,10 +318,10 @@ namespace BUYLRevit.CutOut.PfV
         private string GetHostCategoryName(PfVElementData pfvData)
         {
             string result = "";
-            Element el = m_hostDoc.GetElement(new ElementId(pfvData.IdHost));
+            Element el = m_hostDoc.GetElement(pfvData.UniqueIdHost);
             if (el != null)
             {
-                if(!String.IsNullOrEmpty(el.Category.Name))
+                if (!String.IsNullOrEmpty(el.Category.Name))
                     result = el.Category.Name;
             }
 
@@ -324,8 +340,12 @@ namespace BUYLRevit.CutOut.PfV
                     Reference reference = GetUIDocumentFromRevit().Selection.PickObject(Autodesk.Revit.UI.Selection.ObjectType.Element, "Select the already placed PFV familyinstance!");
                     if (reference != null)
                     {
-                        pfvData.IdLocal = reference.ElementId.IntegerValue;
-                        pfvData.PfVStatus = Status.Ok;
+                        Element el = GetUIDocumentFromRevit().Document.GetElement(reference.ElementId);
+                        if (el != null)
+                        {
+                            pfvData.UniqueIdLocal = el.UniqueId;
+                            pfvData.PfVStatus = Status.Ok;
+                        }
                     }
 
                     t.Commit();
@@ -342,6 +362,13 @@ namespace BUYLRevit.CutOut.PfV
             PfVElementData pfvData = CurrentPfVGet();
             if (pfvData != null)
             {
+                //using (Transaction t = new Transaction(m_hostDoc))
+                //{
+                //    t.Start("Remove Section Box");
+                //    BoundingBox3DDelete();
+                //    t.Commit();
+                //}
+
                 using (Transaction t = new Transaction(m_hostDoc))
                 {
                     t.Start("Change to 3D view");
@@ -354,7 +381,6 @@ namespace BUYLRevit.CutOut.PfV
                         }
                         else
                         {
-
                         }
 
                         t.Commit();
@@ -373,7 +399,7 @@ namespace BUYLRevit.CutOut.PfV
                 return;
 
             FamilyInstance inst = null;
-            if (pfvData.IdLocal == 0 && pfvData.PfVStatus == Status.New)
+            if (String.IsNullOrEmpty(pfvData.UniqueIdLocal) && pfvData.PfVStatus == Status.New)
             {
                 // Retrieve the family if it is already present:
                 string familyName = MyConfigManager.GetValueForAppsetting(m_pfvDummyFamily);
@@ -384,21 +410,21 @@ namespace BUYLRevit.CutOut.PfV
 
                 if (symbol != null)
                 {
-                    Element el = m_hostDoc.GetElement(new ElementId(pfvData.IdHost));
+                    Element el = m_hostDoc.GetElement(pfvData.UniqueIdHost);
                     if (el != null)
                     {
                         inst = PlaceInstance(pfvData, el.LevelId, symbol);
 
                         if (inst != null)
                         {
-                            pfvData.IdDummy = inst.Id.IntegerValue;
+                            pfvData.UniqueIdLocal = inst.UniqueId;
                             pfvData.PfVStatus = Status.Dummy;
                         }
                     }
                 }
             }
             else
-                inst = m_hostDoc.GetElement(new ElementId(pfvData.IdLocal)) as FamilyInstance;
+                inst = m_hostDoc.GetElement(pfvData.UniqueIdLocal) as FamilyInstance;
 
             if (inst != null)
             {
@@ -409,11 +435,15 @@ namespace BUYLRevit.CutOut.PfV
                         View3D view3d = GetUIDocumentFromRevit().ActiveView as View3D;
                         if (view3d != null)
                         {
-                            BoundingBox3DDelete(pfvData);
+                            GetUIDocumentFromRevit().Application.DialogBoxShowing += Application_DialogBoxShowing;
+
+                            BoundingBox3DDelete();
 
                             GetUIDocumentFromRevit().ShowElements(inst.Id);
-                            
+
                             BoundingBox3DCreate(pfvData);
+
+                            GetUIDocumentFromRevit().Application.DialogBoxShowing -= Application_DialogBoxShowing;
                         }
                     }
                     else if (GetUIDocumentFromRevit().ActiveView.ViewType == ViewType.FloorPlan)
@@ -424,68 +454,119 @@ namespace BUYLRevit.CutOut.PfV
                     if (pfvData.PfVStatus == Status.Dummy)
                     {
                         m_hostDoc.Delete2(inst);
-                        pfvData.IdDummy = 0;
+                        pfvData.UniqueIdLocal = "";
                         pfvData.PfVStatus = Status.New;
                     }
                 }
             }
         }
-
         private void BoundingBox3DCreate(PfVElementData pfvData)
         {
             View3D view3d = GetUIDocumentFromRevit().ActiveView as View3D;
             if (view3d != null)
             {
-                XYZ min = new XYZ(ApplyNegativeOffset(pfvData.Location.X), ApplyNegativeOffset(pfvData.Location.Y), ApplyNegativeOffset(pfvData.Location.Z));
-                XYZ max = new XYZ(ApplyPositiveOffset(pfvData.Location.X), ApplyPositiveOffset(pfvData.Location.Y), ApplyPositiveOffset(pfvData.Location.Z));
-                view3d.SetSectionBox(new BoundingBoxXYZ() { Min = min, Max = max });
+                XYZ min = new XYZ(ApplyNegativeOffset(pfvData.Location.X, pfvData.GetHorizontalExtend()), ApplyNegativeOffset(pfvData.Location.Y, pfvData.GetHorizontalExtend()), ApplyNegativeOffset(pfvData.Location.Z, pfvData.GetVerticalExtend()));
+                XYZ max = new XYZ(ApplyPositiveOffset(pfvData.Location.X, pfvData.GetHorizontalExtend()), ApplyPositiveOffset(pfvData.Location.Y, pfvData.GetHorizontalExtend()), ApplyPositiveOffset(pfvData.Location.Z, pfvData.GetVerticalExtend()));
+                BoundingBoxXYZ bound = new BoundingBoxXYZ() { Min = min, Max = max };
+                view3d.SetSectionBox(bound);
+
+                foreach(UIView uiview in GetUIDocumentFromRevit().GetOpenUIViews())
+                {
+                    if (uiview.ViewId == view3d.Id)
+                    {
+                        uiview.ZoomAndCenterRectangle(min, max); //.ZoomToFit();
+                        uiview.Zoom(0.5);
+                        break;
+                    }
+                }
             }
         }
 
-        private void BoundingBox3DDelete(PfVElementData pfvData)
+        private void BoundingBox3DDelete()
         {
+
             View3D view3d = GetUIDocumentFromRevit().ActiveView as View3D;
             if (view3d != null)
             {
-                if (view3d.IsSectionBoxActive)
-                    view3d.IsSectionBoxActive = false;
+                using (SubTransaction subt = new SubTransaction(GetUIDocumentFromRevit().Document))
+                {
+                    subt.Start();
 
-                GetUIDocumentFromRevit().RefreshActiveView();
+                    if (view3d.IsSectionBoxActive)
+                        view3d.IsSectionBoxActive = false;
+
+                    GetUIDocumentFromRevit().RefreshActiveView();
+
+                    subt.Commit();
+                }
             }
         }
-        private static double ApplyNegativeOffset(double basevalue)
+
+        private void Application_DialogBoxShowing(object sender, Autodesk.Revit.UI.Events.DialogBoxShowingEventArgs e)
+        {
+            // DialogBoxShowingEventArgs has two subclasses - TaskDialogShowingEventArgs & MessageBoxShowingEventArgs
+            // In this case we are interested in this event if it is TaskDialog being shown. 
+            TaskDialogShowingEventArgs t = e as TaskDialogShowingEventArgs;
+            if (t != null)
+            {
+                // Call OverrideResult to cause the dialog to be dismissed with the specified return value
+                // (int) is used to convert the enum TaskDialogResult.No to its integer value which is the data type required by OverrideResult
+                e.OverrideResult((int)TaskDialogResult.No);
+            }
+        }
+
+        private double GetOffsetValueFromConfig()
+        {
+            string bsize = MyConfigManager.GetValueForAppsetting(m_pfvBoundingAddonSize);
+            double offset = 0;
+
+            if (Double.TryParse(bsize, out offset))
+            {
+                offset = BUYLRevit.Utils.MathUtils.MeterToFeet(offset);
+            }
+
+            return offset;
+        }
+
+        private double ApplyNegativeOffset(double basevalue, double dimension)
         {
             double temp = 0;
 
-            temp = basevalue + m_offsetMinus;
-               
+            double offset = GetOffsetValueFromConfig();
+
+            temp = basevalue + (offset * -1);
+
             return temp;
         }
 
-        private static double ApplyPositiveOffset(double basevalue)
+        private double ApplyPositiveOffset(double basevalue, double dimension)
         {
             double temp = 0;
 
-            temp = basevalue + (m_offsetPlus);            
-                
+            double offset = GetOffsetValueFromConfig();
+
+            temp = basevalue + offset;
+
             return temp;
         }
+
         public void ConnectView(IPfVView view)
         {
             m_view = view;
             m_view.SetPresenter(this);
         }
-        public void CurrentPfVSet(string linkedFile, int idLinked)
+
+        public void CurrentPfVSet(string linkedFile, string idLinked)
         {
             m_actualLink = linkedFile;
-            m_actualPfV = m_model.ActualModel[m_actualLink].First(pfvdata => pfvdata.IdLinked == idLinked);
+            m_actualPfV = m_model.ActualModel[m_actualLink].First(pfvdata => pfvdata.UniqueIdLinked == idLinked);
         }
 
         public PfVElementData CurrentPfVGet()
         {
-            if(m_actualPfV == null)
+            if (m_actualPfV == null)
             {
-                if(!String.IsNullOrEmpty(m_actualLink))
+                if (!String.IsNullOrEmpty(m_actualLink))
                 {
                     if (CurrentModel[m_actualLink].Count > 0)
                         m_actualPfV = CurrentModel[m_actualLink][0];
@@ -499,11 +580,12 @@ namespace BUYLRevit.CutOut.PfV
         {
             m_actualLink = linkedFile;
         }
+
         private BUYLTools.Configuration.Manager MyConfigManager
         {
             get
             {
-                if(m_configManager == null)
+                if (m_configManager == null)
                     m_configManager = new BUYLTools.Configuration.Manager(typeof(PfVPresenter).Assembly, true);
 
                 return m_configManager;
@@ -518,7 +600,7 @@ namespace BUYLRevit.CutOut.PfV
             {
                 ModelPath mp = m_hostDoc.GetWorksharingCentralModelPath();
 
-                if(!mp.Empty)
+                if (!mp.Empty)
                     result = ModelPathUtils.ConvertModelPathToUserVisiblePath(mp);
             }
             else
@@ -530,7 +612,6 @@ namespace BUYLRevit.CutOut.PfV
         {
             m_app = m_cmdData.Application.Application;
             m_docs = m_app.Documents;
-
 
             // Retrieve lighting fixture element
             // data from linked documents:
@@ -654,7 +735,7 @@ namespace BUYLRevit.CutOut.PfV
             {
                 foreach (GeometryObject geo in geomElem)
                 {
-                    if(geo is Solid)
+                    if (geo is Solid)
                     {
                         Solid geomSolid = geo as Solid;
                         if (null != geomSolid)
@@ -680,7 +761,7 @@ namespace BUYLRevit.CutOut.PfV
                 }
             }
             catch (Exception)
-            {                
+            {
             }
         }
 
@@ -698,7 +779,7 @@ namespace BUYLRevit.CutOut.PfV
 
                 foreach (Element elem in collector)
                 {
-                    pfv.IdHost = elem.Id.IntegerValue;
+                    pfv.UniqueIdHost = elem.UniqueId;
 
                     if (collector.GetElementCount() > 1)
                     {
@@ -709,7 +790,6 @@ namespace BUYLRevit.CutOut.PfV
             }
             catch (Exception ex)
             {
-
             }
         }
 
@@ -750,7 +830,6 @@ namespace BUYLRevit.CutOut.PfV
             //    }
             //}
 
-
             //GeometryElement gElem = inst.get_Geometry(new Options() /*{ View = doc.ActiveView }*/);
             //GeometryElement gElemTransformed = gElem.GetTransformed(Transform.Identity);
 
@@ -781,13 +860,13 @@ namespace BUYLRevit.CutOut.PfV
                 {
                     idsLinkedPfV.Add(dShape.Id);
 
-                    PfVElementData pfv = new PfVElementData(docLink.PathName, dShape.Name, dShape.Id.IntegerValue, dShape.UniqueId);
+                    PfVElementData pfv = new PfVElementData(docLink.PathName, dShape.Name, dShape.UniqueId, dShape.UniqueId);
                     try
                     {
-                        pfv.Depth = ParameterExtensions.GetParameterValue("Depth(Pset_ProvisionForVoid)", dShape) != null ? (double)ParameterExtensions.GetParameterValue("Depth(Pset_ProvisionForVoid)", dShape) : 0;
-                        pfv.Diameter = ParameterExtensions.GetParameterValue("Diameter(Pset_ProvisionForVoid)", dShape) != null ? (double)ParameterExtensions.GetParameterValue("Diameter(Pset_ProvisionForVoid)", dShape) : 0;
-                        pfv.Height = ParameterExtensions.GetParameterValue("Height(Pset_ProvisionForVoid)", dShape) != null ? (double)ParameterExtensions.GetParameterValue("Height(Pset_ProvisionForVoid)", dShape) : 0;
-                        pfv.Width = ParameterExtensions.GetParameterValue("Width(Pset_ProvisionForVoid)", dShape) != null ? (double)ParameterExtensions.GetParameterValue("Width(Pset_ProvisionForVoid)", dShape) : 0;
+                        pfv.Depth = ParameterExtensions.GetParameterValue("Depth(Pset_ProvisionForVoid)", dShape) != null ? ConvertDBLengthToMeter((double)ParameterExtensions.GetParameterValue("Depth(Pset_ProvisionForVoid)", dShape)) : 0;
+                        pfv.Diameter = ParameterExtensions.GetParameterValue("Diameter(Pset_ProvisionForVoid)", dShape) != null ? ConvertDBLengthToMeter((double)ParameterExtensions.GetParameterValue("Diameter(Pset_ProvisionForVoid)", dShape)) : 0;
+                        pfv.Height = ParameterExtensions.GetParameterValue("Height(Pset_ProvisionForVoid)", dShape) != null ? ConvertDBLengthToMeter((double)ParameterExtensions.GetParameterValue("Height(Pset_ProvisionForVoid)", dShape)) : 0;
+                        pfv.Width = ParameterExtensions.GetParameterValue("Width(Pset_ProvisionForVoid)", dShape) != null ? ConvertDBLengthToMeter((double)ParameterExtensions.GetParameterValue("Width(Pset_ProvisionForVoid)", dShape)) : 0;
                         pfv.IfcGuid = ParameterExtensions.GetParameterValue("IfcGUID", dShape) != null ? (string)ParameterExtensions.GetParameterValue("IfcGUID", dShape) : "";
                         pfv.IfcName = ParameterExtensions.GetParameterValue("IfcName", dShape) != null ? (string)ParameterExtensions.GetParameterValue("IfcName", dShape) : "";
                         pfv.IfcSpatialContainer = ParameterExtensions.GetParameterValue("IfcSpatialContainer", dShape) != null ? (string)ParameterExtensions.GetParameterValue("IfcSpatialContainer", dShape) : "";
@@ -820,13 +899,13 @@ namespace BUYLRevit.CutOut.PfV
                 {
                     idsLinkedPfV.Add(inst.Id);
 
-                    PfVElementData pfv = new PfVElementData(docLink.PathName, inst.Name, inst.Id.IntegerValue, inst.UniqueId);
+                    PfVElementData pfv = new PfVElementData(docLink.PathName, inst.Name, inst.UniqueId, inst.UniqueId);
                     try
                     {
-                        pfv.Depth = ParameterExtensions.GetParameterValue("Depth", inst) != null ? (double)ParameterExtensions.GetParameterValue("Depth", inst) : 0;
-                        pfv.Diameter = ParameterExtensions.GetParameterValue("Diameter", inst) != null ? (double)ParameterExtensions.GetParameterValue("Diameter", inst) : 0;
-                        pfv.Height = ParameterExtensions.GetParameterValue("Height", inst) != null ? (double)ParameterExtensions.GetParameterValue("Height", inst) : 0;
-                        pfv.Width = ParameterExtensions.GetParameterValue("Width", inst) != null ? (double)ParameterExtensions.GetParameterValue("Width", inst) : 0;
+                        pfv.Depth = ParameterExtensions.GetParameterValue("Depth", inst) != null ? ConvertDBLengthToMeter((double)ParameterExtensions.GetParameterValue("Depth", inst)) : 0;
+                        pfv.Diameter = ParameterExtensions.GetParameterValue("Diameter", inst) != null ? ConvertDBLengthToMeter((double)ParameterExtensions.GetParameterValue("Diameter", inst)) : 0;
+                        pfv.Height = ParameterExtensions.GetParameterValue("Height", inst) != null ? ConvertDBLengthToMeter((double)ParameterExtensions.GetParameterValue("Height", inst)) : 0;
+                        pfv.Width = ParameterExtensions.GetParameterValue("Width", inst) != null ? ConvertDBLengthToMeter((double)ParameterExtensions.GetParameterValue("Width", inst)) : 0;
                         pfv.IfcGuid = ParameterExtensions.GetParameterValue("IfcGUID", inst) != null ? (string)ParameterExtensions.GetParameterValue("IfcGUID", inst) : "";
                         pfv.IfcName = ParameterExtensions.GetParameterValue("IfcName", inst) != null ? (string)ParameterExtensions.GetParameterValue("IfcName", inst) : "";
                         pfv.IfcSpatialContainer = ParameterExtensions.GetParameterValue("IfcSpatialContainer", inst) != null ? (string)ParameterExtensions.GetParameterValue("IfcSpatialContainer", inst) : "";
@@ -875,21 +954,26 @@ namespace BUYLRevit.CutOut.PfV
                 return;
 
             FamilyInstance inst = null;
-            if (pfvData.IdLocal != 0 && pfvData.PfVStatus == Status.Dummy)
+            if (!String.IsNullOrEmpty(pfvData.UniqueIdLocal) && pfvData.PfVStatus == Status.Dummy)
             {
                 //delete dummy
-                Element el = m_hostDoc.GetElement(new ElementId(pfvData.IdLocal));
+                Element el = m_hostDoc.GetElement(pfvData.UniqueIdLocal);
                 if (el != null)
                 {
                     m_hostDoc.Delete2(el);
-                    pfvData.IdLocal = 0;
+                    pfvData.UniqueIdLocal = "";
                 }
             }
 
-            if (pfvData.IdLocal == 0)
+            if (String.IsNullOrEmpty(pfvData.UniqueIdLocal))
             {
                 // Retrieve the family if it is already present:
-                string familyName = MyConfigManager.GetValueForAppsetting(m_pfvWallCutout);
+                string familyName = "";
+                if (pfvData.IsRectangular())
+                    familyName = MyConfigManager.GetValueForAppsetting(m_pfvWallCutoutRe);
+                else if (pfvData.IsRound())
+                    familyName = MyConfigManager.GetValueForAppsetting(m_pfvWallCutoutRd);
+
                 FamilySymbol symbol = GetFirstSymbolFromFamily(familyName);
 
                 // Place the family symbol
@@ -899,13 +983,15 @@ namespace BUYLRevit.CutOut.PfV
                         symbol.Activate();
 
                     XYZ insertion = new XYZ(pfvData.Location.X, pfvData.Location.Y, pfvData.Location.Z);
-                    inst = ElementPlacement.AddFaceBasedFamilyToWall(m_hostDoc, new ElementId(pfvData.IdHost), symbol.Id, insertion);
-                    if(inst != null)
-                        pfvData.IdLocal = inst.Id.IntegerValue;
+
+                    inst = ElementPlacement.AddFaceBasedFamilyToHost(m_hostDoc, pfvData.UniqueIdHost, symbol.Id, insertion);
+
+                    if (inst != null)
+                        pfvData.UniqueIdLocal = inst.UniqueId;
                 }
             }
             else
-                inst = m_hostDoc.GetElement(new ElementId(pfvData.IdLocal)) as FamilyInstance;
+                inst = m_hostDoc.GetElement(pfvData.UniqueIdLocal) as FamilyInstance;
 
             if (inst != null)
             {
@@ -915,9 +1001,77 @@ namespace BUYLRevit.CutOut.PfV
             }
         }
 
-        const string m_pfvWidth = "PfVWidth";
-        const string m_pfvHeight = "PfVHeight";
-        const string m_pfvDepth = "PfVDepth";
+        private void PfVPlaceOnHost(PfVElementData pfvData)
+        {
+            if (pfvData == null)
+                return;
+
+            FamilyInstance inst = null;
+            if (!String.IsNullOrEmpty(pfvData.UniqueIdLocal) && pfvData.PfVStatus == Status.Dummy)
+            {
+                //delete dummy
+                Element el = m_hostDoc.GetElement(pfvData.UniqueIdLocal);
+                if (el != null)
+                {
+                    m_hostDoc.Delete2(el);
+                    pfvData.UniqueIdLocal = "";
+                }
+            }
+
+            if (String.IsNullOrEmpty(pfvData.UniqueIdLocal))
+            {
+                // Retrieve the family if it is already present:
+                string familyName = null;
+
+                if (pfvData.IsWallPfV(GetHostCategoryName(pfvData)))
+                {
+                    if (pfvData.IsRectangular())
+                        familyName = MyConfigManager.GetValueForAppsetting(m_pfvWallCutoutRe);
+                    else if (pfvData.IsRound())
+                        familyName = MyConfigManager.GetValueForAppsetting(m_pfvWallCutoutRd);
+                }
+                else if (pfvData.IsFloorPfV(GetHostCategoryName(pfvData)))
+                {
+                    if (pfvData.IsRectangular())
+                        familyName = MyConfigManager.GetValueForAppsetting(m_pfvFloorCutoutRe);
+                    else if (pfvData.IsRound())
+                        familyName = MyConfigManager.GetValueForAppsetting(m_pfvFloorCutoutRd);
+                }
+                else
+                {
+                    if (pfvData.IsRectangular())
+                        familyName = MyConfigManager.GetValueForAppsetting(m_pfvOtherCutoutRe);
+                    else if (pfvData.IsRound())
+                        familyName = MyConfigManager.GetValueForAppsetting(m_pfvOtherCutoutRd);
+                }
+
+                FamilySymbol symbol = GetFirstSymbolFromFamily(familyName);
+
+                // Place the family symbol
+                if (symbol != null)
+                {
+                    if (!symbol.IsActive)
+                        symbol.Activate();
+
+                    XYZ insertion = new XYZ(pfvData.Location.X, pfvData.Location.Y, pfvData.Location.Z);
+
+                    inst = ElementPlacement.AddFaceBasedFamilyToHost(m_hostDoc, pfvData.UniqueIdHost, symbol.Id, insertion);
+                }
+            }
+            else
+                inst = m_hostDoc.GetElement(pfvData.UniqueIdLocal) as FamilyInstance;
+
+            if (inst != null)
+            {
+                ApplyDimensions(pfvData, inst);
+                pfvData.UniqueIdLocal = inst.UniqueId;
+                pfvData.PfVStatus = Status.Ok;
+
+                List<ElementId> lst = new List<ElementId>();
+                lst.Add(inst.Id);
+                GetUIDocumentFromRevit().Selection.SetElementIds(lst);
+            }
+        }
         private void ApplyDimensions(PfVElementData pfvData, FamilyInstance inst)
         {
             foreach (Parameter p in inst.GetOrderedParameters())
@@ -925,21 +1079,32 @@ namespace BUYLRevit.CutOut.PfV
                 if (pfvData.IsRectangular())
                 {
                     if (p.Definition.Name == m_configManager.GetValueForAppsetting(m_pfvWidth))
-                        ParameterExtensions.SetParameterValue(p, pfvData.Width);
+                        ParameterExtensions.SetParameterValue(p, ConvertMeterToDBLengthUnit(pfvData.Width));
                     else if (p.Definition.Name == m_configManager.GetValueForAppsetting(m_pfvHeight))
-                        ParameterExtensions.SetParameterValue(p, pfvData.Height);
+                        ParameterExtensions.SetParameterValue(p, ConvertMeterToDBLengthUnit(pfvData.Height));
                 }
-                else if(pfvData.IsRound())
+                else if (pfvData.IsRound())
                 {
-                    if (p.Definition.Name == m_configManager.GetValueForAppsetting(m_pfvWidth))
-                        ParameterExtensions.SetParameterValue(p, pfvData.Diameter);
-                    else if (p.Definition.Name == m_configManager.GetValueForAppsetting(m_pfvHeight))
-                        ParameterExtensions.SetParameterValue(p, pfvData.Diameter);
+                    if (p.Definition.Name == m_configManager.GetValueForAppsetting(m_pfvDiameter))
+                        ParameterExtensions.SetParameterValue(p, ConvertMeterToDBLengthUnit(pfvData.Diameter));
                 }
 
                 if (p.Definition.Name == m_configManager.GetValueForAppsetting(m_pfvDepth))
-                    ParameterExtensions.SetParameterValue(p, pfvData.Depth);
+                    ParameterExtensions.SetParameterValue(p, ConvertMeterToDBLengthUnit(pfvData.Depth));
             }
+        }
+
+        private double ConvertMeterToDBLengthUnit(double input)
+        {
+            return Utils.MathUtils.MeterToFeet(input);
+        }
+
+        private double ConvertDBLengthToMeter(double input)
+        {
+            double resu = 0;
+
+            resu = Utils.MathUtils.FeetToMeter(input);
+            return resu;
         }
 
         private Document GetDocumentFromRevit(string docname)
@@ -972,10 +1137,10 @@ namespace BUYLRevit.CutOut.PfV
         {
             return new FilteredElementCollector(m_hostDoc)
               .OfClass(targetType)
-              .FirstOrDefault<Element>( e => e.Name.Equals(targetName));
+              .FirstOrDefault<Element>(e => e.Name.Equals(targetName));
         }
 
-        FamilySymbol GetFirstSymbolFromFamily(string familyName)
+        private FamilySymbol GetFirstSymbolFromFamily(string familyName)
         {
             FamilySymbol sym = null;
             if (String.IsNullOrEmpty(familyName))
@@ -1002,6 +1167,7 @@ namespace BUYLRevit.CutOut.PfV
 
             return sym;
         }
+
         private FamilyInstance PlaceInstance(PfVElementData pfvData, ElementId lowerLevelid, FamilySymbol symbol)
         {
             FamilyInstance inst = null;
@@ -1021,7 +1187,6 @@ namespace BUYLRevit.CutOut.PfV
                     if (lowerLevelid != ElementId.InvalidElementId)
                     {
                         lowerLevel = m_hostDoc.GetElement(lowerLevelid) as Level;
-
                     }
                     else
                     {
@@ -1040,6 +1205,7 @@ namespace BUYLRevit.CutOut.PfV
 
             return inst;
         }
+
         private void CopyLinkedElementsToCurrentModel(Dictionary<string, List<PfVElementData>> data, Document doc, ICollection<ElementId> idsLinkedPfV)
         {
             try
@@ -1054,7 +1220,6 @@ namespace BUYLRevit.CutOut.PfV
                     foreach (ElementId idnew in idsLocalPfV)
                     {
                         Element el = GetUIDocumentFromRevit().Document.GetElement(idnew);
-                        pfv.IdLocal = el.Id.IntegerValue;
                         pfv.UniqueIdLocal = el.UniqueId;
 
                         LocationPoint lp = el.Location as LocationPoint;

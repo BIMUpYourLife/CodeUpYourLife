@@ -18,9 +18,20 @@ namespace BUYLRevit.Utils
             return mm * 0.00328084;
         }
 
-        public static double MToFeet(double m)
+        public static double MeterToFeet(double m)
         {
-            return m * 3.28084;
+            double result = 0;
+
+            if(m != 0)
+                result = m / 0.3048;
+
+            return result;
+        }
+
+        public static double FeetToMeter(double feet)
+        {
+            double result = feet * 0.3048;
+            return result;
         }
     }
 }

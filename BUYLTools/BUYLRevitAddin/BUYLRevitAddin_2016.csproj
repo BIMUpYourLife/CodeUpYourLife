@@ -70,7 +70,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="PackageContents.xml" />
-    <None Include="Resources\PfVConnect.bmp" />
+    <None Include="Resources\PfVConnect.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Resources\PfVPlace.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

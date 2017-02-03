@@ -19,24 +19,21 @@ namespace BUYLTools.CutOut.PfV
     }
 
     [DataContract()]
-    public class PfVElementData : IComparable<PfVElementData>
+    public class PfVElementData : IEquatable<PfVElementData>, IComparable<PfVElementData>
     {
         Status _status = Status.New;
         const string m_pfvRectangularKey = "pfvrectangular";
         const string m_pfvRoundConfigKey = "pfvround";
         const string m_pfvWall = "wallcutout";
         const string m_pfvFloor = "floorcutout";
-        public const string idLinkedColumn = "IdLinked";
+        public const string uniqueIdLinkedColumn = "UniqueIdLinked";
         private double _depth;
         private double _diameter;
         private string _document;
         private string _elementName;
         private string _folder;
         private double _height;
-        private int _idLinked;
-        private int _idHost;
-        private int _idLocal;
-        private int _idDummy;
+        private string _uniqueidHost;
         private string _ifcDescription;
         private string _ifcGuid;
         private string _ifcName;
@@ -50,13 +47,13 @@ namespace BUYLTools.CutOut.PfV
         public PfVElementData(
           string path,
           string elementName,
-          int idLinked,
+          string idLinked,
           string uniqueIdLinked)
         {
             //int i = path.LastIndexOf("\\");
             _document = Path.GetFileName(path);
             _elementName = elementName;
-            _idLinked = idLinked;
+            _uniqueIdLinked = idLinked;
             _uniqueIdLinked = uniqueIdLinked;
             _folder = Path.GetDirectoryName(path);
 
@@ -158,20 +155,6 @@ namespace BUYLTools.CutOut.PfV
         {
             get { return _folder; }
             set { _folder = value; }
-        }
-
-        [ReadOnly(true), Category("Info"), DataMember()]
-        public int IdLinked
-        {
-            get { return _idLinked; }
-            set { _idLinked = value; }
-        }
-
-        [ReadOnly(true), Category("Info"), DataMember()]
-        public int IdLocal
-        {
-            get { return _idLocal; }
-            set { _idLocal = value; }
         }
 
         [ReadOnly(true), Category("Info"), DataMember()]
@@ -287,30 +270,16 @@ namespace BUYLTools.CutOut.PfV
         }
 
         [ReadOnly(true), Category("Info"), DataMember()]
-        public int IdHost
+        public string UniqueIdHost
         {
             get
             {
-                return _idHost;
+                return _uniqueidHost;
             }
 
             set
             {
-                _idHost = value;
-            }
-        }
-
-        [ReadOnly(true), Category("Info"), DataMember()]
-        public int IdDummy
-        {
-            get
-            {
-                return _idDummy;
-            }
-
-            set
-            {
-                _idDummy = value;
+                _uniqueidHost = value;
             }
         }
 
@@ -327,6 +296,11 @@ namespace BUYLTools.CutOut.PfV
                     result = true;
             }
 
+            if(result == false)
+            {
+                result = (Width != 0 && Height != 0) ? true : false;
+            }
+
             return result;
         }
 
@@ -341,6 +315,11 @@ namespace BUYLTools.CutOut.PfV
                 List<string> items = sTypeName.Split(',').ToList();
                 if (items.Contains(this.Shape))
                     result = true;
+            }
+
+            if (result == false)
+            {
+                result = Diameter != 0 ? true : false;
             }
 
             return result;
@@ -413,10 +392,47 @@ namespace BUYLTools.CutOut.PfV
             else
                 return this.Location.Z.CompareTo(other.Location.Z);
         }
+
+        public bool Equals(PfVElementData other)
+        {
+            bool result = true;
+
+            if (!Location.Equals(other.Location)||
+                (Width != other.Width)||
+                (Height != other.Height)||
+                (Diameter != other.Diameter)||
+                (Depth != other.Depth)||
+                (!System.Equals(other.System))||
+                (!Shape.Equals(other.Shape))
+                )
+                result = false;
+
+            return result;
+        }
+
+        public double GetHorizontalExtend()
+        {
+            double res = 0;
+            if (IsRectangular())
+                res = Width > Depth ? Width : Depth;
+            else if (IsRound())
+                res = Diameter;
+            return res;
+        }
+
+        public double GetVerticalExtend()
+        {
+            double res = 0;
+            if (IsRectangular())
+                res = Height;
+            else if (IsRound())
+                res = Diameter;
+            return res;
+        }
     }
 
     [DataContract()]
-    public class Position
+    public class Position : IEquatable<Position>
     {
         private double _x;
         private double _y;
@@ -480,6 +496,18 @@ namespace BUYLTools.CutOut.PfV
         public override string ToString()
         {
             return String.Format("z : {0}; x : {1}; y : {2}", Z, X, Y);
+        }
+
+        public bool Equals(Position other)
+        {
+            bool result = true;
+
+            if ((this.X != other.X) ||
+                (Y != other.Y) ||
+                (Z != other.Z))
+                result = false;
+
+            return result;
         }
     }
 }

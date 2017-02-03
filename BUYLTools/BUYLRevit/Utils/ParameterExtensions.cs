@@ -149,13 +149,13 @@ namespace BUYLRevit.Utils
                         case StorageType.Double:
                             if (val.GetType().Equals(typeof(string)))
                             {
-                                double d = Utils.MathUtils.MToFeet(double.Parse(val as string));
+                                double d = Utils.MathUtils.MeterToFeet(double.Parse(val as string));
                                 famman.SetValueString(par, val.ToString() + " m");
                                 result = true;
                             }
                             else
                             {
-                                double d = Utils.MathUtils.MToFeet(Convert.ToDouble(val));
+                                double d = Utils.MathUtils.MeterToFeet(Convert.ToDouble(val));
                                 famman.Set(par, d);
                                 result = true;
                             }

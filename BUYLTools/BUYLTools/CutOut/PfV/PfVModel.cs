@@ -35,7 +35,7 @@ namespace BUYLTools.CutOut.PfV
             }
         }
 
-        public void UpdateModel(PfVModelData localdata, string hostmodell)
+        public void UpdateModel(PfVModelData updatedata, string hostmodell)
         {
             SetCurrentModel(hostmodell);
             ModelLoad(hostmodell); // Load Modell from disk
@@ -43,33 +43,44 @@ namespace BUYLTools.CutOut.PfV
             if(!m_models.ContainsKey(m_currentmodel))
             {
                 // we have a new modell, nothing on disk stored before
-                m_models.Add(m_currentmodel, localdata);
+                m_models.Add(m_currentmodel, updatedata);
             }
             else
             {
                 //TBD: implement merging of existing models
-                foreach (string key in localdata.Keys)
+                foreach (string key in updatedata.Keys)
                 {
                     if (!m_models[m_currentmodel].ContainsKey(key))
                     {
-                        m_models[m_currentmodel].Add(key, localdata[key]);
+                        m_models[m_currentmodel].Add(key, updatedata[key]);
                     }
                     else
                     {
-                        foreach (PfVElementData elem in localdata[key])
+                        foreach (PfVElementData elemUpdate in updatedata[key])
                         {
                             if (m_models[m_currentmodel].ContainsKey(key))
                             {
                                 bool itemfound = false;
-                                PfVElementData obj = m_models[m_currentmodel][key].First(test => test.IfcGuid == elem.IfcGuid);
-                                if (obj != null)
+                                PfVElementData elemExisting = m_models[m_currentmodel][key].First(test => test.IfcGuid == elemUpdate.IfcGuid);
+                                if (elemExisting != null)
                                 {
+                                    bool replace = false;
+
                                     //we have the same item, check for update
-                                    obj = elem;
+                                    if (!elemUpdate.Equals(elemExisting))
+                                        replace = true;
+
+                                    if (replace)
+                                    {
+                                        if (elemExisting.PfVStatus == Status.Ok || elemExisting.PfVStatus == Status.Modified)
+                                            elemUpdate.PfVStatus = elemExisting.PfVStatus;
+
+                                        m_models[m_currentmodel][key][m_models[m_currentmodel][key].IndexOf(elemExisting)] = elemUpdate;
+                                    }
                                 }
                                 else
                                 {
-                                    m_models[m_currentmodel][key].Add(elem);
+                                    m_models[m_currentmodel][key].Add(elemUpdate);
                                 }
                             }
 
