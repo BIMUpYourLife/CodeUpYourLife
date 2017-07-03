@@ -81,7 +81,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\..\..\_github\CAFM-Connect\Src\CafmConnect\CafmConnect.csproj">
+    <ProjectReference Include="..\..\..\CAFM-Connect\Src\CafmConnect\CafmConnect.csproj">
       <Project>{60fab85f-d834-42d2-8f0a-d1d798b9a027}</Project>
       <Name>CafmConnect</Name>
     </ProjectReference>

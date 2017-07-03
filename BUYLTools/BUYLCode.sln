@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLTools", "BUYLTools\BUYL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevit_2016", "BUYLRevit\BUYLRevit_2016.csproj", "{2657D9AB-6079-4CCE-AA5F-9EBC5B127E21}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafmConnect", "..\..\..\..\_github\CAFM-Connect\Src\CafmConnect\CafmConnect.csproj", "{60FAB85F-D834-42D2-8F0A-D1D798B9A027}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CafmConnect", "..\..\CAFM-Connect\Src\CafmConnect\CafmConnect.csproj", "{60FAB85F-D834-42D2-8F0A-D1D798B9A027}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevit_2017", "BUYLRevit\BUYLRevit_2017.csproj", "{3A962B68-12AC-4D50-9881-36E128F7DBC4}"
 EndProject

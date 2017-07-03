@@ -161,12 +161,14 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LogManager\BUYLLog_config.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>rem signing of dll
+    <PostBuildEvent>xcopy /Y/I/E "$(ProjectDir)LogManager\BUYLLog_config.xml" "$(TargetDir)"
+
+rem signing of dll
 if $(ConfigurationName) == Release "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe" sign /a "$(TargetPath)"
 
 rem copy everything to AnyCPU
