@@ -38,7 +38,7 @@
 		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
 	</AddIn>
 
-	<AddIn Type="Application">
+	<!--<AddIn Type="Application">
 		<Name>BUYLRevitAddinPfVApp</Name>
 		<Assembly>.\BUYLRevitAddin.dll</Assembly>
 		<AddInId>D9306CA6-B737-454B-B7AE-94C3D06AA273</AddInId>
@@ -47,6 +47,6 @@
 		<VendorDescription>CAD-Development, www.cad-development.de</VendorDescription>
 		<VisibilityMode>NotVisibleInFamily</VisibilityMode>
 		<VisibilityMode>NotVisibleWhenNoActiveDocument</VisibilityMode>
-	</AddIn>
+	</AddIn>-->
 	
 </RevitAddIns>

@@ -1,26 +1,29 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Selection;
-using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.Attributes;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using System.ComponentModel;
-using BUYLTools.CutOut.PfV;
 using System.IO;
 using System.Windows.Media.Imaging;
-using System.Drawing;
-using System.Windows.Media;
 
 namespace BUYLRevitAddin
 {
-    #region Content and templates
+    #region Application
+    public class BUYLRevitAddin : IExternalApplication
+    {
+        public Result OnShutdown(UIControlledApplication application)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Result OnStartup(UIControlledApplication application)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    #endregion
+
+    #region Content and template commands
     [TransactionAttribute(TransactionMode.Manual)]
     [RegenerationAttribute(RegenerationOption.Manual)]
     public class BUYLRevitAddinContentRepLoader : IExternalCommand
@@ -136,6 +139,7 @@ namespace BUYLRevitAddin
     #endregion
 
     #region pfv
+    /*
     [Autodesk.Revit.Attributes.Regeneration(Autodesk.Revit.Attributes.RegenerationOption.Manual)]
     public class BUYLRevitAddinPfVApp : BaseCommand, IExternalApplication
     {
@@ -377,6 +381,7 @@ namespace BUYLRevitAddin
             Presenter.ConnectView(m_dlg);
         }
     }
+    */
     #endregion
 
     #region manufacturer
@@ -386,11 +391,11 @@ namespace BUYLRevitAddin
     {
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
-            return BUYLRevit.CcTools.CcTools.StartApplyManufacturerProcess(commandData, ref message, elements);
+            return Result.Succeeded; //BUYLRevit.CcTools.CcTools.StartApplyManufacturerProcess(commandData, ref message, elements);
         }
     }
-
     #endregion
+
     public class BaseCommand
     {
         public string GetRootPackagePath(string assemblyPath)

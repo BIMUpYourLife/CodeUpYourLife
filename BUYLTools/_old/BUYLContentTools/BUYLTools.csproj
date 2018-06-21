@@ -126,7 +126,7 @@
   </Target>
   <PropertyGroup>
     <PostBuildEvent>rem signing of dll
-if $(ConfigurationName) == Release "C:\Program Files (x86)\Windows Kits\8.1\bin\x64\signtool.exe" sign /a "$(TargetPath)"
+if $(ConfigurationName) == Release "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe" sign /a "$(TargetPath)"
 
 rem copy everything to AnyCPU
 xcopy /Y/I/E $(TargetDir)*.* $(SolutionDir)build\AnyCPU\</PostBuildEvent>

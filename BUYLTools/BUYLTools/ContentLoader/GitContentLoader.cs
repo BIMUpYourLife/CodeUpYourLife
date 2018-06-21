@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace BUYLTools.ContentLoader
@@ -19,28 +20,41 @@ namespace BUYLTools.ContentLoader
 
         public static async Task BUYLCloneOrUpdateRepository()
         {
+            if (CheckForContentRepositoryDirectory())
+                DeleteContentRepositoryLocally();
+
             if (!CheckForContentRepositoryDirectory())
             {
                 //prg.ShowDialog();
                 Directory.CreateDirectory(pathToLocalContentRepository);
 
                 LibGit2Sharp.CloneOptions op = new LibGit2Sharp.CloneOptions();
+                op.BranchName = "master";
+                op.Checkout = true;
+                op.IsBare = false;
 
                 LibGit2Sharp.Repository.Clone(urlContentRepository, pathToLocalContentRepository, op);
 
                 LogManager.ManagerLog.Current.WriteLogMessage(string.Format("Repository cloned to {0}", pathToLocalContentRepository), LogManager.LogState.Info);
                 //prg.Close();
             }
-            else
-            {
-                using (var repo = new LibGit2Sharp.Repository(pathToLocalContentRepository))
-                {
-                    LibGit2Sharp.Remote remote = repo.Network.Remotes["origin"];
-                    LibGit2Sharp.FetchOptions op = new LibGit2Sharp.FetchOptions();
-                    repo.Network.Fetch(remote);
-                    LogManager.ManagerLog.Current.WriteLogMessage(string.Format("Repository update fetched to {0}", pathToLocalContentRepository), LogManager.LogState.Info);
-                }
-            }
+            //else
+            //{
+            //    using (var repo = new LibGit2Sharp.Repository(pathToLocalContentRepository))
+            //    {
+            //        LibGit2Sharp.Remote remote = repo.Network.Remotes["origin"];
+            //        LibGit2Sharp.FetchOptions op = new LibGit2Sharp.FetchOptions();
+            //        repo.Network.Fetch(remote);
+            //        LogManager.ManagerLog.Current.WriteLogMessage(string.Format("Repository update fetched to {0}", pathToLocalContentRepository), LogManager.LogState.Info);
+            //    }
+            //}
+        }
+
+        private static void DeleteContentRepositoryLocally()
+        {
+            System.Windows.Forms.MessageBox.Show("The local copy of your repository will be deleted!");
+            DirectoryInfo dirContent = new DirectoryInfo(pathToLocalContentRepository);
+            dirContent.Delete(true);
         }
 
         public static bool CheckForContentRepositoryDirectory()
