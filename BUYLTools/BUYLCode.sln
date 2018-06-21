@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevitAddin_2016", "BUYLRevitAddin\BUYLRevitAddin_2016.csproj", "{BD74321B-E580-4902-9ECE-F4CB0DD03711}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevit_2017", "BUYLRevit\BUYLRevit_2017.csproj", "{3A962B68-12AC-4D50-9881-36E128F7DBC4}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevitAddin_2017", "BUYLRevitAddin\BUYLRevitAddin_2017.csproj", "{F6621DF5-A634-411A-A3C8-E7BDDB32162F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubTest", "WindowsFormsApp1\GitHubTest.csproj", "{6EA68035-6C87-4B24-9A63-32D0B1495AE4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,8 +47,15 @@ Global
 		{F6621DF5-A634-411A-A3C8-E7BDDB32162F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F6621DF5-A634-411A-A3C8-E7BDDB32162F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F6621DF5-A634-411A-A3C8-E7BDDB32162F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6EA68035-6C87-4B24-9A63-32D0B1495AE4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6EA68035-6C87-4B24-9A63-32D0B1495AE4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6EA68035-6C87-4B24-9A63-32D0B1495AE4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6EA68035-6C87-4B24-9A63-32D0B1495AE4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BC948A64-0EF8-40DD-A251-90F1C59162CA}
 	EndGlobalSection
 EndGlobal
