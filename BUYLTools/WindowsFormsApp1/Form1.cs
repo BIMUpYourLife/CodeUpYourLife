@@ -35,28 +35,19 @@ namespace WindowsFormsApp1
             InitializeComponent();
         }
 
+        /// <summary>
+        /// Called when the download button is clicked. Starts the download process from github and unpacks and stores the repository files.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             // Used to display debug messages during the function call
             logMessages.Clear();
 
-            // Clear directory for the zip contents to avoid exceptions while writing files
-            if (Directory.Exists(contentPath))
-            {
-                // Directory at location contentPath will be wiped!
-                Directory.Delete(contentPath, true);
-            }
-            if (Directory.Exists(tempPath))
-            {
-                // Directory at location contentPath will be wiped!
-                Directory.Delete(tempPath, true);
-            }
-
-            // Directory for the zip file doesn't need to be cleared because the zip manager automatically overwrites it
-            // Directory at location of contentPath will be created during the Directory.Move command
-            Directory.CreateDirectory(tempPath);
-            Directory.CreateDirectory(zipPathTemp);
-            Directory.CreateDirectory(contentPathTemp);
+            // Setup folder structure for temporary files
+            FolderSetup();
+            
             using (var client = new WebClient())
             {
                 // Security protocol needs to be changed to this or the zip download from github will fail
@@ -64,11 +55,30 @@ namespace WindowsFormsApp1
                 
                 logMessages.Text += "Downloading file...\n";
 
-                // Download file from github
-                client.DownloadFile(urlContentRepository, zipFullPath);
-
-                logMessages.Text += "Download complete.\n";
+                // Download file from github using async
+                client.DownloadFileAsync(new Uri(urlContentRepository), zipFullPath);
+                client.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
             }
+        }
+
+        /// <summary>
+        /// Called when the asynchronous download is completed.
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="args"></param>
+        public void Completed(object o, AsyncCompletedEventArgs args)
+        {
+            logMessages.Text += "Download complete.\n";
+
+            // Unpack the zip and move the files to the right folder
+            UnpackAndMove();
+        }
+
+        /// <summary>
+        /// Unpacks the zip file and moves all contents to the right folder
+        /// </summary>
+        public void UnpackAndMove()
+        {
             logMessages.Text += "Unzipping file...\n";
 
             // Zip file from GitHub contains a folder containing the repository data
@@ -90,6 +100,30 @@ namespace WindowsFormsApp1
                 // Clear temporary files and folders
                 Directory.Delete(tempPath, true);
             }
+        }
+
+        /// <summary>
+        /// Clears all old data from the content and temporary folder. Creates new temporary folders for the zip file and unpacked data.
+        /// </summary>
+        public void FolderSetup()
+        {
+            // Clear directory for the zip contents to avoid exceptions while writing files
+            if (Directory.Exists(contentPath))
+            {
+                // Directory at location contentPath will be wiped!
+                Directory.Delete(contentPath, true);
+            }
+            if (Directory.Exists(tempPath))
+            {
+                // Directory at location contentPath will be wiped!
+                Directory.Delete(tempPath, true);
+            }
+
+            // Directory for the zip file doesn't need to be cleared because the zip manager automatically overwrites it
+            // Directory at location of contentPath will be created during the Directory.Move command
+            Directory.CreateDirectory(tempPath);
+            Directory.CreateDirectory(zipPathTemp);
+            Directory.CreateDirectory(contentPathTemp);
         }
     }
 }
