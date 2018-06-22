@@ -83,21 +83,33 @@ namespace WindowsFormsApp1
 
             // Zip file from GitHub contains a folder containing the repository data
             // We don't need the folder, so all contents of that folder have to be moved in the parent directory
-            ZipFile.ExtractToDirectory(zipFullPath, contentPathTemp);
-
-            // Subdirectories contained in zip
-            string[] directories = Directory.GetDirectories(contentPathTemp);
-            logMessages.Text += "Unzip complete.\n";
-
-            if (directories != null && directories.Count() > 0)
+            try
             {
-                // The zip only contains one directory which contains all repository data
-                string dir = directories[0];
+                ZipFile.ExtractToDirectory(zipFullPath, contentPathTemp);
 
-                // Copy unpacked files to chosen location
-                Directory.Move(dir, contentPath);
+                // Subdirectories contained in zip
+                string[] directories = Directory.GetDirectories(contentPathTemp);
+                logMessages.Text += "Unzip complete.\n";
 
-                // Clear temporary files and folders
+                if (directories != null && directories.Count() > 0)
+                {
+                    // The zip only contains one directory which contains all repository data
+                    string dir = directories[0];
+
+                    // Copy unpacked files to chosen location
+                    Directory.Move(dir, contentPath);
+
+                    // Clear temporary files and folders
+                    Directory.Delete(tempPath, true);
+                }
+            }
+            // When the zip file can't be accessed something with the download went wrong
+            // Tested scenarios where this exception is thrown: No internet connection; Invalid repository url.
+            catch (InvalidDataException e)
+            {
+                // Display error message
+                logMessages.Text += "Error while downloading or accessing the file. Please check  your internet connection or try again later.";
+                // Cleanup unneeded temporary directories
                 Directory.Delete(tempPath, true);
             }
         }
