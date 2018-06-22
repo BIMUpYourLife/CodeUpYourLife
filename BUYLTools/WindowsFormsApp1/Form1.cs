@@ -15,85 +15,80 @@ namespace WindowsFormsApp1
 {
     public partial class Form1 : Form
     {
+        // Path of the github repository. Addition of "/zipball/master" to the url allows us to download the zip directly.
         const string urlContentRepository = "https://github.com/BIMUpYourLife/DynamoUpYourLife/zipball/master";
-        public const string zipDirectory = "C:\\Users\\build\\Documents\\BimTestDownload\\temp\\";
-        public const string contentPath = "C:\\Users\\build\\Documents\\BimTestDownload\\content\\";
-        //public const string contentTempPath = "C:\\Users\\build\\Documents\\BimTestDownload\\tempcontent";
+        // Path where the repository contents will be saved - will be wiped before download!
+        public const string contentPath = "C:\\Users\\build\\Documents\\BimTestDownload\\";
+        // Path where temporary download data will be stored - will be wiped after execution!
+        public const string tempPath = "C:\\Users\\build\\Documents\\BimTestDownloadTemp\\";
+
+        // Paths for temporary folders
+        public const string contentPathTemp = tempPath + "temp_content";
+        public const string zipPathTemp = tempPath + "temp_zip\\";
+
+        // Name and path for the temporarily stored zip file
         public const string zipName = "repo.zip";
-        public const string zipFullPath = zipDirectory + zipName;
+        public const string zipFullPath = zipPathTemp + zipName;
 
         public Form1()
         {
             InitializeComponent();
-            System.IO.Directory.CreateDirectory(zipDirectory);
-            System.IO.Directory.CreateDirectory(contentPath);
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
+            // Used to display debug messages during the function call
+            logMessages.Clear();
+
+            // Clear directory for the zip contents to avoid exceptions while writing files
+            if (Directory.Exists(contentPath))
+            {
+                // Directory at location contentPath will be wiped!
+                Directory.Delete(contentPath, true);
+            }
+            if (Directory.Exists(tempPath))
+            {
+                // Directory at location contentPath will be wiped!
+                Directory.Delete(tempPath, true);
+            }
+
+            // Directory for the zip file doesn't need to be cleared because the zip manager automatically overwrites it
+            // Directory at location of contentPath will be created during the Directory.Move command
+            Directory.CreateDirectory(tempPath);
+            Directory.CreateDirectory(zipPathTemp);
+            Directory.CreateDirectory(contentPathTemp);
             using (var client = new WebClient())
             {
-                // used to display debug messages during the function call
-                logMessages.Clear();
-           
-                // clear directory for the zip contents to avoid exceptions while writing files
-                if (Directory.Exists(contentPath))
-                {   
-                    // directory at location contentPath will be wiped!
-                    Directory.Delete(contentPath, true);
-                }
-                
-                // directory for the zip file doesn't need to be cleared because the zip manager automatically overwrites it
-                System.IO.Directory.CreateDirectory(zipDirectory);
-                System.IO.Directory.CreateDirectory(contentPath);
-
                 // Security protocol needs to be changed to this or the zip download from github will fail
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-
+                
                 logMessages.Text += "Downloading file...\n";
 
                 // Download file from github
                 client.DownloadFile(urlContentRepository, zipFullPath);
 
                 logMessages.Text += "Download complete.\n";
-                logMessages.Text += "Unzipping file...\n";
+            }
+            logMessages.Text += "Unzipping file...\n";
 
-                // Zip file from GitHub contains a folder containing the repository data
-                // We don't need the folder, so all contents of that folder have to be moved in the parent directory
-                ZipFile.ExtractToDirectory(zipFullPath, contentPath);
-                
-                // subdirectory contained in zip
-                string[] directories = Directory.GetDirectories(contentPath);
+            // Zip file from GitHub contains a folder containing the repository data
+            // We don't need the folder, so all contents of that folder have to be moved in the parent directory
+            ZipFile.ExtractToDirectory(zipFullPath, contentPathTemp);
 
-                if(directories != null && directories.Count() > 0)
-                {
-                    // The zip only contains one directory which contains all repository data
-                    string dir = directories[0];
+            // Subdirectories contained in zip
+            string[] directories = Directory.GetDirectories(contentPathTemp);
+            logMessages.Text += "Unzip complete.\n";
 
-                    // Get all files and directories contained in the repository
-                    string[] files = Directory.GetFiles(dir);
-                    string[] subdirectories = Directory.GetDirectories(dir);
+            if (directories != null && directories.Count() > 0)
+            {
+                // The zip only contains one directory which contains all repository data
+                string dir = directories[0];
 
-                    // Move all subdirectories
-                    foreach (string subdirectory in subdirectories)
-                    {
-                        string[] path = subdirectory.Split('\\');
-                        string dirName = path.Last();
-                        Directory.Move(subdirectory, contentPath + "//" + dirName);
-                    }
-                  
-                    // Move all files
-                    foreach (string file in files)
-                    {
-                        string fileName = Path.GetFileName(file);
-                        File.Move(file, contentPath + fileName);
-                    }
+                // Copy unpacked files to chosen location
+                Directory.Move(dir, contentPath);
 
-                    // Delete now empty directory
-                    Directory.Delete(dir);
-                }
-
-                logMessages.Text += "Unzip complete.\n";
+                // Clear temporary files and folders
+                Directory.Delete(tempPath, true);
             }
         }
     }
