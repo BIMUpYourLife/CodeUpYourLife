@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
-	<AddIn Type="Command">
+	<!-- <AddIn Type="Command">
 		<Name>BUYL - Load content repository</Name>
 		<Assembly>.\BUYLRevitAddin.dll</Assembly>
 		<ClientId>41D62801-C2D1-4967-9FD7-27BF82E1395B</ClientId>
@@ -36,7 +36,7 @@
 		<Text>BUYL - Apply manufacturer</Text>
 		<VendorId>CADEV</VendorId>
 		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
-	</AddIn>
+	</AddIn>-->
   
 <AddIn Type="Application">
     <Name>BUYL</Name>

@@ -11,11 +11,11 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         // Path of the github repository. Addition of "/zipball/master" to the url allows us to download the zip directly.
-        const string urlContentRepository = "https://github.com/BIMUpYourLife/DynamoUpYourLife/zipball/master";
+        const string urlContentRepository = BUYLTools.ContentLoader.GitContentLoader.urlToRepositoryZip;
         // Path where the repository contents will be saved - will be wiped before download!
-        public const string contentPath = "C:\\Users\\build\\Documents\\BimTestDownload\\";
+        public const string contentPath = BUYLTools.ContentLoader.GitContentLoader.pathToLocalContentRepository;
         // Path where temporary download data will be stored - will be wiped after execution!
-        public const string tempPath = "C:\\Users\\build\\Documents\\BimTestDownloadTemp\\";
+        public const string tempPath = BUYLTools.ContentLoader.GitContentLoader.tempFilePath;
 
         // Paths for temporary folders
         public const string contentPathTemp = tempPath + "temp_content";
