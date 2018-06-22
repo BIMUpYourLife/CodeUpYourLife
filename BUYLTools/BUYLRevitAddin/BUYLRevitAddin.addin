@@ -37,7 +37,16 @@
 		<VendorId>CADEV</VendorId>
 		<VendorDescription>CAD-Development, http://www.cad-development.de/ </VendorDescription>
 	</AddIn>
-
+  
+<AddIn Type="Application">
+    <Name>BUYL</Name>
+    <Assembly>.\BUYLRevitAddin.dll</Assembly>
+    <AddInId>7D116AA6-56A5-4A74-B16A-F62647A257D1</AddInId>
+    <FullClassName>BUYLRevitAddin.BUYLRevitAddin</FullClassName>
+    <ClientId>B3A60047-2A70-4758-9B58-44276256F2B7</ClientId>
+    <VendorId>CAD-Development</VendorId>
+    <VendorDescription>BUYL</VendorDescription>
+  </AddIn>
 	<!--<AddIn Type="Application">
 		<Name>BUYLRevitAddinPfVApp</Name>
 		<Assembly>.\BUYLRevitAddin.dll</Assembly>

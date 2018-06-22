@@ -11,16 +11,48 @@ namespace BUYLRevitAddin
     #region Application
     public class BUYLRevitAddin : IExternalApplication
     {
+        BaseCommand baseCmd = new BaseCommand();
+
         public Result OnShutdown(UIControlledApplication application)
         {
-            throw new NotImplementedException();
+            return Result.Succeeded;
         }
 
         public Result OnStartup(UIControlledApplication application)
         {
-            throw new NotImplementedException();
+            CreateRibbonPanel(application);
+            return Result.Succeeded;
+        }
+
+        private RibbonPanel CreateRibbonPanel(UIControlledApplication _cachedUiCtrApp)
+        {
+            RibbonPanel panel = _cachedUiCtrApp.CreateRibbonPanel("BUYL");
+            AddRibbonButtonsAndTexts(panel);
+
+            return panel;
+        }
+
+        private void AddRibbonButtonsAndTexts(RibbonPanel panel)
+        {
+            try
+            {
+                PushButtonData lastEditbtnData = new PushButtonData("Download", "Download", baseCmd.AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinContentRepLoader");
+                PushButton lastEditBtn = panel.AddItem(lastEditbtnData) as PushButton;
+                lastEditBtn.ToolTip = "Download BUYL content.";
+                //Later will set an icon
+                //lastEditBtn.Image = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
+                //lastEditBtn.LargeImage = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
+
+            }
+            catch (Exception ex)
+            {
+                TaskDialog.Show("Failure", ex.InnerException.ToString());
+            }
         }
     }
+
+    
+
     #endregion
 
     #region Content and template commands
