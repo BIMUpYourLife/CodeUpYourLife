@@ -5,6 +5,7 @@ using Autodesk.Revit.Attributes;
 using System.ComponentModel;
 using System.IO;
 using System.Windows.Media.Imaging;
+using System.Windows.Forms;
 
 namespace BUYLRevitAddin
 {
@@ -36,7 +37,7 @@ namespace BUYLRevitAddin
         {
             try
             {
-                PushButtonData lastEditbtnData = new PushButtonData("Download", "Download", baseCmd.AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinContentRepLoader");
+                PushButtonData lastEditbtnData = new PushButtonData("Download", "Download", baseCmd.AssemblyFullName, "BUYLRevitAddin.BUYLLoadGithubRepo");
                 PushButton lastEditBtn = panel.AddItem(lastEditbtnData) as PushButton;
                 lastEditBtn.ToolTip = "Download BUYL content.";
                 //Later will set an icon
@@ -51,7 +52,16 @@ namespace BUYLRevitAddin
         }
     }
 
-    
+    [TransactionAttribute(TransactionMode.Manual)]
+    public class BUYLLoadGithubRepo : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+        {
+            Application.Run(new WindowsFormsApp1.Form1());
+            return Result.Succeeded;
+            
+        }
+    }
 
     #endregion
 
