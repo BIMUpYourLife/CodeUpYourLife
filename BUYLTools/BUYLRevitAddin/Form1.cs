@@ -25,6 +25,9 @@ namespace WindowsFormsApp1
         public const string zipName = "repo.zip";
         public const string zipFullPath = zipPathTemp + zipName;
 
+        // Helper for updating the progress bar
+        int oldProgress = 0;
+
         public Form1()
         {
             InitializeComponent();
@@ -50,9 +53,28 @@ namespace WindowsFormsApp1
                 
                 logMessages.Text += "Downloading file...\n";
 
+                // Reset download progress counter
+                oldProgress = 0;
+
                 // Download file from github using async
                 client.DownloadFileAsync(new Uri(urlContentRepository), zipFullPath);
+                client.DownloadProgressChanged += new DownloadProgressChangedEventHandler(DownloadProgressCallback);
                 client.DownloadFileCompleted += new AsyncCompletedEventHandler(Completed);
+            }
+        }
+
+        /// <summary>
+        /// Updates the download progress bar
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void DownloadProgressCallback(object sender, DownloadProgressChangedEventArgs e)
+        {
+            // check if the progress has changes to avoid overloading the ui with too many updates
+            if (e.ProgressPercentage != oldProgress)
+            {
+                downloadProgress.Value = e.ProgressPercentage;
+                oldProgress = e.ProgressPercentage;
             }
         }
 
@@ -86,6 +108,7 @@ namespace WindowsFormsApp1
                 string[] directories = Directory.GetDirectories(contentPathTemp);
                 logMessages.Text += "Unzip complete.\n";
 
+                logMessages.Text += "Cleanup of temporary files.\n";
                 if (directories != null && directories.Count() > 0)
                 {
                     // The zip only contains one directory which contains all repository data
@@ -97,6 +120,7 @@ namespace WindowsFormsApp1
                     // Clear temporary files and folders
                     Directory.Delete(tempPath, true);
                 }
+                logMessages.Text += "Done.\n";
             }
             // When the zip file can't be accessed something with the download went wrong
             // Tested scenarios where this exception is thrown: No internet connection; Invalid repository url.
