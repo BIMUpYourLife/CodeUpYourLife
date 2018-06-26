@@ -14,6 +14,8 @@ namespace BUYLRevitAddin
     {
         BaseCommand baseCmd = new BaseCommand();
 
+        
+
         public Result OnShutdown(UIControlledApplication application)
         {
             return Result.Succeeded;
@@ -37,26 +39,27 @@ namespace BUYLRevitAddin
         {
             try
             {
+                string downloadBtnPath = Path.Combine(new DirectoryInfo(baseCmd.AssemblyFullName).Parent.FullName, "Resources\\DownloadBUYL.bmp");
+                string deBtnPath = Path.Combine(new DirectoryInfo(baseCmd.AssemblyFullName).Parent.FullName, "Resources\\BUYLProjektDE.bmp");
+                string chBtnPath = Path.Combine(new DirectoryInfo(baseCmd.AssemblyFullName).Parent.FullName, "Resources\\BUYLProjektCH.bmp");
+
                 PushButtonData downloadButtonData = new PushButtonData("Download", "Download", baseCmd.AssemblyFullName, "BUYLRevitAddin.BUYLLoadGithubRepo");
                 PushButton downloadButton = panel.AddItem(downloadButtonData) as PushButton;
-                downloadButton.ToolTip = "BUYL - Download BUYL content";
-                //Later will set an icon
-                //lastEditBtn.Image = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
-                //lastEditBtn.LargeImage = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
+                downloadButton.ToolTip = "BUYL - Download BUYL content";                                                                                          
+                downloadButton.Image = new BitmapImage(new Uri(downloadBtnPath));
+                downloadButton.LargeImage = new BitmapImage(new Uri(downloadBtnPath));
 
                 PushButtonData dechButtonData = new PushButtonData("Start DECH", "Start DECH", baseCmd.AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinStartDECHProject");
                 PushButton dechButton = panel.AddItem(dechButtonData) as PushButton;
                 dechButton.ToolTip = "BUYL - Start DECH project";
-                //Later will set an icon
-                //lastEditBtn.Image = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
-                //lastEditBtn.LargeImage = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
+                dechButton.Image = new BitmapImage(new Uri(chBtnPath));
+                dechButton.LargeImage = new BitmapImage(new Uri(chBtnPath));
 
                 PushButtonData dedeButtonData = new PushButtonData("Start DEDE", "Start DEDE", baseCmd.AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinStartDEDEProject");
                 PushButton dedeButton = panel.AddItem(dedeButtonData) as PushButton;
                 dedeButton.ToolTip = "BUYL - Start DEDE project";
-                //Later will set an icon
-                //lastEditBtn.Image = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
-                //lastEditBtn.LargeImage = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
+                dedeButton.Image = new BitmapImage(new Uri(deBtnPath));
+                dedeButton.LargeImage = new BitmapImage(new Uri(deBtnPath));
 
                 //PushButtonData manufacturerButtonData = new PushButtonData("Apply manufacturer", "Apply manufacturer", baseCmd.AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinApplyManufacturer");
                 //PushButton manufacturerButton = panel.AddItem(manufacturerButtonData) as PushButton;
@@ -64,7 +67,7 @@ namespace BUYLRevitAddin
                 //Later will set an icon
                 //lastEditBtn.Image = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
                 //lastEditBtn.LargeImage = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
-                
+
             }
             catch (Exception ex)
             {

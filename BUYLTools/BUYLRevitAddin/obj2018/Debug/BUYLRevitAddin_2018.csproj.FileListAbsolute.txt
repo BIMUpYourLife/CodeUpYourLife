@@ -23,3 +23,6 @@ C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\BUYLRevitAddin\
 C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\BUYLRevitAddin\obj2018\Debug\BUYLRevitAddin_2018.csproj.CopyComplete
 C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\BUYLRevitAddin\obj2018\Debug\BUYLRevitAddin.dll
 C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\BUYLRevitAddin\obj2018\Debug\BUYLRevitAddin.pdb
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\final\BUYLRevitAddin.bundle\2018\Resources\BUYLProjektCH.bmp
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\final\BUYLRevitAddin.bundle\2018\Resources\BUYLProjektDE.bmp
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\final\BUYLRevitAddin.bundle\2018\Resources\DownloadBUYL.bmp

@@ -90,6 +90,15 @@
       <SubType>Designer</SubType>
     </Content>
     <Content Include="PackageContents.xml" />
+    <Content Include="Resources\BUYLProjektCH.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\BUYLProjektDE.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\DownloadBUYL.bmp">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\PfVConnect.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
