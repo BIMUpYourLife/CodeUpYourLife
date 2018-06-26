@@ -40,6 +40,8 @@ namespace WindowsFormsApp1
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            // Disable Button to avoid multiple download requests
+            button1.Enabled = false;
             // Used to display debug messages during the function call
             logMessages.Clear();
 
@@ -51,7 +53,7 @@ namespace WindowsFormsApp1
                 // Security protocol needs to be changed to this or the zip download from github will fail
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 
-                logMessages.Text += "Downloading file...\n";
+                logMessages.Text += "Downloading file. This may take a while.\n";
 
                 // Reset download progress counter
                 oldProgress = 0;
@@ -89,6 +91,9 @@ namespace WindowsFormsApp1
 
             // Unpack the zip and move the files to the right folder
             UnpackAndMove();
+
+            // Enable button for new download request
+            button1.Enabled = true;
         }
 
         /// <summary>
