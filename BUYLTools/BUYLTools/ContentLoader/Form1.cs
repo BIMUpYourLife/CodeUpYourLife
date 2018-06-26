@@ -146,12 +146,12 @@ namespace WindowsFormsApp1
             }
             if (Directory.Exists(tempPath))
             {
-                // Directory at location contentPath will be wiped!
+                // Directory at location tempPath will be wiped!
                 Directory.Delete(tempPath, true);
             }
-
-            // Directory for the zip file doesn't need to be cleared because the zip manager automatically overwrites it
+            
             // Directory at location of contentPath will be created during the Directory.Move command
+            // Create temporary directories
             Directory.CreateDirectory(tempPath);
             Directory.CreateDirectory(zipPathTemp);
             Directory.CreateDirectory(contentPathTemp);

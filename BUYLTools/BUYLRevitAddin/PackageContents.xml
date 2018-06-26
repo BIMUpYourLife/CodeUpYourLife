@@ -64,4 +64,30 @@
       ModuleName="./2017/BUYLRevitAddin.addin"
       AppDescription="BUYL - Tools for Revit" />
   </Components>
+
+  <Components Description="2018 addin">
+    <RuntimeRequirements
+      OS="Win64"
+      Platform="Revit|Revit MEP|Revit Architecture|Revit Structure"
+      SeriesMin="R2018"
+      SeriesMax="R2018.3" />
+    <ComponentEntry
+      AppName="CadDev.Cad.Rme.Tools"
+      Version="1.1.0.0"
+      ModuleName="./2018/BUYLRevitAddin.addin"
+      AppDescription="BUYL - Tools for Revit" />
+  </Components>
+
+  <Components Description="2019 addin">
+    <RuntimeRequirements
+      OS="Win64"
+      Platform="Revit|Revit MEP|Revit Architecture|Revit Structure"
+      SeriesMin="R2019"
+      SeriesMax="R2019" />
+    <ComponentEntry
+      AppName="CadDev.Cad.Rme.Tools"
+      Version="1.1.0.0"
+      ModuleName="./2019/BUYLRevitAddin.addin"
+      AppDescription="BUYL - Tools for Revit" />
+  </Components>
 </ApplicationPackage>

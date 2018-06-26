@@ -1,0 +1,16 @@
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\AnyCPU_RME_2019\lib\win32\x64\git2-15e1193.dll
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\AnyCPU_RME_2019\lib\win32\x64\git2-15e1193.pdb
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\AnyCPU_RME_2019\lib\win32\x86\git2-15e1193.dll
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\AnyCPU_RME_2019\lib\win32\x86\git2-15e1193.pdb
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\AnyCPU_RME_2019\lib\osx\libgit2-15e1193.dylib
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\AnyCPU_RME_2019\lib\linux\x86_64\libgit2-15e1193.so
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\AnyCPU_RME_2019\LibGit2Sharp.dll.config
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\AnyCPU_RME_2019\BUYLRevit.dll.config
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\AnyCPU_RME_2019\BUYLRevit.XML
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\AnyCPU_RME_2019\BUYLRevit.dll
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\_build\AnyCPU_RME_2019\BUYLRevit.pdb
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\BUYLRevit\obj2019\Debug\BUYLRevit_2019.csprojAssemblyReference.cache
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\BUYLRevit\obj2019\Debug\BUYLRevit_2019.csproj.CoreCompileInputs.cache
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\BUYLRevit\obj2019\Debug\BUYLRevit_2019.csproj.CopyComplete
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\BUYLRevit\obj2019\Debug\BUYLRevit.dll
+C:\Users\build\Documents\Codeupyourlife\CodeUpYourLife\BUYLTools\BUYLRevit\obj2019\Debug\BUYLRevit.pdb
