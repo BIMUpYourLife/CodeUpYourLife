@@ -58,9 +58,9 @@ namespace BUYLRevitAddin
                 //lastEditBtn.Image = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
                 //lastEditBtn.LargeImage = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
 
-                PushButtonData manufacturerButtonData = new PushButtonData("Apply manufacturer", "Apply manufacturer", baseCmd.AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinApplyManufacturer");
-                PushButton manufacturerButton = panel.AddItem(manufacturerButtonData) as PushButton;
-                manufacturerButton.ToolTip = "BUYL - Apply Manufacturer";
+                //PushButtonData manufacturerButtonData = new PushButtonData("Apply manufacturer", "Apply manufacturer", baseCmd.AssemblyFullName, "BUYLRevitAddin.BUYLRevitAddinApplyManufacturer");
+                //PushButton manufacturerButton = panel.AddItem(manufacturerButtonData) as PushButton;
+                //manufacturerButton.ToolTip = "BUYL - Apply Manufacturer";
                 //Later will set an icon
                 //lastEditBtn.Image = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));
                 //lastEditBtn.LargeImage = new BitmapImage(new Uri(Path.Combine(GetContenttDirectory(), "LastEdit.png"), UriKind.Absolute));

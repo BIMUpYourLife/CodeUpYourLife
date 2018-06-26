@@ -99,7 +99,7 @@
     <Content Include="Resources\PfVConnect.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <None Include="packages.config" />
+    <None Include="packages.BUYLRevitAddin_2017.config" />
     <None Include="Resources\PfVLocate.bmp">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

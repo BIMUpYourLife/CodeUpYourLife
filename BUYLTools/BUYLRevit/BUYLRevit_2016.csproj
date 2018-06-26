@@ -89,7 +89,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="packages.config" />
+    <None Include="packages.BUYLRevit_2016.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BUYLTools\BUYLTools.csproj">
