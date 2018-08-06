@@ -107,9 +107,9 @@
     <Folder Include="Content\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BUYLRevit\BUYLRevit_2019.csproj">
+    <ProjectReference Include="..\BUYLRevit\BUYLRevit_2016.csproj">
       <Project>{2657d9ab-6079-4cce-aa5f-9ebc5b127e21}</Project>
-      <Name>BUYLRevit_2019</Name>
+      <Name>BUYLRevit_2016</Name>
     </ProjectReference>
     <ProjectReference Include="..\BUYLTools\BUYLTools.csproj">
       <Project>{eeb912e7-2006-4801-b39e-e2587e3baf1f}</Project>

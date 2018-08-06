@@ -17,15 +17,59 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug;MySource=$(SolutionDir)_build\final\BUYLRevitAddin.bundle;</DefineConstants>
+    <SuppressIces>ICE38;ICE64;ICE77</SuppressIces>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="BundleFilesFragment.wxs" />
     <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BUYLRevitAddin\BUYLRevitAddin_2016.csproj">
+      <Name>BUYLRevitAddin_2016</Name>
+      <Project>{bd74321b-e580-4902-9ece-f4cb0dd03711}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\BUYLRevitAddin\BUYLRevitAddin_2017.csproj">
+      <Name>BUYLRevitAddin_2017</Name>
+      <Project>{f6621df5-a634-411a-a3c8-e7bddb32162f}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\BUYLRevitAddin\BUYLRevitAddin_2018.csproj">
+      <Name>BUYLRevitAddin_2018</Name>
+      <Project>{8a42db7a-d4fd-42af-8301-dbf104f61072}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+    <ProjectReference Include="..\BUYLRevitAddin\BUYLRevitAddin_2019.csproj">
+      <Name>BUYLRevitAddin_2019</Name>
+      <Project>{7e092ff2-e16b-464f-b946-1f40fdabd3a9}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
   <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
     <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>"$(WIX)bin\heat.exe" dir "$(SolutionDir)_build\final\$(ProjectName).bundle" -cg BundleFiles -gg -scom -sreg -sfrag -srd -dr BUNDLEFOLDER -var var.MySource -out "$(ProjectDir)BundleFilesFragment.wxs"</PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>rem signing of dll
+if $(ConfigurationName) == Release "C:\Program Files (x86)\Microsoft SDKs\ClickOnce\SignTool\signtool.exe" sign /a "$(TargetPath)"</PostBuildEvent>
+  </PropertyGroup>
   <!--
 	To modify your build process, add your task inside one of the targets below and uncomment it.
 	Other similar extension points exist, see Wix.targets.
