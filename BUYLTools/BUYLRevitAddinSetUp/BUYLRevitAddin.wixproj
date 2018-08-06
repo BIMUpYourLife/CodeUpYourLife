@@ -4,10 +4,11 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>3.10</ProductVersion>
-    <ProjectGuid>1aadcf9d-2e49-42b7-8f20-66f20634c624</ProjectGuid>
+    <ProjectGuid>0112ae7b-1064-4e00-a808-fd92b80bc4df</ProjectGuid>
     <SchemaVersion>2.0</SchemaVersion>
-    <OutputName>BYULRevitAddin</OutputName>
+    <OutputName>BUYLRevitAddin</OutputName>
     <OutputType>Package</OutputType>
+    <Name>BUYLRevitAddin</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <OutputPath>bin\$(Configuration)\</OutputPath>
@@ -18,6 +19,7 @@
     <OutputPath>bin\$(Configuration)\</OutputPath>
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
     <DefineConstants>Debug;MySource=$(SolutionDir)_build\final\BUYLRevitAddin.bundle;</DefineConstants>
+    <SuppressSpecificWarnings />
     <SuppressIces>ICE38;ICE64;ICE77</SuppressIces>
   </PropertyGroup>
   <ItemGroup>
@@ -25,38 +27,10 @@
     <Compile Include="Product.wxs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BUYLRevitAddin\BUYLRevitAddin_2016.csproj">
-      <Name>BUYLRevitAddin_2016</Name>
-      <Project>{bd74321b-e580-4902-9ece-f4cb0dd03711}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\BUYLRevitAddin\BUYLRevitAddin_2017.csproj">
-      <Name>BUYLRevitAddin_2017</Name>
-      <Project>{f6621df5-a634-411a-a3c8-e7bddb32162f}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\BUYLRevitAddin\BUYLRevitAddin_2018.csproj">
-      <Name>BUYLRevitAddin_2018</Name>
-      <Project>{8a42db7a-d4fd-42af-8301-dbf104f61072}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
-    <ProjectReference Include="..\BUYLRevitAddin\BUYLRevitAddin_2019.csproj">
-      <Name>BUYLRevitAddin_2019</Name>
-      <Project>{7e092ff2-e16b-464f-b946-1f40fdabd3a9}</Project>
-      <Private>True</Private>
-      <DoNotHarvest>True</DoNotHarvest>
-      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
-      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
-    </ProjectReference>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />

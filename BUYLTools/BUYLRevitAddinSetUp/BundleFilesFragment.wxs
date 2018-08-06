@@ -1,0 +1,979 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Fragment>
+        <DirectoryRef Id="BUNDLEFOLDER">
+            <Component Id="cmp0485E17AB122DA8D179BC61353690542" Guid="{BBC9075E-7B04-4501-83FE-9E5219779959}">
+                <File Id="filD244D1056392A6EA29BF1ABA87AB95D6" KeyPath="yes" Source="$(var.MySource)\PackageContents.xml" />
+            </Component>
+            <Directory Id="dir9DF3771EC687384750E314260F6D0A48" Name="2016">
+                <Component Id="cmp6C7C92F0D72C0A9494419D7D962D4F72" Guid="{D07A1A69-A6C8-4BD0-9F67-64C66633E200}">
+                    <File Id="filCA41017927FA365126AF536778B10D66" KeyPath="yes" Source="$(var.MySource)\2016\BUYLLog_config.xml" />
+                </Component>
+                <Component Id="cmp280562D3A6E2C14C5AD7293B91CCFBC6" Guid="{669A2F93-7BBC-46AD-9A15-4F5579049617}">
+                    <File Id="fil788EF3968F462587E2C153B170398A90" KeyPath="yes" Source="$(var.MySource)\2016\BUYLRevit.dll" />
+                </Component>
+                <Component Id="cmp14D752ED2A76A07C7B2821B9D77B90A8" Guid="{E5DD20CA-B5E2-4AF5-A495-CACBB02F6305}">
+                    <File Id="fil550D82AB81D73998EE9E0E4D7EE56C89" KeyPath="yes" Source="$(var.MySource)\2016\BUYLRevit.dll.config" />
+                </Component>
+                <Component Id="cmp24B43A7426F96242623692D07ABB582A" Guid="{566F5401-EFE8-457F-A90D-74BAB4330ED6}">
+                    <File Id="filBEF78A1A72ABFBF898C9468359A8A942" KeyPath="yes" Source="$(var.MySource)\2016\BUYLRevit.pdb" />
+                </Component>
+                <Component Id="cmp3F168F192E5E1DB7D1D90C49021DFC64" Guid="{605DB07F-C419-4F09-BB95-0633033442F2}">
+                    <File Id="filBE90F57386CB954BABB4DAF56261CEEE" KeyPath="yes" Source="$(var.MySource)\2016\BUYLRevit.XML" />
+                </Component>
+                <Component Id="cmp38AA44B2B958972D189B5F82F7957944" Guid="{637B907C-17FA-45F4-9DFA-B6C15D3D7F4B}">
+                    <File Id="fil103E7373D330AB582F6EE1EA0C46F564" KeyPath="yes" Source="$(var.MySource)\2016\BUYLRevitAddin.addin" />
+                </Component>
+                <Component Id="cmp5DE1D2E6357427B3B6470894EA6ECB6B" Guid="{28A523FC-BF26-420D-B199-50FF2433C446}">
+                    <File Id="filFA8300744DF02EBD2A2910B3CC0F7F24" KeyPath="yes" Source="$(var.MySource)\2016\BUYLRevitAddin.dll" />
+                </Component>
+                <Component Id="cmp4982382561C0E921BF92F6F037440ABD" Guid="{F348A4BB-60EB-4584-8314-3848E7713AF1}">
+                    <File Id="filEBC22FA2DE850B0E25C01F67ADE0FB7D" KeyPath="yes" Source="$(var.MySource)\2016\BUYLRevitAddin.pdb" />
+                </Component>
+                <Component Id="cmpA094734EFF9D8320F2D3676C2F7CB101" Guid="{591EF0BC-6B95-4082-A96B-99613E390F54}">
+                    <File Id="filE9232CEC9E97465BCAC8EC9700FA0010" KeyPath="yes" Source="$(var.MySource)\2016\BUYLRevitAddin.XML" />
+                </Component>
+                <Component Id="cmpE8F69433D52BD34599E2906C6F663B45" Guid="{3157EFA9-0266-427C-ADAC-FCE320218F67}">
+                    <File Id="filDB61E334FB6BB9D3929E46EA7C6B0BD8" KeyPath="yes" Source="$(var.MySource)\2016\BUYLTools.dll" />
+                </Component>
+                <Component Id="cmp1DE74674016ABF5ABD374C7643A1E16A" Guid="{8DA031B4-A398-4CA1-9E76-681FE556493A}">
+                    <File Id="fil9BA5D81F9BE2EB74C49EF43917614317" KeyPath="yes" Source="$(var.MySource)\2016\BUYLTools.dll.config" />
+                </Component>
+                <Component Id="cmp977FBD91D46D3240A2DA3C4D7605A6D0" Guid="{BCC65CDA-8CCA-4226-8485-6601B63C4F2D}">
+                    <File Id="filF05E61356CFCC1E4F011B88B88574267" KeyPath="yes" Source="$(var.MySource)\2016\BUYLTools.pdb" />
+                </Component>
+                <Component Id="cmpDE1862590B894079383FB0ECBC68663A" Guid="{8A462559-54A1-468A-A8D1-6EBB618A45D4}">
+                    <File Id="filC344C420567B72E643A470467F2ED7F3" KeyPath="yes" Source="$(var.MySource)\2016\CafmConnect.dll.config" />
+                </Component>
+                <Component Id="cmp062E7B936FE2DDD6D0703BD6E80C15BC" Guid="{30AA697C-2171-4D6A-AB23-D5A2C2D6F845}">
+                    <File Id="filB8C3811DA84A2A38FADB8CFDA6978CCA" KeyPath="yes" Source="$(var.MySource)\2016\LibGit2Sharp.dll" />
+                </Component>
+                <Component Id="cmp9DC555B041F81C8A63D962C5E8D66F99" Guid="{DC56E107-3F01-4E33-A55F-E7210AB8AB5A}">
+                    <File Id="fil9C29CFD660D562B5FC9C5F8D5F13ABB4" KeyPath="yes" Source="$(var.MySource)\2016\LibGit2Sharp.dll.config" />
+                </Component>
+                <Component Id="cmp7FAD915859EE3D9E011F624F37D83C23" Guid="{607599AC-B7BA-4494-BFD3-9CEC42677804}">
+                    <File Id="filA3A15CEDC486E8EC47A9157F3484942D" KeyPath="yes" Source="$(var.MySource)\2016\LibGit2Sharp.pdb" />
+                </Component>
+                <Component Id="cmp47B2CC89F8A8438FD57A5D4B5B1169BD" Guid="{DE0538D4-2A12-4259-8407-ECE3E068114D}">
+                    <File Id="fil4F3B0AE8CB325143639BD84B14DAA300" KeyPath="yes" Source="$(var.MySource)\2016\LibGit2Sharp.xml" />
+                </Component>
+                <Component Id="cmp625F01C6235B1CB793D7F181651454D0" Guid="{6A15D13D-6F45-467A-AEDF-A8F8790B1337}">
+                    <File Id="fil348F868B163D3772383C706EADF6D39C" KeyPath="yes" Source="$(var.MySource)\2016\log4net.config" />
+                </Component>
+                <Component Id="cmp2943F91211A1B25C1C4465CEF2BF0FC4" Guid="{BA2B378A-1F37-4F52-A46B-E44DE5237A81}">
+                    <File Id="filA5FC6657F1F8782B549BC8CB721ED61C" KeyPath="yes" Source="$(var.MySource)\2016\log4net.dll" />
+                </Component>
+                <Component Id="cmpDCB99011507668CA124C16CF42AFFFB7" Guid="{001EAD02-0618-4327-9331-12E271D4639D}">
+                    <File Id="filC90E503F1479BF47176101AB6E91F9A0" KeyPath="yes" Source="$(var.MySource)\2016\log4net.xml" />
+                </Component>
+                <Component Id="cmpCB7D17E3F19B606C0C40B426E19B0279" Guid="{61314D9D-8456-480E-864B-1B55C6122AB0}">
+                    <File Id="fil423CD1C5E07BF3E60FCC9626D9051066" KeyPath="yes" Source="$(var.MySource)\2016\Octokit.dll" />
+                </Component>
+                <Component Id="cmp1FF2FEE1BBA78B72E7182EA39A3A50A5" Guid="{04B2BD79-49B8-466B-A264-4B975E369C24}">
+                    <File Id="fil567C9A68109D9A8FD7EA7957901C50F5" KeyPath="yes" Source="$(var.MySource)\2016\Octokit.pdb" />
+                </Component>
+                <Component Id="cmp66AF2031C63F948D391515AE3B89F94A" Guid="{F9E116A9-CB3B-440B-946F-9F3C2B40628F}">
+                    <File Id="fil32F5AA9722C8725D68655191EA288ED8" KeyPath="yes" Source="$(var.MySource)\2016\Octokit.xml" />
+                </Component>
+                <Directory Id="dir5581065E6160A45F4FF0F449AABD7D3E" Name="lib">
+                    <Directory Id="dir59B69588E632F6046ADC7C6DD443EEBB" Name="linux">
+                        <Directory Id="dir34206CD6E484ED5D44DACFCBFA2E0087" Name="x86_64">
+                            <Component Id="cmp9FEEF09267E363106F68B036B3E6A0EF" Guid="{50F2BCFD-EC0B-41A7-837A-DBDAC0FAD2E5}">
+                                <File Id="fil9337C13C26F8A9856D9B658F48C04C6D" KeyPath="yes" Source="$(var.MySource)\2016\lib\linux\x86_64\libgit2-15e1193.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirA445960448C314308021155E08E54AAE" Name="osx">
+                        <Component Id="cmp50C2BAD9A542F6A4E33283E624192C99" Guid="{24B2D28C-2AA2-43DB-A705-6227DBCAA51C}">
+                            <File Id="fil744153F07665012B31455FE72C9EAA52" KeyPath="yes" Source="$(var.MySource)\2016\lib\osx\libgit2-15e1193.dylib" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dir69B84951FFC758F6DE772B7A8A4FB222" Name="win32">
+                        <Directory Id="dir98CF550854B7BEB677DD57BAFC0820D2" Name="x64">
+                            <Component Id="cmp562F2D33B8AC4349133A4CACADA69D5E" Guid="{6AB15806-9C6D-4F42-B838-9B4ED826BAD6}">
+                                <File Id="filFF2B95565F5D317B666608B1E14C185A" KeyPath="yes" Source="$(var.MySource)\2016\lib\win32\x64\git2-15e1193.dll" />
+                            </Component>
+                            <Component Id="cmp6721CD5A6255F34D9716B28E43B75659" Guid="{9A87351C-9E0F-4B27-AAD0-1A039086D05B}">
+                                <File Id="fil133D2AB0C3928DBDD3B2F444F176B1A0" KeyPath="yes" Source="$(var.MySource)\2016\lib\win32\x64\git2-15e1193.pdb" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dir59E1344508951E4DEFE843C15BCD2372" Name="x86">
+                            <Component Id="cmpF77E15CEA0762FD5885F8D7E33728B68" Guid="{408EFC11-4003-44B8-8985-8942C7A90EA4}">
+                                <File Id="fil7E9ECACD98177C5CE9767BAA9E2BA077" KeyPath="yes" Source="$(var.MySource)\2016\lib\win32\x86\git2-15e1193.dll" />
+                            </Component>
+                            <Component Id="cmpC31B60371F9522825C41FCCC8227609E" Guid="{176076CB-FD6E-4AAA-87D2-D2D44D1CDD97}">
+                                <File Id="filAFA4AE4663D90C2BDA72F32B2B5CBC15" KeyPath="yes" Source="$(var.MySource)\2016\lib\win32\x86\git2-15e1193.pdb" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir882559BC7D985392DB3EF63C6668AC4F" Name="LogManager">
+                    <Component Id="cmp79EC7A00A20A3770969980B6D884DDBE" Guid="{787E01AE-B7EA-478F-A066-DF2300A00618}">
+                        <File Id="filC5CBA961B93B157B07C880FD4270EF9D" KeyPath="yes" Source="$(var.MySource)\2016\LogManager\BUYLLog_config.xml" />
+                    </Component>
+                </Directory>
+                <Directory Id="dirA913C1DFEE4523969B0D770B61AB0E05" Name="NativeBinaries">
+                    <Directory Id="dirD57D8F25F731F53C19B9F038246EB78B" Name="amd64">
+                        <Component Id="cmpF2A75C55FD5463E86E72682C1F4AC29F" Guid="{59251394-4F2D-4945-A729-C119B3D53F7D}">
+                            <File Id="filFD571412A88C05F82DE34272F96DC796" KeyPath="yes" Source="$(var.MySource)\2016\NativeBinaries\amd64\git2-785d8c4.dll" />
+                        </Component>
+                        <Component Id="cmp71172C23D899D6EE9475A9E5DB4F3F4C" Guid="{B0E4D00B-7808-4A11-B997-CE6167994001}">
+                            <File Id="filFE2599BE36357665BA0FDBFD6A193321" KeyPath="yes" Source="$(var.MySource)\2016\NativeBinaries\amd64\git2-785d8c4.pdb" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dirB01483F8680DDE862AC2032C994E307F" Name="linux">
+                        <Directory Id="dir79A03D2396C00831C796B50465594896" Name="amd64">
+                            <Component Id="cmp201F4CC093617CB0CB9987D7B2C562B0" Guid="{84262EB2-3F91-4AE5-95E8-1D7588FCA639}">
+                                <File Id="fil02229201081881F7858898B75B65B2D5" KeyPath="yes" Source="$(var.MySource)\2016\NativeBinaries\linux\amd64\libgit2-785d8c4.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir44948AB3A978B126B1103999F67B3423" Name="osx">
+                        <Component Id="cmpDFD3939AB9EB166FD8B2C6556B1C7A29" Guid="{D8DF2988-B676-49C9-84B0-8696F760A619}">
+                            <File Id="fil397710F2E8A11571F2E60F90369C0005" KeyPath="yes" Source="$(var.MySource)\2016\NativeBinaries\osx\libgit2-785d8c4.dylib" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dirEB098CB0E3AD8FE52AA68343355FBDC6" Name="x86">
+                        <Component Id="cmpAD219007E26D634C88909E8D8098D958" Guid="{0E2E4181-26CB-44EA-9DF3-3FE36CD38C9C}">
+                            <File Id="fil4AA1B29341467EA5A46895C868E46661" KeyPath="yes" Source="$(var.MySource)\2016\NativeBinaries\x86\git2-785d8c4.dll" />
+                        </Component>
+                        <Component Id="cmp754E031A53146B2D13C7B18724303645" Guid="{98B10CE2-BA4E-43AC-81D7-9FC82D179641}">
+                            <File Id="filBB8F2B615C447E1E789F9F40FB1A2D7E" KeyPath="yes" Source="$(var.MySource)\2016\NativeBinaries\x86\git2-785d8c4.pdb" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dirDD17BF3857F50740DC4710649575E576" Name="Resources">
+                    <Component Id="cmp129DFAC04C50670CDB173E27BED13A39" Guid="{9305C168-2C50-46CC-A00D-56044BE5CBBB}">
+                        <File Id="fil3AA14252A9B0F38A36E4C21DA98961E2" KeyPath="yes" Source="$(var.MySource)\2016\Resources\BUYLProjektCH.bmp" />
+                    </Component>
+                    <Component Id="cmpA794555479B5C81A4D18960C69D28579" Guid="{1A0DD227-3153-40A2-9037-15184BDF6769}">
+                        <File Id="fil2F9714956E3EFB807BF1ADF093EFF8BA" KeyPath="yes" Source="$(var.MySource)\2016\Resources\BUYLProjektDE.bmp" />
+                    </Component>
+                    <Component Id="cmpCF633F435DF8792045C4D6DB757FAB00" Guid="{ACDD989A-890A-4B3C-98BC-C2EC2450E0A1}">
+                        <File Id="fil352D5DA47FB2163F18BB112019FCA449" KeyPath="yes" Source="$(var.MySource)\2016\Resources\DownloadBUYL.bmp" />
+                    </Component>
+                    <Component Id="cmp278EBAF4B59FBD078B0C226CAD42AE88" Guid="{AA829B8C-20BF-4879-823E-3BB28C4F2B0E}">
+                        <File Id="fil8AA281B6D2A128D896E120023953F1B0" KeyPath="yes" Source="$(var.MySource)\2016\Resources\PfVConnect.bmp" />
+                    </Component>
+                    <Component Id="cmp6E48050C49B459FAE9206DFD5B6B085C" Guid="{877E7403-82B0-4810-AA05-F42A57F69223}">
+                        <File Id="fil10CF5508BC691390DB1A133C3C7BF029" KeyPath="yes" Source="$(var.MySource)\2016\Resources\PfVLocate.bmp" />
+                    </Component>
+                    <Component Id="cmp91A9603082ACB78A42217431D4468F3A" Guid="{36290C1F-8A68-414C-BA96-82646DD5C792}">
+                        <File Id="fil913E9FE9B3494686A1C3E5744656C240" KeyPath="yes" Source="$(var.MySource)\2016\Resources\PfVManager.bmp" />
+                    </Component>
+                    <Component Id="cmp143964D8B8B3BC5177BFBD8E5E76AEB4" Guid="{1E9859A5-75C6-4EED-9C1D-7C03353C3DBE}">
+                        <File Id="fil2DF01BA7A4E5D424E64A04A6347006F3" KeyPath="yes" Source="$(var.MySource)\2016\Resources\PfVNext.bmp" />
+                    </Component>
+                    <Component Id="cmp8B648D358B9A108977AB3A136B1CE6B6" Guid="{ED371DC6-17CB-4B79-8F72-E3A753B835FC}">
+                        <File Id="fil73FA1D6A539A4C762A9CF2EEF0166EDF" KeyPath="yes" Source="$(var.MySource)\2016\Resources\PfVPlace.bmp" />
+                    </Component>
+                    <Component Id="cmp1B2E0CE02048CF6F27B4651039B7963D" Guid="{1C0B7116-A73F-4472-A024-8A747D981D5F}">
+                        <File Id="fil195D2904E636DA74FA29AAE5F57D35AD" KeyPath="yes" Source="$(var.MySource)\2016\Resources\PfVPrevious.bmp" />
+                    </Component>
+                    <Component Id="cmp7B6C2A6E3B6E61573E6BCD2C77029A3E" Guid="{3E5D72FC-FFD5-478A-9D2C-2BD9CF438807}">
+                        <File Id="fil33FA3E27E7D01C56D61EE65DE449D82A" KeyPath="yes" Source="$(var.MySource)\2016\Resources\PfVProcess.bmp" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="dir6DF8EBA8330BBBDB7AE60E405D37DD08" Name="2017">
+                <Component Id="cmp5AF33946B87A56E44050840CEBA6BAFB" Guid="{4F093241-7E48-4801-82BF-71133C356FB7}">
+                    <File Id="filC1BECBE22CDD0A7EE347C095A053C85E" KeyPath="yes" Source="$(var.MySource)\2017\BUYLLog_config.xml" />
+                </Component>
+                <Component Id="cmpD4C8FC4CA938593D7B4F58F31C99C716" Guid="{9961EBEE-04D8-4994-A643-9937B62ED840}">
+                    <File Id="fil1E4B61480BF0F909C9CF71144E00FF01" KeyPath="yes" Source="$(var.MySource)\2017\BUYLRevit.dll" />
+                </Component>
+                <Component Id="cmpE99EF4F51CD38EF21EAD146C59B02DAC" Guid="{115EDABC-B2D9-4512-A778-3698A258E321}">
+                    <File Id="fil412B1BB3F129409F393293AA80A75249" KeyPath="yes" Source="$(var.MySource)\2017\BUYLRevit.dll.config" />
+                </Component>
+                <Component Id="cmp99CE6C94A703F580D7EE4557C4867D31" Guid="{6C2917B7-F565-409D-9D67-1C6D88D83D94}">
+                    <File Id="fil1E519432F5040D07E428B9D4FBA1438B" KeyPath="yes" Source="$(var.MySource)\2017\BUYLRevit.pdb" />
+                </Component>
+                <Component Id="cmp5A39F336FB7D9EE6345321EAE16EBDF1" Guid="{DEB853A8-A1DA-49F7-ACF0-EF90187DDFCE}">
+                    <File Id="fil8370D2A751D98067738AAC53584E2CC9" KeyPath="yes" Source="$(var.MySource)\2017\BUYLRevit.XML" />
+                </Component>
+                <Component Id="cmp5AB99B05946950F03FAF9C7BA3A4A0EE" Guid="{FA98E340-DC78-4B71-80FC-F6A9B5F110AE}">
+                    <File Id="filB59609DCB70225204774A2AA20474F66" KeyPath="yes" Source="$(var.MySource)\2017\BUYLRevitAddin.addin" />
+                </Component>
+                <Component Id="cmp46CE49D7A6C36B353D1DB199170A0686" Guid="{9362A25A-4FC1-405A-A59E-AED72A5B27E4}">
+                    <File Id="fil8226EF2DAED3C33ECE25D71E3F4FA4A2" KeyPath="yes" Source="$(var.MySource)\2017\BUYLRevitAddin.dll" />
+                </Component>
+                <Component Id="cmpE32AA503B7A079EF94F437C7FAD2E1D1" Guid="{C6B94A4A-C1F1-4473-9F27-9318BDAA46EA}">
+                    <File Id="filA21F829818A540F30584E2BBFBC49DD1" KeyPath="yes" Source="$(var.MySource)\2017\BUYLRevitAddin.pdb" />
+                </Component>
+                <Component Id="cmp03265263B35CCB381FAE0C21C393068B" Guid="{2B52E2F9-62A2-4305-AC31-E4423CDCC6C5}">
+                    <File Id="fil06B698DCFA5B1CBA3E76A665A2D3106A" KeyPath="yes" Source="$(var.MySource)\2017\BUYLRevitAddin.XML" />
+                </Component>
+                <Component Id="cmp8A8C5732D9B0021F54579EB47238CD1A" Guid="{3AB250F9-6D86-4B24-95DE-9C933B606ED9}">
+                    <File Id="filB78E2922E1E2FCF11C66F193B51B9B25" KeyPath="yes" Source="$(var.MySource)\2017\BUYLTools.dll" />
+                </Component>
+                <Component Id="cmp3E5F7A18805B72F78BCACEFEE7988FAF" Guid="{81DEDCEF-3229-489D-A057-86BC5A3125D9}">
+                    <File Id="filC948C0CB76A7C8D7E01D6BFBEE1FD156" KeyPath="yes" Source="$(var.MySource)\2017\BUYLTools.dll.config" />
+                </Component>
+                <Component Id="cmp7437210958287728743000E951ACAD12" Guid="{32BEFFE3-F9DA-43B3-8426-864A8A68277F}">
+                    <File Id="fil0D94FA5D07975F63664A762B9E5A26AF" KeyPath="yes" Source="$(var.MySource)\2017\BUYLTools.pdb" />
+                </Component>
+                <Component Id="cmpCAC84859D563845477F174AA96DE9207" Guid="{5485DC76-3AA8-440A-9659-7BD44D2E767E}">
+                    <File Id="fil1DEEA0DFE4B78F748511C992A0B5941F" KeyPath="yes" Source="$(var.MySource)\2017\CafmConnect.dll.config" />
+                </Component>
+                <Component Id="cmpA784E70C40FB1790874E0B37A96533E7" Guid="{B90AA9EF-D01A-4B40-831B-55AB5A2D193C}">
+                    <File Id="fil57F54666171EB17BC9C0C982D5FDF62C" KeyPath="yes" Source="$(var.MySource)\2017\LibGit2Sharp.dll" />
+                </Component>
+                <Component Id="cmpCDC141E0F564955809C05853C30D63DE" Guid="{536E900C-CE07-4303-A861-579E53C1F40E}">
+                    <File Id="filA9F9446CB481A233950FC22D1DDAA922" KeyPath="yes" Source="$(var.MySource)\2017\LibGit2Sharp.dll.config" />
+                </Component>
+                <Component Id="cmpEF42894B7326EE52DDAC68B09BE41CCF" Guid="{04161A41-18EA-4284-915F-9074E4E3EAA1}">
+                    <File Id="fil5641C2D6C14D311BDD059F7E343DA592" KeyPath="yes" Source="$(var.MySource)\2017\LibGit2Sharp.pdb" />
+                </Component>
+                <Component Id="cmp26DF831C76F36803E25C290E1314AA04" Guid="{A29ED306-EECB-4C1F-897A-4ED953B6782E}">
+                    <File Id="fil24BBD52231807FB95F287CB129396C9E" KeyPath="yes" Source="$(var.MySource)\2017\LibGit2Sharp.xml" />
+                </Component>
+                <Component Id="cmpD0006FE83ECB293F6DAB7ACDE9CB8EEE" Guid="{4E2A3598-D491-4F64-9395-A1555FCDCB2E}">
+                    <File Id="fil95DC5BA6978DBDCCC301F1F442747EF0" KeyPath="yes" Source="$(var.MySource)\2017\log4net.config" />
+                </Component>
+                <Component Id="cmp82F4593F39945A4B1C91E022ACE8E16D" Guid="{A4757ED0-C7DC-4A23-A8B4-61E683159D79}">
+                    <File Id="fil45E5F9DE33D23D374EAB67BB3705D0EA" KeyPath="yes" Source="$(var.MySource)\2017\log4net.dll" />
+                </Component>
+                <Component Id="cmp82CF4DC4F1ACC4655A4527F5A100CE03" Guid="{50BB847E-BFF9-42A5-90E3-98832C4A7F90}">
+                    <File Id="filEBB61C5EFC506CA2D427C4C91BCBC201" KeyPath="yes" Source="$(var.MySource)\2017\log4net.xml" />
+                </Component>
+                <Component Id="cmp45EF33C5082B9BE8A6E55092F1B511D4" Guid="{B22D52DC-B7D1-4FE4-AD13-8F0191C6E2FD}">
+                    <File Id="filA98BADC3711F79E4A42ACA51A380B692" KeyPath="yes" Source="$(var.MySource)\2017\Octokit.dll" />
+                </Component>
+                <Component Id="cmp7CFAEB4BC5328845ADD3CE1B89580A65" Guid="{C6BC9663-DC4F-45A7-925B-6D0A170EBE8A}">
+                    <File Id="fil0974095D35183089EC46FF95DF9F334E" KeyPath="yes" Source="$(var.MySource)\2017\Octokit.pdb" />
+                </Component>
+                <Component Id="cmp84229C8050236311BDB643BC5A197BC9" Guid="{935C409F-A617-4AF0-B33E-CC07CE65BB14}">
+                    <File Id="fil87D5706FC475040AD10C39B98CA77338" KeyPath="yes" Source="$(var.MySource)\2017\Octokit.xml" />
+                </Component>
+                <Directory Id="dir64AA1D348707D9BA6A17D85942DFA6AE" Name="lib">
+                    <Directory Id="dir1987B0F61488C267797C6EA0499732B4" Name="linux">
+                        <Directory Id="dir8BE21D23C4C24AD756872C533C772866" Name="x86_64">
+                            <Component Id="cmp699B69FE222EFBC81D54090BC50CEFEA" Guid="{ADFC9380-9CDA-4E9F-ACA5-F053B1757322}">
+                                <File Id="filDA5EB87EE86540790A34A9D8F00EC2D4" KeyPath="yes" Source="$(var.MySource)\2017\lib\linux\x86_64\libgit2-15e1193.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir02B92121A44531EA8AE128C1BEFE64A1" Name="osx">
+                        <Component Id="cmp02BBB13037CEDF3BC5F2243D1458413E" Guid="{49363C24-E978-42F1-B74D-32A469B49181}">
+                            <File Id="fil48DED5A0667C5CF8686851C9CC37DF50" KeyPath="yes" Source="$(var.MySource)\2017\lib\osx\libgit2-15e1193.dylib" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dir456407607CAF5B0AA1AD9BA49F6857DB" Name="win32">
+                        <Directory Id="dir854753319DE289E3DE86F2CE438322AA" Name="x64">
+                            <Component Id="cmpB507C7865C5C7F31F521C33D9F82DCBB" Guid="{7A30ABEC-6F45-444A-9D9F-AE02FDDA975A}">
+                                <File Id="filB7B33B2BEF99F07354E8838C90D6AFAA" KeyPath="yes" Source="$(var.MySource)\2017\lib\win32\x64\git2-15e1193.dll" />
+                            </Component>
+                            <Component Id="cmp16C98DE23D7CE4E1FA7A4B2E77E4BB5D" Guid="{6B18221F-358E-4C87-9E6B-EB34BDE0F38E}">
+                                <File Id="fil6117B231BF4012DF6A6DAD1E57F21310" KeyPath="yes" Source="$(var.MySource)\2017\lib\win32\x64\git2-15e1193.pdb" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dirC67FB85F606EF006771BEC4F5C671F13" Name="x86">
+                            <Component Id="cmp8781944E937D05E41FD43858190CE924" Guid="{BC1551F4-49AC-4B69-A6A4-E2584D816DD5}">
+                                <File Id="fil9554798BF58C19B47783CBC9A8334206" KeyPath="yes" Source="$(var.MySource)\2017\lib\win32\x86\git2-15e1193.dll" />
+                            </Component>
+                            <Component Id="cmp98FAA5D5669149252D963F6FC4629528" Guid="{ECA4E7A7-E895-40A7-B911-0D8871FC4712}">
+                                <File Id="fil6BD7ABFEB7A6CA1C316D1201037CAB31" KeyPath="yes" Source="$(var.MySource)\2017\lib\win32\x86\git2-15e1193.pdb" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir342810B9BFCA516782D2B1A681AC82C9" Name="LogManager">
+                    <Component Id="cmpB5813DA6AEEF9B09DBA6C5567CD5946F" Guid="{FC41E56E-04E6-4299-BA3D-8BB8CDB39050}">
+                        <File Id="filE47AE519A2911673BC038961A8C5F17A" KeyPath="yes" Source="$(var.MySource)\2017\LogManager\BUYLLog_config.xml" />
+                    </Component>
+                </Directory>
+                <Directory Id="dirB316A8EFCCD4591FC5DE2441D831E854" Name="NativeBinaries">
+                    <Directory Id="dirB85B0684A04B09C2B8DE685DBDD5636F" Name="amd64">
+                        <Component Id="cmp7C83D97B0BA4935FFF866EE669C5F5CC" Guid="{74E5BAA8-458A-4953-9EA4-97346249D200}">
+                            <File Id="filE30BEB76BAEEF97F8859DBD93668B011" KeyPath="yes" Source="$(var.MySource)\2017\NativeBinaries\amd64\git2-785d8c4.dll" />
+                        </Component>
+                        <Component Id="cmp5CB1E6DA4679898A874EF41564577CBE" Guid="{9D8D63FE-1BC9-4129-9267-07B7A35DBCB8}">
+                            <File Id="fil283739CFADAEF017C8C2CEE43010CE1A" KeyPath="yes" Source="$(var.MySource)\2017\NativeBinaries\amd64\git2-785d8c4.pdb" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dir42C418A89A92292E5C853F76E5EC2CCB" Name="linux">
+                        <Directory Id="dir5E1A79FBDE2C34CA1351F45535417E98" Name="amd64">
+                            <Component Id="cmp7F67A41200EC0DFAB11DB40BC9162276" Guid="{412CE60B-0203-486A-8AE6-F25C819A0BC0}">
+                                <File Id="fil7346233F8FB8515C5E84FF8C5D2E554A" KeyPath="yes" Source="$(var.MySource)\2017\NativeBinaries\linux\amd64\libgit2-785d8c4.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir01574CD43F09F7BE4EA4FC99401AC628" Name="osx">
+                        <Component Id="cmp836D90CA9C99EF07D86CB4DD1F3189FB" Guid="{7ADE94A6-95FF-4D7A-97F9-309D909AC27A}">
+                            <File Id="fil1C3798D281312F020872E84B53243B9F" KeyPath="yes" Source="$(var.MySource)\2017\NativeBinaries\osx\libgit2-785d8c4.dylib" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dir2E15E3FB8D3847C804866F6ADAFDD6DF" Name="x86">
+                        <Component Id="cmp68109979509025A1B24597AB869BF91C" Guid="{2439BDA2-08CC-42B2-8BCF-CDD04F1A11EB}">
+                            <File Id="fil836457494A85738E64A23CBB2A2993EB" KeyPath="yes" Source="$(var.MySource)\2017\NativeBinaries\x86\git2-785d8c4.dll" />
+                        </Component>
+                        <Component Id="cmpA03D9E1D13796C3FAB8728D59D137DC8" Guid="{63898E46-5FD1-435C-BBC4-9BDD0C0D309D}">
+                            <File Id="filE8331EECB381FEA29107CF840BEB7524" KeyPath="yes" Source="$(var.MySource)\2017\NativeBinaries\x86\git2-785d8c4.pdb" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir1D5BCABE484A522DC15583D841811766" Name="Resources">
+                    <Component Id="cmpE6515A00AACE44A802E9682AD364F063" Guid="{1F2AC9C3-4C4A-4060-A3DA-350B2D3FD013}">
+                        <File Id="filDE6ED3F612134A0A0D51588A460D5955" KeyPath="yes" Source="$(var.MySource)\2017\Resources\BUYLProjektCH.bmp" />
+                    </Component>
+                    <Component Id="cmp1C8402DDD44FA0F9CA848848F61CCD00" Guid="{3B1539A5-4704-4760-9DE1-6671407D7900}">
+                        <File Id="fil4354D6A8E75A67A3CF61C056D2B8C83D" KeyPath="yes" Source="$(var.MySource)\2017\Resources\BUYLProjektDE.bmp" />
+                    </Component>
+                    <Component Id="cmpEDE46D67A6B7DAF409A392C7E0BCEF5B" Guid="{D94C2EC8-3EAC-4244-B947-2F0540C9622E}">
+                        <File Id="filD7C4F7B395C1E7BABCE4A4B7DC553B31" KeyPath="yes" Source="$(var.MySource)\2017\Resources\DownloadBUYL.bmp" />
+                    </Component>
+                    <Component Id="cmpE97887F289115C005C923D62C245BB2A" Guid="{3EC09573-07C8-42C4-84A9-995E17D2CC3D}">
+                        <File Id="fil75DE98B84E4E7455CB1536128C62297D" KeyPath="yes" Source="$(var.MySource)\2017\Resources\PfVConnect.bmp" />
+                    </Component>
+                    <Component Id="cmpA76B29DC40E08950EC4946A42B4EBD9C" Guid="{C92C5240-1463-4A9D-A0F5-3ADBFDF7DE43}">
+                        <File Id="fil112FB987100786C0489A4A5711934E5C" KeyPath="yes" Source="$(var.MySource)\2017\Resources\PfVLocate.bmp" />
+                    </Component>
+                    <Component Id="cmp956CE6E1D3970B537CB2B519BDD41833" Guid="{A55C05F8-BE59-41DA-83B2-F343A1FD848A}">
+                        <File Id="fil72A2A07605ED3287835B7C74E1834CCA" KeyPath="yes" Source="$(var.MySource)\2017\Resources\PfVManager.bmp" />
+                    </Component>
+                    <Component Id="cmpEF60BAA5E36ED6A51AEA52C220BD63E0" Guid="{665EAA79-21DE-4EE0-BBA5-38DBB7AD25E4}">
+                        <File Id="fil12433E79C294D3E0F62AE9ECDA49E849" KeyPath="yes" Source="$(var.MySource)\2017\Resources\PfVNext.bmp" />
+                    </Component>
+                    <Component Id="cmp2E58962B9DB103AB563E769A905CEAD4" Guid="{A8778B11-5E10-4424-AD75-D8E420EE89F5}">
+                        <File Id="filADD82B7AC9F812F22FC9459DF22D7615" KeyPath="yes" Source="$(var.MySource)\2017\Resources\PfVPlace.bmp" />
+                    </Component>
+                    <Component Id="cmpDE4ABEF835E5F1815AF3475F010884FE" Guid="{3AF4E71D-2833-4067-8BB1-5F486FDA4B25}">
+                        <File Id="filFE15282D138D2F7A56DEBFFEA784D430" KeyPath="yes" Source="$(var.MySource)\2017\Resources\PfVPrevious.bmp" />
+                    </Component>
+                    <Component Id="cmp6C9EEBE9F07BF9538BABA8865AF82FF2" Guid="{E558366C-1C19-4128-9DB7-C0B3A0AD3CB7}">
+                        <File Id="filDB757C5F54230CF2CAF6A8B6CA0D74FD" KeyPath="yes" Source="$(var.MySource)\2017\Resources\PfVProcess.bmp" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="dirE0D8510C31496BE199EAA90D6B50B03A" Name="2018">
+                <Component Id="cmpCA8CCE1A0EAC503E67800DB339F1C2EE" Guid="{36EF5923-9B3B-4392-8E80-A88602137E2D}">
+                    <File Id="fil02408A0E87DF0F0194C24EF92B1E45E1" KeyPath="yes" Source="$(var.MySource)\2018\BUYLLog_config.xml" />
+                </Component>
+                <Component Id="cmpFC20A56F5E2FCAF89E233613AE7EEB76" Guid="{C4532D7F-DE34-41A0-A20F-9DD7B0055174}">
+                    <File Id="fil68EA2A68F2B706293E01FC4262DC82EB" KeyPath="yes" Source="$(var.MySource)\2018\BUYLRevit.dll" />
+                </Component>
+                <Component Id="cmp2C549AF47D630235BAA52ABA4973F105" Guid="{0AD13FF0-ECF7-4C9E-A280-8E42E14D89B5}">
+                    <File Id="filC1D38808773F93719C9190024A7EA2C1" KeyPath="yes" Source="$(var.MySource)\2018\BUYLRevit.dll.config" />
+                </Component>
+                <Component Id="cmp8F2D72E99A4006CD5DA4CA2DE890DE27" Guid="{FC45DB35-48D1-45EA-A62F-7A8DAC21A1C5}">
+                    <File Id="filF979A7A71E37D93B47D1C65EB26FBD87" KeyPath="yes" Source="$(var.MySource)\2018\BUYLRevit.pdb" />
+                </Component>
+                <Component Id="cmp600F026CB3EC05734D6E8B70DC3CFE20" Guid="{DDFEFCE7-83D9-4503-9C2D-94589802CA90}">
+                    <File Id="fil330F74DCB91E60A637189F1111399B34" KeyPath="yes" Source="$(var.MySource)\2018\BUYLRevit.XML" />
+                </Component>
+                <Component Id="cmp76E0308C286620DEA99A7AA8E993945E" Guid="{2D17B0A3-1BAC-48CB-92D3-26956D50F25A}">
+                    <File Id="fil64DD49BD572D6DAE44A776BC6B45C2F5" KeyPath="yes" Source="$(var.MySource)\2018\BUYLRevitAddin.addin" />
+                </Component>
+                <Component Id="cmp2E2F91934A0342E02799DBD7443ED5C9" Guid="{B140F05E-563B-476B-841A-BB6B922FB83C}">
+                    <File Id="fil68CDABE04937DE0A3758982543866857" KeyPath="yes" Source="$(var.MySource)\2018\BUYLRevitAddin.dll" />
+                </Component>
+                <Component Id="cmp6B999634FD31DA8C0075F75195A8AF1F" Guid="{EF81A5D1-8D30-4055-81D5-00B83458AB9C}">
+                    <File Id="fil643420A427D11ED82FADA6772D5CD6F8" KeyPath="yes" Source="$(var.MySource)\2018\BUYLRevitAddin.pdb" />
+                </Component>
+                <Component Id="cmpE2D53134895C79E0CFB2A9141B0506B6" Guid="{6BF9AEE4-8771-49F4-BB9A-DD26327703E1}">
+                    <File Id="fil9E9D8202389C2F2B3BBE2FC41A1BB24D" KeyPath="yes" Source="$(var.MySource)\2018\BUYLRevitAddin.XML" />
+                </Component>
+                <Component Id="cmpEE5269C728AF40A8C44FA95B04FF5837" Guid="{3A60F563-812B-4C97-B925-293751D5AA6E}">
+                    <File Id="fil292D008A246F21E886E2AFAE75840D6B" KeyPath="yes" Source="$(var.MySource)\2018\BUYLTools.dll" />
+                </Component>
+                <Component Id="cmp74909B6332790A90CB6E73A4434F448E" Guid="{FBDB2746-27F7-43BF-B43E-2792C246E2B6}">
+                    <File Id="fil46AF986257EEBB6AE2F040A61FF2868F" KeyPath="yes" Source="$(var.MySource)\2018\BUYLTools.dll.config" />
+                </Component>
+                <Component Id="cmp6911B9F4D86DC3145924D0A0D07C7A5D" Guid="{A125610B-227D-48F3-9072-B0821BE157DD}">
+                    <File Id="fil86808EDD319E4E404D29FF8F82923985" KeyPath="yes" Source="$(var.MySource)\2018\BUYLTools.pdb" />
+                </Component>
+                <Component Id="cmpFAB7640087921ABC731F2FB62EE38EFB" Guid="{776B5449-7CAE-45AF-999C-84AC80123A7B}">
+                    <File Id="fil5ED0C6F56C5E19C1B3D72421AA3F8FF8" KeyPath="yes" Source="$(var.MySource)\2018\CafmConnect.dll.config" />
+                </Component>
+                <Component Id="cmp82C478F84F57ACB43BBED6FA6B555DB9" Guid="{61DDD451-E6B6-469D-A77E-E590DE610784}">
+                    <File Id="filB3F6AF87AD54EDB326DF05485AB697CB" KeyPath="yes" Source="$(var.MySource)\2018\LibGit2Sharp.dll" />
+                </Component>
+                <Component Id="cmp13FAC149C0CD15F417E2E4ED013B6F3C" Guid="{46CB71D5-9B6F-49B6-9747-3F2D5950524D}">
+                    <File Id="filF636AE1C492172150D7913052300693B" KeyPath="yes" Source="$(var.MySource)\2018\LibGit2Sharp.dll.config" />
+                </Component>
+                <Component Id="cmp0D588DEC0CFC6122339BC65A25532A9A" Guid="{B68CC96A-9620-4BF5-8894-CA8871584B34}">
+                    <File Id="fil6F3C514E6C3704ADE6475ADD8367097B" KeyPath="yes" Source="$(var.MySource)\2018\LibGit2Sharp.pdb" />
+                </Component>
+                <Component Id="cmp83C7148B873600CFCD469CA99B267782" Guid="{032C8C43-4CFC-4DA9-93C2-9C1CB2848C30}">
+                    <File Id="filEF45B2462D6A808D689D0559D203D886" KeyPath="yes" Source="$(var.MySource)\2018\LibGit2Sharp.xml" />
+                </Component>
+                <Component Id="cmp53B8A9D28CDC5FA0C537C576CE320309" Guid="{201878A6-A14C-40DE-8456-FA163447E90B}">
+                    <File Id="fil88F386BAF9CF83BF0338CB2AE11C52F9" KeyPath="yes" Source="$(var.MySource)\2018\log4net.config" />
+                </Component>
+                <Component Id="cmp83CF3E71D1A4F32F72FE091B6161E03E" Guid="{FF21A52A-66FA-4C9D-A928-A5F6E8463799}">
+                    <File Id="fil822DFFC2795AF190885B085C0799A985" KeyPath="yes" Source="$(var.MySource)\2018\log4net.dll" />
+                </Component>
+                <Component Id="cmpCAE58D996E9EAFC81495E0AFC27E1807" Guid="{1131F35D-EF6C-4FED-9B4B-263A9D6AB92B}">
+                    <File Id="fil716E40ACF266095CA63E4DF5C3604A14" KeyPath="yes" Source="$(var.MySource)\2018\log4net.xml" />
+                </Component>
+                <Component Id="cmp9ED94C39A2BC84AB3CB4D35641B2A834" Guid="{D6F79B62-0944-4E7E-9F36-D5DBEADF8AE3}">
+                    <File Id="filA564269C6028D1AC8FFE0FC4078F80D6" KeyPath="yes" Source="$(var.MySource)\2018\Octokit.dll" />
+                </Component>
+                <Component Id="cmp2102866C0455263DF8E344DE7A5CBF51" Guid="{0577D958-422C-4760-8B4F-26163E98EF3D}">
+                    <File Id="fil3FE9454D998FF83B53BF92E6E43B4C44" KeyPath="yes" Source="$(var.MySource)\2018\Octokit.pdb" />
+                </Component>
+                <Component Id="cmp341D03294DFB7499B8764B3BEE2EC0AD" Guid="{F1D04D5C-71F5-477A-BBE3-4075D8689AE6}">
+                    <File Id="filBE4A0FE1D43E9C75FBACC73C920EE9D8" KeyPath="yes" Source="$(var.MySource)\2018\Octokit.xml" />
+                </Component>
+                <Directory Id="dirB64530D826712D9F530C03BC2D104F34" Name="lib">
+                    <Directory Id="dirA54BD00C721305714258783ADC1E97B4" Name="linux">
+                        <Directory Id="dirF5D850B9C2F327DAEAD02E8D56FA992D" Name="x86_64">
+                            <Component Id="cmpCA8AD72BD168D092D803CD8AE308A33C" Guid="{C946BC62-534F-4693-94A7-ABD017408BA3}">
+                                <File Id="fil7020091455ACC7C61E43464DCD1707DE" KeyPath="yes" Source="$(var.MySource)\2018\lib\linux\x86_64\libgit2-15e1193.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirC10B0E93B1E91C032EBB7FC54641ED49" Name="osx">
+                        <Component Id="cmpBD555BEE82980610AB851BD9B941E0C0" Guid="{981656C4-8585-4650-8A68-C7D0F3B223FD}">
+                            <File Id="filE9CBD305F381C99369888E1BDD213E44" KeyPath="yes" Source="$(var.MySource)\2018\lib\osx\libgit2-15e1193.dylib" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dirE0709C60A5335EE7F4521D2C79BD195F" Name="win32">
+                        <Directory Id="dir35F00645BE36C9AB7235A39E4C695D4E" Name="x64">
+                            <Component Id="cmp27EF4FCFFFEB431D9A6A76F4DD9353E4" Guid="{A8CA1571-2365-4AD4-B5CA-3A1E83038D45}">
+                                <File Id="fil2F6A73F6C495930ADBCDF9BB87C27FD3" KeyPath="yes" Source="$(var.MySource)\2018\lib\win32\x64\git2-15e1193.dll" />
+                            </Component>
+                            <Component Id="cmp38E288A6DC3CAD7B425CDA5305CA0993" Guid="{E0B3D316-D24C-460B-BFF3-B2DDAA247E3F}">
+                                <File Id="fil5A97F3059FA4C91ABC95C25B644A2E89" KeyPath="yes" Source="$(var.MySource)\2018\lib\win32\x64\git2-15e1193.pdb" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dir6060918946D06E71F7E7D20234F9BAD6" Name="x86">
+                            <Component Id="cmp85A9232A08A3C4281016A817C5C05E5B" Guid="{88490C28-0A64-4574-B50C-1DEEA2A1831C}">
+                                <File Id="fil96DC7CD15D8F1347699A8CC05FD25FC0" KeyPath="yes" Source="$(var.MySource)\2018\lib\win32\x86\git2-15e1193.dll" />
+                            </Component>
+                            <Component Id="cmp50228073F074ECFA11FCE12124BD92F6" Guid="{071412A7-EA39-4184-A447-2C39CAF50DFA}">
+                                <File Id="filF1C2E06E162936F63D791933EF6F2788" KeyPath="yes" Source="$(var.MySource)\2018\lib\win32\x86\git2-15e1193.pdb" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                </Directory>
+                <Directory Id="dirE44AC38CD919221766F9FEECD14D2A4E" Name="LogManager">
+                    <Component Id="cmpA9B07A7CACF2FE55751F316312DEBC74" Guid="{BBB3E848-6989-49B1-AA64-59B40A646E6A}">
+                        <File Id="filE650C9B3FE15917198B5733A2146D58B" KeyPath="yes" Source="$(var.MySource)\2018\LogManager\BUYLLog_config.xml" />
+                    </Component>
+                </Directory>
+                <Directory Id="dir3DAFF63F58A0854C91A26142ACC40DED" Name="NativeBinaries">
+                    <Directory Id="dirF51E411A99354EB217E30B28A50EECE4" Name="amd64">
+                        <Component Id="cmpEAD88C432D65C8172BA8C00EC3752C03" Guid="{9CA293F1-EC8E-4851-A25D-50466DF9625F}">
+                            <File Id="fil57000CED0B1C468283798D8A94F43166" KeyPath="yes" Source="$(var.MySource)\2018\NativeBinaries\amd64\git2-785d8c4.dll" />
+                        </Component>
+                        <Component Id="cmpAA07988071ECF7D25B591A794A05AF14" Guid="{1582251B-BCB8-4948-93E2-7C73E8568F81}">
+                            <File Id="fil5BB36D41DBACFE315D2E53B7E04987ED" KeyPath="yes" Source="$(var.MySource)\2018\NativeBinaries\amd64\git2-785d8c4.pdb" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dirE90D96C91276F20C613B16AE008D2958" Name="linux">
+                        <Directory Id="dirA759E7742BE0C6612DA5A51DCB17C4DC" Name="amd64">
+                            <Component Id="cmp25DABC674BC0E8033F3230B782F5E1FA" Guid="{1D6C8DA3-44D8-47DC-8CF3-BA401047C55D}">
+                                <File Id="filF8AC6DAFFD8FB75319B7D31D72AAF2A2" KeyPath="yes" Source="$(var.MySource)\2018\NativeBinaries\linux\amd64\libgit2-785d8c4.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirB8557B5886D33CC69D2D3D84258CE19F" Name="osx">
+                        <Component Id="cmpF0C576B29F35215E41FCE3D9F7A02501" Guid="{A00980E7-4CAA-48FE-9400-722B4426E86A}">
+                            <File Id="fil23CA145A3D7BC64511053061018DC504" KeyPath="yes" Source="$(var.MySource)\2018\NativeBinaries\osx\libgit2-785d8c4.dylib" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dir6B0699324F6E3F08146E72FF3C3B9002" Name="x86">
+                        <Component Id="cmp119380DD64247B0CF6D44ACA35CF0336" Guid="{B3D3B70B-D069-456B-9918-4FB003DB9108}">
+                            <File Id="fil4A6B1AB9B3EFB851CC6EB3170BD9C2F1" KeyPath="yes" Source="$(var.MySource)\2018\NativeBinaries\x86\git2-785d8c4.dll" />
+                        </Component>
+                        <Component Id="cmp23D0D6518FEB34266BD30FB8545BFED1" Guid="{8C0CD984-0429-46A9-BE03-DF93F8D9A6F2}">
+                            <File Id="filA029225514C4A75545BF54D6FA31E053" KeyPath="yes" Source="$(var.MySource)\2018\NativeBinaries\x86\git2-785d8c4.pdb" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir810291BD2BDA0F7425A3A5FE65FBDC2C" Name="Resources">
+                    <Component Id="cmp1F9784A8A84338267F86AA21E7BFE518" Guid="{A69F07F0-20B1-472A-BB87-6410D59742BE}">
+                        <File Id="fil8515F6A0848D750BE9C79D337048BFE2" KeyPath="yes" Source="$(var.MySource)\2018\Resources\BUYLProjektCH.bmp" />
+                    </Component>
+                    <Component Id="cmp4472A626281E5CCA983D33A6521B68E4" Guid="{6568C61A-E81F-4707-A958-70567FA7750D}">
+                        <File Id="filA81163124A646A2941104D74D97FB5B7" KeyPath="yes" Source="$(var.MySource)\2018\Resources\BUYLProjektDE.bmp" />
+                    </Component>
+                    <Component Id="cmpF0181A89752FBBE11114476C6A6FEAFE" Guid="{794BB7B1-60F7-46AF-902E-44BCC9B2AC77}">
+                        <File Id="filD3FCD16CE33D1CBDF1455B3AEEC8EEBD" KeyPath="yes" Source="$(var.MySource)\2018\Resources\DownloadBUYL.bmp" />
+                    </Component>
+                    <Component Id="cmp6236BAF966414527C20B7438182D4D5B" Guid="{57D08D84-7782-408E-B0DE-42F66D7C22A9}">
+                        <File Id="fil946F43AE2674F58A4E11E380C963F616" KeyPath="yes" Source="$(var.MySource)\2018\Resources\PfVConnect.bmp" />
+                    </Component>
+                    <Component Id="cmpCAC256C6CAB54D18D14EEA803A24E88A" Guid="{F6AB6A92-2647-475F-ABB5-381315730DBF}">
+                        <File Id="filE72D16EF791947579ED33265A7ED1560" KeyPath="yes" Source="$(var.MySource)\2018\Resources\PfVLocate.bmp" />
+                    </Component>
+                    <Component Id="cmpF7DAB1F7143153E853610901DBBF213B" Guid="{6F11EB12-DA9C-48C2-A9C8-623E0595B51F}">
+                        <File Id="fil827A48402A91EE1966DBCACAF3A210B3" KeyPath="yes" Source="$(var.MySource)\2018\Resources\PfVManager.bmp" />
+                    </Component>
+                    <Component Id="cmpA2795247CD50E58D55E74AEB25666F14" Guid="{6B19F0B7-4DE7-4D08-858B-51EFF54EF318}">
+                        <File Id="filC4EF642DF7E72D585D4DB48BC2456EC1" KeyPath="yes" Source="$(var.MySource)\2018\Resources\PfVNext.bmp" />
+                    </Component>
+                    <Component Id="cmp8EDE47FCF0DEF7C5FA16D12EA2360D7F" Guid="{5A83B3D5-6F71-4EAF-B5E0-B3BF9E2D5FC2}">
+                        <File Id="fil7F25F9B958D1034B4481881810E1D5CD" KeyPath="yes" Source="$(var.MySource)\2018\Resources\PfVPlace.bmp" />
+                    </Component>
+                    <Component Id="cmp74C04C98DF7A57E498380F18EC437DC2" Guid="{E8FDB9F3-5135-49F0-8AFE-84F44C2038A0}">
+                        <File Id="filC4E12F846DA87F782420B2924C208FE9" KeyPath="yes" Source="$(var.MySource)\2018\Resources\PfVPrevious.bmp" />
+                    </Component>
+                    <Component Id="cmpEE20B0EDCFA8249F654C6890DB2E3EE5" Guid="{26945F91-E232-4BC5-9AED-12165945232A}">
+                        <File Id="fil980935F0D224B2412CBC821801F66458" KeyPath="yes" Source="$(var.MySource)\2018\Resources\PfVProcess.bmp" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="dir78F1688A22572F68F07006A674D36E62" Name="2019">
+                <Component Id="cmpD46B5D3ABA03B1E4756BB5750E8CE3ED" Guid="{E0C34B9E-059F-4FFE-8049-B1A52710BFC2}">
+                    <File Id="fil5CBBEF59F3EBFA740E1AB2819CD838B7" KeyPath="yes" Source="$(var.MySource)\2019\AdWindows.dll" />
+                </Component>
+                <Component Id="cmpF13407F33E0B0E12D95A7CE35E433582" Guid="{7D2A5F6A-9482-4EBB-BF35-1A4349F2F2B9}">
+                    <File Id="filE54BA4578570535733FDE3CE6DB9F1BD" KeyPath="yes" Source="$(var.MySource)\2019\BUYLLog_config.xml" />
+                </Component>
+                <Component Id="cmp3E086342F10D252F2B937E42788A1E9D" Guid="{65475FB1-C42D-44C8-8493-03FC863D196D}">
+                    <File Id="fil46DD5E6258FE5A78AB99A4C12A3F8D3D" KeyPath="yes" Source="$(var.MySource)\2019\BUYLRevit.dll" />
+                </Component>
+                <Component Id="cmp26544451E1C5D01F5D3F7291CF7A5A1F" Guid="{25D9A6EF-9479-4148-81E0-3CB862F8D546}">
+                    <File Id="filCC915743EF20FF105DDEBDF9C0CC5B10" KeyPath="yes" Source="$(var.MySource)\2019\BUYLRevit.dll.config" />
+                </Component>
+                <Component Id="cmpFC283427AE77E48F9201DAF8076CC5FC" Guid="{2C4F7745-4295-4F15-ABC8-9684E170BA01}">
+                    <File Id="fil8C7D84FBE145BD6AF0416A28C07936CF" KeyPath="yes" Source="$(var.MySource)\2019\BUYLRevit.pdb" />
+                </Component>
+                <Component Id="cmp61B284BA6BB7450E42870A890D2588FE" Guid="{BD1A806E-4948-45FE-B478-BE706175FA4B}">
+                    <File Id="filCE653CBCE412AFCA2C6005924B735986" KeyPath="yes" Source="$(var.MySource)\2019\BUYLRevit.XML" />
+                </Component>
+                <Component Id="cmp990C57504E025E58AC07F1FD7B870ACF" Guid="{147A79FC-AD83-4E2E-A22A-1EFD5AC12C06}">
+                    <File Id="filCE8FB38D6B88177786608E1DD8031B86" KeyPath="yes" Source="$(var.MySource)\2019\BUYLRevitAddin.addin" />
+                </Component>
+                <Component Id="cmpEFF2229B0CF830678A7371D425958D14" Guid="{85B331EE-DA72-4EDA-8125-FFC192B385EF}">
+                    <File Id="fil284F2FF2879456523090E762BC33FFC5" KeyPath="yes" Source="$(var.MySource)\2019\BUYLRevitAddin.dll" />
+                </Component>
+                <Component Id="cmp3CC604B78B5447B5D33177490AA44117" Guid="{A1AF1323-5F62-4B49-BDD4-81120DB3A190}">
+                    <File Id="filD7398D434E7EEB66329EB8CC4120AC3D" KeyPath="yes" Source="$(var.MySource)\2019\BUYLRevitAddin.pdb" />
+                </Component>
+                <Component Id="cmp00ABCC3D0E5D34DD8B7435CF9F2AEC4D" Guid="{BD2ECAE5-774E-45DF-9F4C-51C4A48452AB}">
+                    <File Id="fil869AFE4727DBD49584DE22797BE4F0FD" KeyPath="yes" Source="$(var.MySource)\2019\BUYLRevitAddin.XML" />
+                </Component>
+                <Component Id="cmp11B74CA988A4C0FA265F9BBE5A7AE402" Guid="{A1E49A5D-C5F8-4DBB-BAF1-122271543C29}">
+                    <File Id="filD4F47B832B144660942074ACD440B2DC" KeyPath="yes" Source="$(var.MySource)\2019\BUYLTools.dll" />
+                </Component>
+                <Component Id="cmpB0FB3EA74EEBA15989E547219DC3B886" Guid="{DC63492F-2122-4733-9795-2BF191B58364}">
+                    <File Id="filFE1B7899710EB1A2CCA5A5B69C2FBEF4" KeyPath="yes" Source="$(var.MySource)\2019\BUYLTools.dll.config" />
+                </Component>
+                <Component Id="cmp40F3F1F431D859BA7B5A385ED6908752" Guid="{AF512917-FC80-4F5A-93A1-8DB913DC1A33}">
+                    <File Id="filA8A28363A03EC67E91259BA62869DB11" KeyPath="yes" Source="$(var.MySource)\2019\BUYLTools.pdb" />
+                </Component>
+                <Component Id="cmp2FBD1C021037A8F0BA3C237AACA8BAD2" Guid="{793FB6E8-6511-4D89-91CE-723BEA2C1509}">
+                    <File Id="fil3B871EDB93D2A6B0EB471908CAFAF6D8" KeyPath="yes" Source="$(var.MySource)\2019\CafmConnect.dll.config" />
+                </Component>
+                <Component Id="cmp5F1C6CB2B524A724F36DB3662DFFB270" Guid="{5ABB5CF9-304D-48F5-8F71-27E0541C0C65}">
+                    <File Id="filDE700E8CF3B78C805BB616BE54063C5C" KeyPath="yes" Source="$(var.MySource)\2019\LibGit2Sharp.dll" />
+                </Component>
+                <Component Id="cmp1029D44BB167A883F9AC8430FDCC5B6D" Guid="{C3C257B5-BDC6-46B0-8B89-50F213CDE43F}">
+                    <File Id="fil56B4756DE9CA649CDC907BE122FCBBF8" KeyPath="yes" Source="$(var.MySource)\2019\LibGit2Sharp.dll.config" />
+                </Component>
+                <Component Id="cmp09D86972E44764C899DD4FDE64A32E24" Guid="{F1B18135-16A3-4F36-B3B4-E37368C9C603}">
+                    <File Id="fil36D90195DF08FDF386643CAD06187BFA" KeyPath="yes" Source="$(var.MySource)\2019\LibGit2Sharp.pdb" />
+                </Component>
+                <Component Id="cmp43501AB73065282BE6FA5A853E0CCADF" Guid="{EB64E75C-2BAE-4094-9ABB-FACF2D6C1FBC}">
+                    <File Id="fil7CFC72B2748A98EE4571A2BDDFE08A69" KeyPath="yes" Source="$(var.MySource)\2019\LibGit2Sharp.xml" />
+                </Component>
+                <Component Id="cmp7B0DAC3B998334BEBD8EDE7C49EAC994" Guid="{53A313E4-99BE-4032-80D9-736C976B9EF0}">
+                    <File Id="fil55BAA150F4009E5D848999266E4512AD" KeyPath="yes" Source="$(var.MySource)\2019\log4net.config" />
+                </Component>
+                <Component Id="cmpD0CE3745FE05A1A4B150601AC0B8F4AC" Guid="{2EE446BA-A3BF-4A29-8594-82B00748F6C6}">
+                    <File Id="fil6CE3330EC893C5A4F326D04B694138E7" KeyPath="yes" Source="$(var.MySource)\2019\log4net.dll" />
+                </Component>
+                <Component Id="cmp8C579ECA691092B8E7BFE7D25CFD62EC" Guid="{A005698C-90D0-4181-879F-AA231EF37D48}">
+                    <File Id="filBD1454833310D708DCFB17A4FC5E9B1C" KeyPath="yes" Source="$(var.MySource)\2019\log4net.xml" />
+                </Component>
+                <Component Id="cmpB5C5BB219C4CE277EDC213F15BB10DB1" Guid="{EE452AB5-1520-48CC-9111-32A7D6D8F079}">
+                    <File Id="filEAEE95335056B151AE31E70BAC34E654" KeyPath="yes" Source="$(var.MySource)\2019\Octokit.dll" />
+                </Component>
+                <Component Id="cmp5D14F6E5B3EC029C9870A5B18058E60D" Guid="{31B901C4-4809-40C5-A74D-275752835792}">
+                    <File Id="filB115EF058E1768C01B4A401DB3293CDD" KeyPath="yes" Source="$(var.MySource)\2019\Octokit.pdb" />
+                </Component>
+                <Component Id="cmp1FAE1931BAE7840C0CB2E4CF18961C69" Guid="{A7AA41EC-9B66-49AD-B8DD-29D9C62CDD0A}">
+                    <File Id="fil57276DEA42D93D7B944660D13E22F60B" KeyPath="yes" Source="$(var.MySource)\2019\Octokit.xml" />
+                </Component>
+                <Component Id="cmp6D9F445925B516A3E7D910E69197B5E4" Guid="{07CFF46F-246D-4B27-8647-8D48072E7806}">
+                    <File Id="fil620C302577475F7F50A87378406B9EE0" KeyPath="yes" Source="$(var.MySource)\2019\RevitAPI.dll" />
+                </Component>
+                <Component Id="cmp84673EFE4F0198AB5D5C0BFB35186BDE" Guid="{7AC5CCE8-0A08-4BBC-BDD9-38DE8C8A8864}">
+                    <File Id="fil98579B5A3D60EB655F872831582519C0" KeyPath="yes" Source="$(var.MySource)\2019\RevitAPIUI.dll" />
+                </Component>
+                <Directory Id="dir508387FE4D2472725C143B674A60957B" Name="lib">
+                    <Directory Id="dir5B41BA84B01087FEAD4AB9CA0926AD48" Name="linux">
+                        <Directory Id="dirF0B66EDB0521540523F238EEC5C3B1EB" Name="x86_64">
+                            <Component Id="cmp08F49B178DB8FBA7237B382FB2B4F0A4" Guid="{B92ACBCC-3E0B-4411-B0AA-DCE52A14FDE1}">
+                                <File Id="fil7E62F94455B72AA982A28F0B0542E0C4" KeyPath="yes" Source="$(var.MySource)\2019\lib\linux\x86_64\libgit2-15e1193.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dirCE1D2ABF30ACEAFE6467445792A2D114" Name="osx">
+                        <Component Id="cmpF3CAF69369C5305D7510E1CC081F67BA" Guid="{BF716B46-1757-452A-A366-A6BF4CD4918F}">
+                            <File Id="fil3B79A7AA8DCF4ED2826C7B0210D95CE3" KeyPath="yes" Source="$(var.MySource)\2019\lib\osx\libgit2-15e1193.dylib" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dir68E3B2F80EC3073525E16BAAA3166732" Name="win32">
+                        <Directory Id="dirC75DE5CF5BF09AB6BC01D62D1178BF89" Name="x64">
+                            <Component Id="cmp1D4E5AE5735147708AAF6A26EEF17644" Guid="{56E3CBC9-318D-4737-8991-8676F2075460}">
+                                <File Id="fil289D66D4324B0697BD6F5B2F835E97B3" KeyPath="yes" Source="$(var.MySource)\2019\lib\win32\x64\git2-15e1193.dll" />
+                            </Component>
+                            <Component Id="cmp6867CB58555BAF63E930EA76008016FB" Guid="{D18E8509-5860-4DDE-BC5D-F9ED3BE4773B}">
+                                <File Id="fil01DB77B610A3B4955F04E17D10FE0A4A" KeyPath="yes" Source="$(var.MySource)\2019\lib\win32\x64\git2-15e1193.pdb" />
+                            </Component>
+                        </Directory>
+                        <Directory Id="dirC04300FD29B0930CDE2DEE45D3BC78F2" Name="x86">
+                            <Component Id="cmp7FE87485F7460372F49BDCF14DF87B25" Guid="{7A2739CB-F6BB-4043-AE02-9D709C8A4002}">
+                                <File Id="fil39F4BF6811ADFCEBF0FAEF1A825B91E6" KeyPath="yes" Source="$(var.MySource)\2019\lib\win32\x86\git2-15e1193.dll" />
+                            </Component>
+                            <Component Id="cmp020275802F9109FC374C8AEA24410E98" Guid="{5B89371E-33E2-4389-A6E2-FF6A3A34C310}">
+                                <File Id="fil4B7ED24AE63899AE3BBF53D55D701559" KeyPath="yes" Source="$(var.MySource)\2019\lib\win32\x86\git2-15e1193.pdb" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                </Directory>
+                <Directory Id="dir3FD8243BDFACC9D8962A7EF7D94CA83A" Name="LogManager">
+                    <Component Id="cmpF6CFDF53ACC8444CBEC8FE10F67F9DA3" Guid="{9E66608E-46C6-4264-ADAA-2344EAE1F0D4}">
+                        <File Id="fil7E8BD2398391BAEEBC680F39D56BC3E3" KeyPath="yes" Source="$(var.MySource)\2019\LogManager\BUYLLog_config.xml" />
+                    </Component>
+                </Directory>
+                <Directory Id="dirFDCD366FB7BEB471E5266CF81448E709" Name="NativeBinaries">
+                    <Directory Id="dir3D242A1713CE75565D0DD938EEA01194" Name="amd64">
+                        <Component Id="cmp70408BDDC831D0533CDC519556F38830" Guid="{DB6E4B15-5A70-4E4C-B518-22DE6836D84D}">
+                            <File Id="fil33E2B254FD5CBCF7BECF266561987D5D" KeyPath="yes" Source="$(var.MySource)\2019\NativeBinaries\amd64\git2-785d8c4.dll" />
+                        </Component>
+                        <Component Id="cmp53D8D1A47F32E9C855CD6AE8FA2B06C8" Guid="{F551FDA0-768E-4F9E-8052-A2145580473B}">
+                            <File Id="fil3922462A8ACAEBC8A4E71A740AE2D88B" KeyPath="yes" Source="$(var.MySource)\2019\NativeBinaries\amd64\git2-785d8c4.pdb" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dir8BBBB54FD718C857A6FF985150A3AE36" Name="linux">
+                        <Directory Id="dirC1482F907ADD48A739F31951CFFDD596" Name="amd64">
+                            <Component Id="cmpA210DC009434412B664D6D465480067E" Guid="{21056AFF-D27B-4CE5-82F2-5CA4D65724FB}">
+                                <File Id="fil0A32DCB0E6628844F46FAEB74F371F2A" KeyPath="yes" Source="$(var.MySource)\2019\NativeBinaries\linux\amd64\libgit2-785d8c4.so" />
+                            </Component>
+                        </Directory>
+                    </Directory>
+                    <Directory Id="dir1246B99E89AFA966DC26DBB55E83D961" Name="osx">
+                        <Component Id="cmpFD7689C62FF7B54D383B226F4D5B2154" Guid="{F27A1373-D27F-40DD-821F-6C57C594787A}">
+                            <File Id="fil7B8E227A99B53B6B97550B65C9E59FC5" KeyPath="yes" Source="$(var.MySource)\2019\NativeBinaries\osx\libgit2-785d8c4.dylib" />
+                        </Component>
+                    </Directory>
+                    <Directory Id="dirCDCF171506A543558B62A66B8138CE29" Name="x86">
+                        <Component Id="cmpA8071811ECFE214F95B74B2E8BF43DCE" Guid="{802EECBC-278E-494B-B7F8-8A1ED1639F4A}">
+                            <File Id="fil4923A2A9BD55966A52B0A5F66C5E93C4" KeyPath="yes" Source="$(var.MySource)\2019\NativeBinaries\x86\git2-785d8c4.dll" />
+                        </Component>
+                        <Component Id="cmpF43DDA03A873B2F609CA5346EF809B85" Guid="{95FE1252-7B76-4771-A558-E7451FAEF3DE}">
+                            <File Id="fil13F07E01DD24C6121B1A34EE7385794F" KeyPath="yes" Source="$(var.MySource)\2019\NativeBinaries\x86\git2-785d8c4.pdb" />
+                        </Component>
+                    </Directory>
+                </Directory>
+                <Directory Id="dirE1F6E00DAEABCC5E7E5DD8AAF7690BC4" Name="Resources">
+                    <Component Id="cmp3C55D0E4D4129DD472526403A19E3649" Guid="{A56AC313-3CD8-4C7F-A5DD-A5D7B670B317}">
+                        <File Id="filEAC01F611E154F9015B3914718B2BB99" KeyPath="yes" Source="$(var.MySource)\2019\Resources\BUYLProjektCH.bmp" />
+                    </Component>
+                    <Component Id="cmp9032B162E616B3CB599338C2435AF89C" Guid="{F6FBEE91-E37E-41DE-836C-A3DF0CFA8477}">
+                        <File Id="filC293EAF9EFA4C4DDFF73054061160F05" KeyPath="yes" Source="$(var.MySource)\2019\Resources\BUYLProjektDE.bmp" />
+                    </Component>
+                    <Component Id="cmp19677392D0B6664C739DE495B1D48869" Guid="{E628E6D9-7A64-451D-AC3F-6618C81D5632}">
+                        <File Id="fil4EA71096BC68F8690E9074753A208ACC" KeyPath="yes" Source="$(var.MySource)\2019\Resources\DownloadBUYL.bmp" />
+                    </Component>
+                    <Component Id="cmpD68DA920BA1AFC320B35C3497A3B1E10" Guid="{33A90FAF-915D-42CD-B6A8-F66AC5B2E1E3}">
+                        <File Id="fil12D261D921065F05FEE25B5D8A475C13" KeyPath="yes" Source="$(var.MySource)\2019\Resources\PfVConnect.bmp" />
+                    </Component>
+                    <Component Id="cmp062A5CFDB4A9507D0DA7E9BC7EAD282F" Guid="{50B35C3B-1A99-4457-BF63-27F9C6255F99}">
+                        <File Id="filE41010172E6BA97D86555798D93826EE" KeyPath="yes" Source="$(var.MySource)\2019\Resources\PfVLocate.bmp" />
+                    </Component>
+                    <Component Id="cmp1F5534ACF651C93C7E88B555C80CB2AB" Guid="{6FDFC481-85CE-41A9-ACCC-D27FA19EAB35}">
+                        <File Id="fil058443631A4A7357B208C0272E56EF72" KeyPath="yes" Source="$(var.MySource)\2019\Resources\PfVManager.bmp" />
+                    </Component>
+                    <Component Id="cmp4297028F1AC8923BEB3E0A323AA31566" Guid="{7356C151-44A7-48CC-B9A1-AE5E9E770DCE}">
+                        <File Id="filAE787B8A60135DA992B3CE772381C62C" KeyPath="yes" Source="$(var.MySource)\2019\Resources\PfVNext.bmp" />
+                    </Component>
+                    <Component Id="cmp1058FA9697B3924B222059459F9FBBAC" Guid="{66F8E79A-20E2-4C18-B2C6-FA72F125BCDE}">
+                        <File Id="fil2B48FF94499DEBA2FE04A34951A63253" KeyPath="yes" Source="$(var.MySource)\2019\Resources\PfVPlace.bmp" />
+                    </Component>
+                    <Component Id="cmp23313140B10C391D0A6AC2F3D703D98C" Guid="{E602A587-2B22-495B-B30A-BCEA0C923F46}">
+                        <File Id="fil0EB267F0D127B38E74F0DC6FE3B37342" KeyPath="yes" Source="$(var.MySource)\2019\Resources\PfVPrevious.bmp" />
+                    </Component>
+                    <Component Id="cmpC3A0560A960186707835E2177882E8BD" Guid="{E4160D24-A458-46AA-8D8A-BD226A4C33A3}">
+                        <File Id="fil6855EF2837B870AA968C06CBA708132A" KeyPath="yes" Source="$(var.MySource)\2019\Resources\PfVProcess.bmp" />
+                    </Component>
+                </Directory>
+            </Directory>
+            <Directory Id="dir10D8D5ABD08ADF8DAE633BAE9F3A1DAC" Name="Content">
+                <Component Id="cmp8CB869F531D5C1C4647B2629C34911CA" Guid="{29926AC3-90DC-4063-9736-92DAB0A26DE8}">
+                    <File Id="filF8A8835EF718BC5BF8670E5EB6975277" KeyPath="yes" Source="$(var.MySource)\Content\CC_HK_Demo.rvt" />
+                </Component>
+                <Component Id="cmpBAB75C5CC887E1335BCC3B7ABA7A2FAE" Guid="{076FE131-F4B4-4073-9170-23AC441139F4}">
+                    <File Id="filA995F2087584CFC065B514D6E65554F2" KeyPath="yes" Source="$(var.MySource)\Content\Cc_RadiatorSample.rvt" />
+                </Component>
+                <Directory Id="dirF7C115FA17AD5F398B4DC3BD163C3001" Name="sample_scenario_pfv">
+                    <Component Id="cmpDF35A92197802BB73CB876BBBFDB6629" Guid="{221229A6-3AB4-4482-A875-1AE805ACDBFE}">
+                        <File Id="fil65440B4A2667294944A1D3921D6E87EE" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\160712 tgl SuD.IFC" />
+                    </Component>
+                    <Component Id="cmpC3B57DDE89A47D792DB651706D9C87EF" Guid="{529666FE-8191-44BC-AE46-6F1780F6FC94}">
+                        <File Id="fil41C398C215336538394EDC48352F6D6A" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\160712 tgl SuD.IFC.log.html" />
+                    </Component>
+                    <Component Id="cmpE687C9F03B718A5517607BC5E3EF4C4B" Guid="{45824C5A-0DDC-406F-A795-0E1B9523C16F}">
+                        <File Id="filAFFB4285E4BF41B5881F2D4E0D3D8BEC" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\160712 tgl SuD.IFC.RVT" />
+                    </Component>
+                    <Component Id="cmp9DCE345ED013CFAF1700DC85CBBE341A" Guid="{AE5FFAAA-7400-44B9-8F3D-37EB3AA7B379}">
+                        <File Id="fil0F446E828B6ED2099AB6A5DCAB3CF860" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\160712 tgl SuD.IFC.sharedparameters.txt" />
+                    </Component>
+                    <Component Id="cmp0ACD12160647DE8FBF7EC8595E2AFC83" Guid="{544AF4EA-1BC1-42F7-BFCF-785E2584F215}">
+                        <File Id="fil96E77C7192438A3CF1395C06C7387D36" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\AA Bauteilöffnung flächenbasiert rund.rfa" />
+                    </Component>
+                    <Component Id="cmp9246F0F00770A35C0AC30EE3FADB354F" Guid="{35E0AEF2-7FB5-4C11-A679-D4933FA635A2}">
+                        <File Id="fil461E6EE93F54E7A9EDC483105965C9E2" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\RME_example.ifc" />
+                    </Component>
+                    <Component Id="cmpC962BED2E2DF2E8E07DDD128DFFE214E" Guid="{78B86E6F-5865-448E-9163-D842CC53C8DF}">
+                        <File Id="fil9450EA06C1C597A92CC827730F4200E1" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\RME_example.ifc.log.html" />
+                    </Component>
+                    <Component Id="cmp4EE2E801EC0A5BAAC7BCA327DE6496F5" Guid="{2BFB681D-0B50-426E-9562-5EF0A6D9ADF5}">
+                        <File Id="fil1C7A21A1E74D3D7EC27988E2685F7F3A" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\RME_example.ifc.sharedparameters.txt" />
+                    </Component>
+                    <Component Id="cmp1FB1B1EAABA5355A14AD7E9A79965E5E" Guid="{12CEA48D-D786-41A3-8E32-76D27A8F4674}">
+                        <File Id="fil144446F82B7F8739988688BD028ED00F" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\RME_example.rvt" />
+                    </Component>
+                    <Component Id="cmpD3CDE6ED9359217982F695158D998CC6" Guid="{301D7B65-49BE-40B7-B24F-C42C7C27C6E5}">
+                        <File Id="fil5DF25DC426B6FED6EA04724527E3E08E" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\schema.log" />
+                    </Component>
+                    <Component Id="cmpD249376987202EF37C5E1C4CE561439E" Guid="{BEE67519-4BC6-4857-97B1-BE992F5C3BD4}">
+                        <File Id="fil0A8CB2BEE214411D6585DB09B0CB4D04" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\SuD-Host.pfvData" />
+                    </Component>
+                    <Component Id="cmp59DAAE8F1589CD04785BD4A2F1AB982F" Guid="{618E12A8-7BBF-40BF-BC72-C6507ACE98D5}">
+                        <File Id="filDC27303CEFC24CEC527462F7F0D2AB96" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\SuD-Host.rvt" />
+                    </Component>
+                    <Component Id="cmpD058EE9A896A1D90B2429B23F8C8263A" Guid="{0D4AF292-FBB4-4A3D-AB31-B367F3FD1D03}">
+                        <File Id="fil10EFCF4397DAF678BC0C152A2A5897C6" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\SuD-Referenzmodell.ifc" />
+                    </Component>
+                    <Component Id="cmp450CC7D2AF5A484B1F908F07C8A3C680" Guid="{4E065A8F-2255-4FE0-9426-949B32AAE01A}">
+                        <File Id="fil176CA944D0EAE948DAB7B3AC5080FCE2" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\SuD-Referenzmodell_VA.IFC" />
+                    </Component>
+                    <Component Id="cmp842424527BEC4F1DC2D3F65CF365382F" Guid="{026F1E53-B4A6-4F00-8FC1-0D1D93A3D113}">
+                        <File Id="filC4D336EFCB5BD45DD18D8E5CC4EF626B" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\SuD-Referenzmodell_VA.IFC.log" />
+                    </Component>
+                    <Component Id="cmp0A9B4B49460A2BE26669B51A891EFB5F" Guid="{6C988102-95F3-4CF1-84F1-2791741FAE3C}">
+                        <File Id="fil8F4B368374087202DEACC072BBEEA968" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\Test Schlitz- und Durchbrüche_0000.ifc" />
+                    </Component>
+                    <Component Id="cmp009382105F9D65CFFF7DE0FFBA8FC5F2" Guid="{842E7A31-4561-4184-A034-1DEEEBB32859}">
+                        <File Id="fil5925A4497B1A3FA8C6944E6F0BDA9D0C" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\Test Schlitz- und Durchbrüche_0000.ifc.log.html" />
+                    </Component>
+                    <Component Id="cmpA12C6876E65D3F43E05C837A7CBA43AC" Guid="{F83A16E0-2297-4036-A748-7664EF07B932}">
+                        <File Id="fil9AC81F7C98DBB1813247402F25654424" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\Test Schlitz- und Durchbrüche_0000.ifc.RVT" />
+                    </Component>
+                    <Component Id="cmpC7A3EFB5AC58108A701F0C41154AB702" Guid="{43D75CA9-58C1-458A-A1FE-4718F913581D}">
+                        <File Id="fil5D71C1D7C37EDAFCCFB42D8EC5D11744" KeyPath="yes" Source="$(var.MySource)\Content\sample_scenario_pfv\Test Schlitz- und Durchbrüche_0000.ifc.sharedparameters.txt" />
+                    </Component>
+                </Directory>
+            </Directory>
+        </DirectoryRef>
+    </Fragment>
+    <Fragment>
+        <ComponentGroup Id="BundleFiles">
+            <ComponentRef Id="cmp0485E17AB122DA8D179BC61353690542" />
+            <ComponentRef Id="cmp6C7C92F0D72C0A9494419D7D962D4F72" />
+            <ComponentRef Id="cmp280562D3A6E2C14C5AD7293B91CCFBC6" />
+            <ComponentRef Id="cmp14D752ED2A76A07C7B2821B9D77B90A8" />
+            <ComponentRef Id="cmp24B43A7426F96242623692D07ABB582A" />
+            <ComponentRef Id="cmp3F168F192E5E1DB7D1D90C49021DFC64" />
+            <ComponentRef Id="cmp38AA44B2B958972D189B5F82F7957944" />
+            <ComponentRef Id="cmp5DE1D2E6357427B3B6470894EA6ECB6B" />
+            <ComponentRef Id="cmp4982382561C0E921BF92F6F037440ABD" />
+            <ComponentRef Id="cmpA094734EFF9D8320F2D3676C2F7CB101" />
+            <ComponentRef Id="cmpE8F69433D52BD34599E2906C6F663B45" />
+            <ComponentRef Id="cmp1DE74674016ABF5ABD374C7643A1E16A" />
+            <ComponentRef Id="cmp977FBD91D46D3240A2DA3C4D7605A6D0" />
+            <ComponentRef Id="cmpDE1862590B894079383FB0ECBC68663A" />
+            <ComponentRef Id="cmp062E7B936FE2DDD6D0703BD6E80C15BC" />
+            <ComponentRef Id="cmp9DC555B041F81C8A63D962C5E8D66F99" />
+            <ComponentRef Id="cmp7FAD915859EE3D9E011F624F37D83C23" />
+            <ComponentRef Id="cmp47B2CC89F8A8438FD57A5D4B5B1169BD" />
+            <ComponentRef Id="cmp625F01C6235B1CB793D7F181651454D0" />
+            <ComponentRef Id="cmp2943F91211A1B25C1C4465CEF2BF0FC4" />
+            <ComponentRef Id="cmpDCB99011507668CA124C16CF42AFFFB7" />
+            <ComponentRef Id="cmpCB7D17E3F19B606C0C40B426E19B0279" />
+            <ComponentRef Id="cmp1FF2FEE1BBA78B72E7182EA39A3A50A5" />
+            <ComponentRef Id="cmp66AF2031C63F948D391515AE3B89F94A" />
+            <ComponentRef Id="cmp9FEEF09267E363106F68B036B3E6A0EF" />
+            <ComponentRef Id="cmp50C2BAD9A542F6A4E33283E624192C99" />
+            <ComponentRef Id="cmp562F2D33B8AC4349133A4CACADA69D5E" />
+            <ComponentRef Id="cmp6721CD5A6255F34D9716B28E43B75659" />
+            <ComponentRef Id="cmpF77E15CEA0762FD5885F8D7E33728B68" />
+            <ComponentRef Id="cmpC31B60371F9522825C41FCCC8227609E" />
+            <ComponentRef Id="cmp79EC7A00A20A3770969980B6D884DDBE" />
+            <ComponentRef Id="cmpF2A75C55FD5463E86E72682C1F4AC29F" />
+            <ComponentRef Id="cmp71172C23D899D6EE9475A9E5DB4F3F4C" />
+            <ComponentRef Id="cmp201F4CC093617CB0CB9987D7B2C562B0" />
+            <ComponentRef Id="cmpDFD3939AB9EB166FD8B2C6556B1C7A29" />
+            <ComponentRef Id="cmpAD219007E26D634C88909E8D8098D958" />
+            <ComponentRef Id="cmp754E031A53146B2D13C7B18724303645" />
+            <ComponentRef Id="cmp129DFAC04C50670CDB173E27BED13A39" />
+            <ComponentRef Id="cmpA794555479B5C81A4D18960C69D28579" />
+            <ComponentRef Id="cmpCF633F435DF8792045C4D6DB757FAB00" />
+            <ComponentRef Id="cmp278EBAF4B59FBD078B0C226CAD42AE88" />
+            <ComponentRef Id="cmp6E48050C49B459FAE9206DFD5B6B085C" />
+            <ComponentRef Id="cmp91A9603082ACB78A42217431D4468F3A" />
+            <ComponentRef Id="cmp143964D8B8B3BC5177BFBD8E5E76AEB4" />
+            <ComponentRef Id="cmp8B648D358B9A108977AB3A136B1CE6B6" />
+            <ComponentRef Id="cmp1B2E0CE02048CF6F27B4651039B7963D" />
+            <ComponentRef Id="cmp7B6C2A6E3B6E61573E6BCD2C77029A3E" />
+            <ComponentRef Id="cmp5AF33946B87A56E44050840CEBA6BAFB" />
+            <ComponentRef Id="cmpD4C8FC4CA938593D7B4F58F31C99C716" />
+            <ComponentRef Id="cmpE99EF4F51CD38EF21EAD146C59B02DAC" />
+            <ComponentRef Id="cmp99CE6C94A703F580D7EE4557C4867D31" />
+            <ComponentRef Id="cmp5A39F336FB7D9EE6345321EAE16EBDF1" />
+            <ComponentRef Id="cmp5AB99B05946950F03FAF9C7BA3A4A0EE" />
+            <ComponentRef Id="cmp46CE49D7A6C36B353D1DB199170A0686" />
+            <ComponentRef Id="cmpE32AA503B7A079EF94F437C7FAD2E1D1" />
+            <ComponentRef Id="cmp03265263B35CCB381FAE0C21C393068B" />
+            <ComponentRef Id="cmp8A8C5732D9B0021F54579EB47238CD1A" />
+            <ComponentRef Id="cmp3E5F7A18805B72F78BCACEFEE7988FAF" />
+            <ComponentRef Id="cmp7437210958287728743000E951ACAD12" />
+            <ComponentRef Id="cmpCAC84859D563845477F174AA96DE9207" />
+            <ComponentRef Id="cmpA784E70C40FB1790874E0B37A96533E7" />
+            <ComponentRef Id="cmpCDC141E0F564955809C05853C30D63DE" />
+            <ComponentRef Id="cmpEF42894B7326EE52DDAC68B09BE41CCF" />
+            <ComponentRef Id="cmp26DF831C76F36803E25C290E1314AA04" />
+            <ComponentRef Id="cmpD0006FE83ECB293F6DAB7ACDE9CB8EEE" />
+            <ComponentRef Id="cmp82F4593F39945A4B1C91E022ACE8E16D" />
+            <ComponentRef Id="cmp82CF4DC4F1ACC4655A4527F5A100CE03" />
+            <ComponentRef Id="cmp45EF33C5082B9BE8A6E55092F1B511D4" />
+            <ComponentRef Id="cmp7CFAEB4BC5328845ADD3CE1B89580A65" />
+            <ComponentRef Id="cmp84229C8050236311BDB643BC5A197BC9" />
+            <ComponentRef Id="cmp699B69FE222EFBC81D54090BC50CEFEA" />
+            <ComponentRef Id="cmp02BBB13037CEDF3BC5F2243D1458413E" />
+            <ComponentRef Id="cmpB507C7865C5C7F31F521C33D9F82DCBB" />
+            <ComponentRef Id="cmp16C98DE23D7CE4E1FA7A4B2E77E4BB5D" />
+            <ComponentRef Id="cmp8781944E937D05E41FD43858190CE924" />
+            <ComponentRef Id="cmp98FAA5D5669149252D963F6FC4629528" />
+            <ComponentRef Id="cmpB5813DA6AEEF9B09DBA6C5567CD5946F" />
+            <ComponentRef Id="cmp7C83D97B0BA4935FFF866EE669C5F5CC" />
+            <ComponentRef Id="cmp5CB1E6DA4679898A874EF41564577CBE" />
+            <ComponentRef Id="cmp7F67A41200EC0DFAB11DB40BC9162276" />
+            <ComponentRef Id="cmp836D90CA9C99EF07D86CB4DD1F3189FB" />
+            <ComponentRef Id="cmp68109979509025A1B24597AB869BF91C" />
+            <ComponentRef Id="cmpA03D9E1D13796C3FAB8728D59D137DC8" />
+            <ComponentRef Id="cmpE6515A00AACE44A802E9682AD364F063" />
+            <ComponentRef Id="cmp1C8402DDD44FA0F9CA848848F61CCD00" />
+            <ComponentRef Id="cmpEDE46D67A6B7DAF409A392C7E0BCEF5B" />
+            <ComponentRef Id="cmpE97887F289115C005C923D62C245BB2A" />
+            <ComponentRef Id="cmpA76B29DC40E08950EC4946A42B4EBD9C" />
+            <ComponentRef Id="cmp956CE6E1D3970B537CB2B519BDD41833" />
+            <ComponentRef Id="cmpEF60BAA5E36ED6A51AEA52C220BD63E0" />
+            <ComponentRef Id="cmp2E58962B9DB103AB563E769A905CEAD4" />
+            <ComponentRef Id="cmpDE4ABEF835E5F1815AF3475F010884FE" />
+            <ComponentRef Id="cmp6C9EEBE9F07BF9538BABA8865AF82FF2" />
+            <ComponentRef Id="cmpCA8CCE1A0EAC503E67800DB339F1C2EE" />
+            <ComponentRef Id="cmpFC20A56F5E2FCAF89E233613AE7EEB76" />
+            <ComponentRef Id="cmp2C549AF47D630235BAA52ABA4973F105" />
+            <ComponentRef Id="cmp8F2D72E99A4006CD5DA4CA2DE890DE27" />
+            <ComponentRef Id="cmp600F026CB3EC05734D6E8B70DC3CFE20" />
+            <ComponentRef Id="cmp76E0308C286620DEA99A7AA8E993945E" />
+            <ComponentRef Id="cmp2E2F91934A0342E02799DBD7443ED5C9" />
+            <ComponentRef Id="cmp6B999634FD31DA8C0075F75195A8AF1F" />
+            <ComponentRef Id="cmpE2D53134895C79E0CFB2A9141B0506B6" />
+            <ComponentRef Id="cmpEE5269C728AF40A8C44FA95B04FF5837" />
+            <ComponentRef Id="cmp74909B6332790A90CB6E73A4434F448E" />
+            <ComponentRef Id="cmp6911B9F4D86DC3145924D0A0D07C7A5D" />
+            <ComponentRef Id="cmpFAB7640087921ABC731F2FB62EE38EFB" />
+            <ComponentRef Id="cmp82C478F84F57ACB43BBED6FA6B555DB9" />
+            <ComponentRef Id="cmp13FAC149C0CD15F417E2E4ED013B6F3C" />
+            <ComponentRef Id="cmp0D588DEC0CFC6122339BC65A25532A9A" />
+            <ComponentRef Id="cmp83C7148B873600CFCD469CA99B267782" />
+            <ComponentRef Id="cmp53B8A9D28CDC5FA0C537C576CE320309" />
+            <ComponentRef Id="cmp83CF3E71D1A4F32F72FE091B6161E03E" />
+            <ComponentRef Id="cmpCAE58D996E9EAFC81495E0AFC27E1807" />
+            <ComponentRef Id="cmp9ED94C39A2BC84AB3CB4D35641B2A834" />
+            <ComponentRef Id="cmp2102866C0455263DF8E344DE7A5CBF51" />
+            <ComponentRef Id="cmp341D03294DFB7499B8764B3BEE2EC0AD" />
+            <ComponentRef Id="cmpCA8AD72BD168D092D803CD8AE308A33C" />
+            <ComponentRef Id="cmpBD555BEE82980610AB851BD9B941E0C0" />
+            <ComponentRef Id="cmp27EF4FCFFFEB431D9A6A76F4DD9353E4" />
+            <ComponentRef Id="cmp38E288A6DC3CAD7B425CDA5305CA0993" />
+            <ComponentRef Id="cmp85A9232A08A3C4281016A817C5C05E5B" />
+            <ComponentRef Id="cmp50228073F074ECFA11FCE12124BD92F6" />
+            <ComponentRef Id="cmpA9B07A7CACF2FE55751F316312DEBC74" />
+            <ComponentRef Id="cmpEAD88C432D65C8172BA8C00EC3752C03" />
+            <ComponentRef Id="cmpAA07988071ECF7D25B591A794A05AF14" />
+            <ComponentRef Id="cmp25DABC674BC0E8033F3230B782F5E1FA" />
+            <ComponentRef Id="cmpF0C576B29F35215E41FCE3D9F7A02501" />
+            <ComponentRef Id="cmp119380DD64247B0CF6D44ACA35CF0336" />
+            <ComponentRef Id="cmp23D0D6518FEB34266BD30FB8545BFED1" />
+            <ComponentRef Id="cmp1F9784A8A84338267F86AA21E7BFE518" />
+            <ComponentRef Id="cmp4472A626281E5CCA983D33A6521B68E4" />
+            <ComponentRef Id="cmpF0181A89752FBBE11114476C6A6FEAFE" />
+            <ComponentRef Id="cmp6236BAF966414527C20B7438182D4D5B" />
+            <ComponentRef Id="cmpCAC256C6CAB54D18D14EEA803A24E88A" />
+            <ComponentRef Id="cmpF7DAB1F7143153E853610901DBBF213B" />
+            <ComponentRef Id="cmpA2795247CD50E58D55E74AEB25666F14" />
+            <ComponentRef Id="cmp8EDE47FCF0DEF7C5FA16D12EA2360D7F" />
+            <ComponentRef Id="cmp74C04C98DF7A57E498380F18EC437DC2" />
+            <ComponentRef Id="cmpEE20B0EDCFA8249F654C6890DB2E3EE5" />
+            <ComponentRef Id="cmpD46B5D3ABA03B1E4756BB5750E8CE3ED" />
+            <ComponentRef Id="cmpF13407F33E0B0E12D95A7CE35E433582" />
+            <ComponentRef Id="cmp3E086342F10D252F2B937E42788A1E9D" />
+            <ComponentRef Id="cmp26544451E1C5D01F5D3F7291CF7A5A1F" />
+            <ComponentRef Id="cmpFC283427AE77E48F9201DAF8076CC5FC" />
+            <ComponentRef Id="cmp61B284BA6BB7450E42870A890D2588FE" />
+            <ComponentRef Id="cmp990C57504E025E58AC07F1FD7B870ACF" />
+            <ComponentRef Id="cmpEFF2229B0CF830678A7371D425958D14" />
+            <ComponentRef Id="cmp3CC604B78B5447B5D33177490AA44117" />
+            <ComponentRef Id="cmp00ABCC3D0E5D34DD8B7435CF9F2AEC4D" />
+            <ComponentRef Id="cmp11B74CA988A4C0FA265F9BBE5A7AE402" />
+            <ComponentRef Id="cmpB0FB3EA74EEBA15989E547219DC3B886" />
+            <ComponentRef Id="cmp40F3F1F431D859BA7B5A385ED6908752" />
+            <ComponentRef Id="cmp2FBD1C021037A8F0BA3C237AACA8BAD2" />
+            <ComponentRef Id="cmp5F1C6CB2B524A724F36DB3662DFFB270" />
+            <ComponentRef Id="cmp1029D44BB167A883F9AC8430FDCC5B6D" />
+            <ComponentRef Id="cmp09D86972E44764C899DD4FDE64A32E24" />
+            <ComponentRef Id="cmp43501AB73065282BE6FA5A853E0CCADF" />
+            <ComponentRef Id="cmp7B0DAC3B998334BEBD8EDE7C49EAC994" />
+            <ComponentRef Id="cmpD0CE3745FE05A1A4B150601AC0B8F4AC" />
+            <ComponentRef Id="cmp8C579ECA691092B8E7BFE7D25CFD62EC" />
+            <ComponentRef Id="cmpB5C5BB219C4CE277EDC213F15BB10DB1" />
+            <ComponentRef Id="cmp5D14F6E5B3EC029C9870A5B18058E60D" />
+            <ComponentRef Id="cmp1FAE1931BAE7840C0CB2E4CF18961C69" />
+            <ComponentRef Id="cmp6D9F445925B516A3E7D910E69197B5E4" />
+            <ComponentRef Id="cmp84673EFE4F0198AB5D5C0BFB35186BDE" />
+            <ComponentRef Id="cmp08F49B178DB8FBA7237B382FB2B4F0A4" />
+            <ComponentRef Id="cmpF3CAF69369C5305D7510E1CC081F67BA" />
+            <ComponentRef Id="cmp1D4E5AE5735147708AAF6A26EEF17644" />
+            <ComponentRef Id="cmp6867CB58555BAF63E930EA76008016FB" />
+            <ComponentRef Id="cmp7FE87485F7460372F49BDCF14DF87B25" />
+            <ComponentRef Id="cmp020275802F9109FC374C8AEA24410E98" />
+            <ComponentRef Id="cmpF6CFDF53ACC8444CBEC8FE10F67F9DA3" />
+            <ComponentRef Id="cmp70408BDDC831D0533CDC519556F38830" />
+            <ComponentRef Id="cmp53D8D1A47F32E9C855CD6AE8FA2B06C8" />
+            <ComponentRef Id="cmpA210DC009434412B664D6D465480067E" />
+            <ComponentRef Id="cmpFD7689C62FF7B54D383B226F4D5B2154" />
+            <ComponentRef Id="cmpA8071811ECFE214F95B74B2E8BF43DCE" />
+            <ComponentRef Id="cmpF43DDA03A873B2F609CA5346EF809B85" />
+            <ComponentRef Id="cmp3C55D0E4D4129DD472526403A19E3649" />
+            <ComponentRef Id="cmp9032B162E616B3CB599338C2435AF89C" />
+            <ComponentRef Id="cmp19677392D0B6664C739DE495B1D48869" />
+            <ComponentRef Id="cmpD68DA920BA1AFC320B35C3497A3B1E10" />
+            <ComponentRef Id="cmp062A5CFDB4A9507D0DA7E9BC7EAD282F" />
+            <ComponentRef Id="cmp1F5534ACF651C93C7E88B555C80CB2AB" />
+            <ComponentRef Id="cmp4297028F1AC8923BEB3E0A323AA31566" />
+            <ComponentRef Id="cmp1058FA9697B3924B222059459F9FBBAC" />
+            <ComponentRef Id="cmp23313140B10C391D0A6AC2F3D703D98C" />
+            <ComponentRef Id="cmpC3A0560A960186707835E2177882E8BD" />
+            <ComponentRef Id="cmp8CB869F531D5C1C4647B2629C34911CA" />
+            <ComponentRef Id="cmpBAB75C5CC887E1335BCC3B7ABA7A2FAE" />
+            <ComponentRef Id="cmpDF35A92197802BB73CB876BBBFDB6629" />
+            <ComponentRef Id="cmpC3B57DDE89A47D792DB651706D9C87EF" />
+            <ComponentRef Id="cmpE687C9F03B718A5517607BC5E3EF4C4B" />
+            <ComponentRef Id="cmp9DCE345ED013CFAF1700DC85CBBE341A" />
+            <ComponentRef Id="cmp0ACD12160647DE8FBF7EC8595E2AFC83" />
+            <ComponentRef Id="cmp9246F0F00770A35C0AC30EE3FADB354F" />
+            <ComponentRef Id="cmpC962BED2E2DF2E8E07DDD128DFFE214E" />
+            <ComponentRef Id="cmp4EE2E801EC0A5BAAC7BCA327DE6496F5" />
+            <ComponentRef Id="cmp1FB1B1EAABA5355A14AD7E9A79965E5E" />
+            <ComponentRef Id="cmpD3CDE6ED9359217982F695158D998CC6" />
+            <ComponentRef Id="cmpD249376987202EF37C5E1C4CE561439E" />
+            <ComponentRef Id="cmp59DAAE8F1589CD04785BD4A2F1AB982F" />
+            <ComponentRef Id="cmpD058EE9A896A1D90B2429B23F8C8263A" />
+            <ComponentRef Id="cmp450CC7D2AF5A484B1F908F07C8A3C680" />
+            <ComponentRef Id="cmp842424527BEC4F1DC2D3F65CF365382F" />
+            <ComponentRef Id="cmp0A9B4B49460A2BE26669B51A891EFB5F" />
+            <ComponentRef Id="cmp009382105F9D65CFFF7DE0FFBA8FC5F2" />
+            <ComponentRef Id="cmpA12C6876E65D3F43E05C837A7CBA43AC" />
+            <ComponentRef Id="cmpC7A3EFB5AC58108A701F0C41154AB702" />
+        </ComponentGroup>
+    </Fragment>
+</Wix>

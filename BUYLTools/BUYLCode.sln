@@ -23,12 +23,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevit_2018", "BUYLRevit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BUYLRevit_2019", "BUYLRevit\BUYLRevit_2019.csproj", "{3E6FD40B-7E25-4517-9010-347A1F84F88B}"
 EndProject
-Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "BYULRevitAddin", "BYULRevitAddin\BYULRevitAddin.wixproj", "{1AADCF9D-2E49-42B7-8F20-66F20634C624}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{773F0B71-17D8-4318-8D5C-9B92F6880727}"
 	ProjectSection(SolutionItems) = preProject
-		_eula\EULA_HPS.rtf = _eula\EULA_HPS.rtf
+		_eula\EULA_BUYL.rtf = _eula\EULA_BUYL.rtf
 	EndProjectSection
+EndProject
+Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "BUYLRevitAddin", "BUYLRevitAddinSetUp\BUYLRevitAddin.wixproj", "{0112AE7B-1064-4E00-A808-FD92B80BC4DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -116,12 +116,12 @@ Global
 		{3E6FD40B-7E25-4517-9010-347A1F84F88B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{3E6FD40B-7E25-4517-9010-347A1F84F88B}.Release|x86.ActiveCfg = Release|Any CPU
 		{3E6FD40B-7E25-4517-9010-347A1F84F88B}.Release|x86.Build.0 = Release|Any CPU
-		{1AADCF9D-2E49-42B7-8F20-66F20634C624}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{1AADCF9D-2E49-42B7-8F20-66F20634C624}.Debug|x86.ActiveCfg = Debug|x86
-		{1AADCF9D-2E49-42B7-8F20-66F20634C624}.Debug|x86.Build.0 = Debug|x86
-		{1AADCF9D-2E49-42B7-8F20-66F20634C624}.Release|Any CPU.ActiveCfg = Release|x86
-		{1AADCF9D-2E49-42B7-8F20-66F20634C624}.Release|x86.ActiveCfg = Release|x86
-		{1AADCF9D-2E49-42B7-8F20-66F20634C624}.Release|x86.Build.0 = Release|x86
+		{0112AE7B-1064-4E00-A808-FD92B80BC4DF}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{0112AE7B-1064-4E00-A808-FD92B80BC4DF}.Debug|x86.ActiveCfg = Debug|x86
+		{0112AE7B-1064-4E00-A808-FD92B80BC4DF}.Debug|x86.Build.0 = Debug|x86
+		{0112AE7B-1064-4E00-A808-FD92B80BC4DF}.Release|Any CPU.ActiveCfg = Release|x86
+		{0112AE7B-1064-4E00-A808-FD92B80BC4DF}.Release|x86.ActiveCfg = Release|x86
+		{0112AE7B-1064-4E00-A808-FD92B80BC4DF}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
